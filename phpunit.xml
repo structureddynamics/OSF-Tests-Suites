@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<phpunit stopOnFailure="true">
+  <testsuites>
+    <testsuite name="AuthListerTest">
+    
+      <!-- FINISHED -->
+      <!--file>/usr/share/structwsf_umbel/tests/dataset/read/DatasetReadTest.php</file>
+      <file>/usr/share/structwsf_umbel/tests/dataset/delete/DatasetDeleteTest.php</file>
+      <file>/usr/share/structwsf_umbel/tests/dataset/create/DatasetCreateTest.php</file>
+      <file>/usr/share/structwsf_umbel/tests/auth/validator/AuthValidatorTest.php</file>
+      <file>/usr/share/structwsf_umbel/tests/dataset/update/DatasetUpdateTest.php</file>
+      <file>/usr/share/structwsf_umbel/tests/auth/lister/AuthListerTest.php</file-->
+    </testsuite>
+  </testsuites>
+</phpunit>
