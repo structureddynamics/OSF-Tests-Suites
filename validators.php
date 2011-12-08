@@ -94,7 +94,7 @@
 
     if(json_last_error() == JSON_ERROR_NONE)
     {
-      if(count(json_decode($json)->{resultset}->subject) > 0)
+      if(count(@json_decode($json)->{resultset}->subject) > 0)
       {
        return(TRUE);
       }
