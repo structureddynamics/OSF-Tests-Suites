@@ -52,6 +52,15 @@
     
     function __construct()
     {
+      /** 
+      * If the REMOTE_ADDR is not defined, it probably means that the test is ran from the command
+      * line so we simply set it using the localhost. 
+      */
+      if(!isset($_SERVER['REMOTE_ADDR']))
+      {
+        $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
+      }
+        
       /** Folder where PHPUnit is installed on the server */
       $this->phpUnitInstallFolder = "/usr/share/php/PHPUnit/";
       
