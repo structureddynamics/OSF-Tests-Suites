@@ -125,7 +125,7 @@
               <object type="rdfs:Literal">This is a testing dataset</object>
             </predicate>
             <predicate type="dcterms:created">
-              <object type="rdfs:Literal">'.date("Y-m-d").'</object>
+              <object type="rdfs:Literal">'.date("Y-n-j").'</object>
             </predicate>
             <predicate type="dcterms:creator">
               <object uri="http://test.com/user/bob/" type="sioc:User"></object>
@@ -151,10 +151,10 @@
                       <object type="rdfs:Literal">This is a testing dataset'.$this->datasetUpdateString.'</object>
                   </predicate>
                   <predicate type="dcterms:created">
-                      <object type="rdfs:Literal">'.date("Y-m-d").'</object>
+                      <object type="rdfs:Literal">'.date("Y-n-j").'</object>
                   </predicate>
                   <predicate type="dcterms:modified">
-                      <object type="rdfs:Literal">'.date("Y-m-d").'</object>
+                      <object type="rdfs:Literal">'.date("Y-n-j").'</object>
                   </predicate>
                   <predicate type="dcterms:creator">
                       <object type="sioc:User" uri="http://test.com/user/bob/" />
@@ -183,7 +183,7 @@
                     }, {
                         "dcterms:description": "This is a testing dataset"
                     }, {
-                        "dcterms:created": "'.date("Y-m-d").'"
+                        "dcterms:created": "'.date("Y-n-j").'"
                     }, {
                         "dcterms:creator": {
                             "uri": "http://test.com/user/bob/"
@@ -199,7 +199,7 @@
             <void:Dataset rdf:about="http://test.com/unittests/">
                 <dcterms:title>This is a testing dataset</dcterms:title>
                 <dcterms:description>This is a testing dataset</dcterms:description>
-                <dcterms:created>'.date("Y-m-d").'</dcterms:created>
+                <dcterms:created>'.date("Y-n-j").'</dcterms:created>
                 <dcterms:creator rdf:resource="http://test.com/user/bob/" />
             </void:Dataset>
         </rdf:RDF>      
@@ -215,7 +215,7 @@
         <http://test.com/unittests/> a void:Dataset ;
           dcterms:title """This is a testing dataset""" ;
           dcterms:description """This is a testing dataset""" ;
-          dcterms:created """'.date("Y-m-d").'""" ;
+          dcterms:created """'.date("Y-n-j").'""" ;
           dcterms:creator <http://test.com/user/bob/> .      
       ';
     }
