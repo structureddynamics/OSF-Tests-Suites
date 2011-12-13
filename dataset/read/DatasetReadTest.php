@@ -205,6 +205,10 @@
     public function  testReadAllDatasets_Serialization_APPLICATION_JSON() {
       $settings = new Config();  
       
+      deleteTwoDatasets();
+      
+      $this->assertTrue(createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");
+      
       $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
                                    "get", 
                                    "application/json",
@@ -213,12 +217,18 @@
                             
       validateParameterApplicationJson($this, $wsq);
       
+      deleteTwoDatasets();
+      
       unset($wsq);
       unset($settings);
     }
     
     public function  testReadAllDatasets_Serialization_APPLICATION_RDF_XML() {
       $settings = new Config();  
+      
+      deleteTwoDatasets();
+      
+      $this->assertTrue(createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");              
       
       $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
                                    "get", 
@@ -228,12 +238,18 @@
                             
       validateParameterApplicationRdfXml($this, $wsq);
       
+      deleteTwoDatasets();
+      
       unset($wsq);
       unset($settings);
     }
 
     public function  testReadAllDatasets_Serialization_APPLICATION_RDF_N3() {
       $settings = new Config();  
+      
+      deleteTwoDatasets();
+      
+      $this->assertTrue(createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");      
       
       $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
                                    "get", 
@@ -242,6 +258,8 @@
                                    "&meta=" . urlencode("True"));
                             
       validateParameterApplicationRdfN3($this, $wsq);
+      
+      deleteTwoDatasets();
       
       unset($wsq);
       unset($settings);
