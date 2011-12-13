@@ -3,14 +3,12 @@
 <phpunit stopOnFailure="true">
   <testsuites>
     <testsuite name="AuthListerTest">
-    
-      <!-- FINISHED -->
-      <!--file>/usr/share/structwsf_umbel/tests/dataset/read/DatasetReadTest.php</file>
-      <file>/usr/share/structwsf_umbel/tests/dataset/delete/DatasetDeleteTest.php</file>
-      <file>/usr/share/structwsf_umbel/tests/dataset/create/DatasetCreateTest.php</file>
-      <file>/usr/share/structwsf_umbel/tests/auth/validator/AuthValidatorTest.php</file>
-      <file>/usr/share/structwsf_umbel/tests/dataset/update/DatasetUpdateTest.php</file>
-      <file>/usr/share/structwsf_umbel/tests/auth/lister/AuthListerTest.php</file-->
+      <file>REPLACEME/tests/dataset/read/DatasetReadTest.php</file>
+      <file>REPLACEME/tests/dataset/delete/DatasetDeleteTest.php</file>
+      <file>REPLACEME/tests/dataset/create/DatasetCreateTest.php</file>
+      <file>REPLACEME/tests/auth/validator/AuthValidatorTest.php</file>
+      <file>REPLACEME/tests/dataset/update/DatasetUpdateTest.php</file>
+      <file>REPLACEME/tests/auth/lister/AuthListerTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>

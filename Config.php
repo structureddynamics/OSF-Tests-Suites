@@ -65,13 +65,13 @@
       $this->phpUnitInstallFolder = "/usr/share/php/PHPUnit/";
       
       /** Folder where the structWSF instance is located on the server */
-      $this->structwsfInstanceFolder = "/usr/share/structwsf_umbel/";
+      $this->structwsfInstanceFolder = "/usr/share/structwsf/";
       
       /** Base URL of the endpoint to test */
-      $this->endpointUrl = "http://umbel.org/ws/";
+      $this->endpointUrl = "http://localhost/ws/";
       
       /** Base URI of the web services in the structWSF network */
-      $this->endpointUri = "http://umbel.org/wsf/ws/";
+      $this->endpointUri = "http://localhost/wsf/ws/";
       
       /** URI of the test dataset to use for the test suite */
       $this->testDataset = "http://test.com/unittests/";
