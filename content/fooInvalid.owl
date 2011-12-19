@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://foo.org/test#"
+     xml:base="http://foo.org/test"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://foo.org/test#">
+        <rdfs:label xml:lang="en">Foo Ontology</rdfs:label>
+        <rdfs:comment xml:lang="en">Ontology used for the structWSF system integration tests suites.</rdfs:comment>
+        <owl:versionIRI rdf:resource="http://foo.org/test/0.1#"/>
+    </owl:Ontology>
+    
+    Invalid Ontology...
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <owl:AnnotationProperty rdf:about="&rdfs;label"/>
+    <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://foo.org/test#opA -->
+
+    <owl:ObjectProperty rdf:about="http://foo.org/test#opA">
+        <rdfs:label xml:lang="en">object property A</rdfs:label>
+        <rdfs:domain rdf:resource="http://foo.org/test#A"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://foo.org/test#opB -->
+
+    <owl:ObjectProperty rdf:about="http://foo.org/test#opB">
+        <rdfs:label xml:lang="en">object property B</rdfs:label>
+        <rdfs:range rdf:resource="http://foo.org/test#B"/>
+        <rdfs:domain rdf:resource="http://foo.org/test#B"/>
+        <rdfs:subPropertyOf rdf:resource="http://foo.org/test#opA"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://foo.org/test#opC -->
+
+    <owl:ObjectProperty rdf:about="http://foo.org/test#opC">
+        <rdfs:label xml:lang="en">object property C</rdfs:label>
+        <rdfs:domain rdf:resource="http://foo.org/test#C"/>
+        <rdfs:subPropertyOf rdf:resource="http://foo.org/test#opB"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://foo.org/test#opD -->
+
+    <owl:ObjectProperty rdf:about="http://foo.org/test#opD">
+        <rdfs:label xml:lang="en">object property D</rdfs:label>
+        <owl:equivalentProperty rdf:resource="http://foo.org/test#opE"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://foo.org/test#opE -->
+
+    <owl:ObjectProperty rdf:about="http://foo.org/test#opE">
+        <rdfs:label xml:lang="en">object property E</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://foo.org/test#dpA -->
+
+    <owl:DatatypeProperty rdf:about="http://foo.org/test#dpA">
+        <rdfs:label xml:lang="en">datatype property A</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://foo.org/test#dpB -->
+
+    <owl:DatatypeProperty rdf:about="http://foo.org/test#dpB">
+        <rdfs:label xml:lang="en">datatype property B</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="http://foo.org/test#dpA"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://foo.org/test#dpC -->
+
+    <owl:DatatypeProperty rdf:about="http://foo.org/test#dpC">
+        <rdfs:label xml:lang="en">datatype property C</rdfs:label>
+        <rdfs:subPropertyOf rdf:resource="http://foo.org/test#dpB"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://foo.org/test#dpD -->
+
+    <owl:DatatypeProperty rdf:about="http://foo.org/test#dpD">
+        <rdfs:label xml:lang="en">datatype property D</rdfs:label>
+        <owl:equivalentProperty rdf:resource="http://foo.org/test#dpE"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://foo.org/test#dpE -->
+
+    <owl:DatatypeProperty rdf:about="http://foo.org/test#dpE">
+        <rdfs:label xml:lang="en">datatype property E</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://foo.org/test#A -->
+
+    <owl:Class rdf:about="http://foo.org/test#A">
+        <rdfs:label xml:lang="en">A</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://foo.org/test#B -->
+
+    <owl:Class rdf:about="http://foo.org/test#B">
+        <rdfs:label xml:lang="en">B</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://foo.org/test#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://foo.org/test#C -->
+
+    <owl:Class rdf:about="http://foo.org/test#C">
+        <rdfs:label xml:lang="en">C</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://foo.org/test#B"/>
+    </owl:Class>
+    
+
+
+    <!-- http://foo.org/test#D -->
+
+    <owl:Class rdf:about="http://foo.org/test#D">
+        <rdfs:label xml:lang="en">D</rdfs:label>
+        <owl:equivalentClass rdf:resource="http://foo.org/test#E"/>
+    </owl:Class>
+    
+
+
+    <!-- http://foo.org/test#E -->
+
+    <owl:Class rdf:about="http://foo.org/test#E">
+        <rdfs:label xml:lang="en">E</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://foo.org/test#niA -->
+
+    <owl:NamedIndividual rdf:about="http://foo.org/test#niA">
+        <rdf:type rdf:resource="http://foo.org/test#A"/>
+        <dpA rdf:datatype="&rdfs;Literal"></dpA>
+        <rdfs:comment xml:lang="en">named individual A</rdfs:comment>
+        <dpD xml:lang="en">test</dpD>
+        <opB rdf:resource="http://foo.org/test#niB"/>
+        <opC rdf:resource="http://foo.org/test#niB"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://foo.org/test#niB -->
+
+    <owl:NamedIndividual rdf:about="http://foo.org/test#niB">
+        <rdf:type rdf:resource="http://foo.org/test#B"/>
+        <rdfs:comment xml:lang="en">named individual B</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://foo.org/test#niC -->
+
+    <owl:NamedIndividual rdf:about="http://foo.org/test#niC">
+        <rdf:type rdf:resource="http://foo.org/test#C"/>
+        <rdfs:comment xml:lang="en">named individual C</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://foo.org/test#niD -->
+
+    <owl:NamedIndividual rdf:about="http://foo.org/test#niD">
+        <rdf:type rdf:resource="http://foo.org/test#D"/>
+        <rdfs:comment xml:lang="en">named individual D</rdfs:comment>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://foo.org/test#niE -->
+
+    <owl:NamedIndividual rdf:about="http://foo.org/test#niE">
+        <rdf:type rdf:resource="http://foo.org/test#E"/>
+        <rdfs:comment xml:lang="en">named individual E</rdfs:comment>
+        <opB rdf:resource="http://foo.org/test#niB"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.1.0.20069) http://owlapi.sourceforge.net -->
+
