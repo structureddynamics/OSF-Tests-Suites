@@ -2,7 +2,8 @@
 
 <phpunit stopOnFailure="false">
   <testsuites>
-    <testsuite name="AuthListerTest">
+    <testsuite name="WebServices">
+      <file>REPLACEME/tests/ontology/read/OntologyReadTest.php</file>
       <file>REPLACEME/tests/dataset/read/DatasetReadTest.php</file>
       <file>REPLACEME/tests/dataset/delete/DatasetDeleteTest.php</file>
       <file>REPLACEME/tests/dataset/create/DatasetCreateTest.php</file>

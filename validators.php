@@ -1,5 +1,5 @@
 <?php
-
+         
   function isValidXML($xml, &$errors = array())
   {
     libxml_use_internal_errors(true);

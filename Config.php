@@ -50,6 +50,9 @@
     /** String to use to update (change) values of the triples of a dataset description */
     public $datasetUpdateString = "";
     
+    /** URI of the ontology to use for the ontologies related endpoints */
+    public $testOntologyUri = "";
+    
     function __construct()
     {
       /** 
@@ -81,6 +84,9 @@
 
       /** Random IP for a dummy requester */
       $this->randomRequester = "192.168.0.1";
+      
+      /** URI of the ontology to use for the ontologies related endpoints */
+      $this->testOntologyUri = "file://localhost" . __DIR__ . "/content/foo.owl";
       
       /** String to use to update (change) values of the triples of a dataset description */
       $this->datasetUpdateString = "-update";

@@ -24,7 +24,7 @@
                                  "&globalPermissions=" . urlencode("True;True;True;True"));    
                          
     if($wsq->getStatus() != "200")
-    {
+    {            
       return(FALSE);
     }
     
@@ -220,6 +220,44 @@
     return(TRUE);       
   }
   
+  function createOntology()
+  {
+    $settings = new Config();     
+    
+    $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/create/", 
+                                 "post", 
+                                 "text/xml",
+                                 "uri=" . urlencode($settings->testOntologyUri) .
+                                 "&globalPermissions=" . urlencode("True;True;True;True") .
+                                 "&advancedIndexation=" . urlencode("True") .
+                                 "&reasoner=" . urlencode("True") .
+                                 "&registered_ip=" . urlencode("Self"));    
+                         
+    if($wsq->getStatus() != "200")
+    {            
+      return(FALSE);
+    }
+    
+    return(TRUE);                                 
+  }  
   
+  function deleteOntology()
+  {
+    $settings = new Config();     
+    
+    $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
+                                 "post", 
+                                 "text/xml",
+                                 "ontology=" . urlencode($settings->testOntologyUri) .
+                                 "&function=" . urlencode("deleteOntology") .
+                                 "&registered_ip=" . urlencode("Self"));    
+    
+    if($wsq->getStatus() != "200")
+    {            
+      return(FALSE);
+    }
+    
+    return(TRUE);                                 
+  }    
   
 ?>
