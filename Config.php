@@ -53,6 +53,10 @@
     /** URI of the ontology to use for the ontologies related endpoints */
     public $testOntologyUri = "";
     
+    /** URI of an invalid ontology to use for the ontologies related endpoints */
+    public $testInvalidOntologyUri = "";
+    
+    
     function __construct()
     {
       /** 
@@ -87,6 +91,9 @@
       
       /** URI of the ontology to use for the ontologies related endpoints */
       $this->testOntologyUri = "file://localhost" . __DIR__ . "/content/foo.owl";
+
+      /** URI of an invalid ontology to use for the ontologies related endpoints */
+      $this->testInvalidOntologyUri = "file://localhost" . __DIR__ . "/content/fooInvalid.owl";
       
       /** String to use to update (change) values of the triples of a dataset description */
       $this->datasetUpdateString = "-update";
