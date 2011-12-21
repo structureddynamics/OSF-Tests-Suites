@@ -56,6 +56,20 @@
     /** URI of an invalid ontology to use for the ontologies related endpoints */
     public $testInvalidOntologyUri = "";
     
+    /** URI of a datatype property of the test ontology */
+    public $targetDatatypePropertyUri = "";
+
+    /** URI of an object property of the test ontology */
+    public $targetObjectPropertyUri = "";
+    
+    /** URI of an object property of the test ontology */
+    public $targetAnnotationPropertyUri = "";
+    
+    /** URI of a class of the test ontology */
+    public $targetClassUri = "";      
+    
+    /** URI of a named individual of the test ontology */
+    public $targetNamedIndividualUri = "";          
     
     function __construct()
     {
@@ -94,6 +108,21 @@
 
       /** URI of an invalid ontology to use for the ontologies related endpoints */
       $this->testInvalidOntologyUri = "file://localhost" . __DIR__ . "/content/fooInvalid.owl";
+      
+      /** URI of a datatype property of the test ontology */
+      $this->targetDatatypePropertyUri = "http://foo.org/test#dpD";
+
+      /** URI of an object property of the test ontology */
+      $this->targetObjectPropertyUri = "http://foo.org/test#opD";
+      
+      /** URI of an object property of the test ontology */
+      $this->targetAnnotationPropertyUri = "http://foo.org/test#aA";      
+      
+      /** URI of a class of the test ontology */
+      $this->targetClassUri = "http://foo.org/test#A";      
+      
+      /** URI of a named individual of the test ontology */
+      $this->targetNamedIndividualUri = "http://foo.org/test#niA";      
       
       /** String to use to update (change) values of the triples of a dataset description */
       $this->datasetUpdateString = "-update";
