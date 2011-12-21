@@ -123,7 +123,7 @@
       unset($settings);
     }                       
     
-    public function  testCreateOntologyNoDatasetUriSpecified() {
+    public function  testCreateOntologyNoOntologyUriSpecified() {
       
       $settings = new Config();  
       
