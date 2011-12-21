@@ -33,6 +33,7 @@
 
     <owl:AnnotationProperty rdf:about="&rdfs;label"/>
     <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+    <owl:AnnotationProperty rdf:about="http://foo.org/test#aA"/>
     
 
 
