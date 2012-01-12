@@ -13,8 +13,9 @@
       <file>REPLACEME/tests/dataset/read/DatasetReadTest.php</file>
     </testsuite>
     <testsuite name="Ontologies Webservice Endpoints">
-      <file>REPLACEME/tests/ontology/create/OntologyCreateTest.php</file>
-      <file>REPLACEME/tests/ontology/delete/OntologyDeleteTest.php</file>
+	  <!-- Only enable these two tests if you are running the DEV version of structWSF ->
+      <!--file>REPLACEME/tests/ontology/create/OntologyCreateTest.php</file>
+      <file>REPLACEME/tests/ontology/delete/OntologyDeleteTest.php</file-->
       <file>REPLACEME/tests/ontology/read/OntologyReadTest.php</file>
     </testsuite>
   </testsuites>
