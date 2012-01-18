@@ -210,12 +210,12 @@
       
       $this->datasetReadStructJSONResultset = '
         {
-            "prefixes": [{
+            "prefixes": {
                 "rdf": "http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#",
                 "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
                 "void": "http://rdfs.org/ns/void#",
                 "dcterms": "http://purl.org/dc/terms/"
-            }],
+            },
             "resultset": {
                 "subject": [{
                     "uri": "http://test.com/unittests/",
