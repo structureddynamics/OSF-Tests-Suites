@@ -26,7 +26,7 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-m-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")));
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -46,7 +46,7 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-m-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")));
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -71,7 +71,7 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-m-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")));
                                    
       $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
       
@@ -98,7 +98,7 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-m-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")));
                                    
       $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
       $resultset = readDataset();
@@ -133,7 +133,7 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-m-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")));
                                    
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
@@ -160,7 +160,7 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-m-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")));
                                    
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
@@ -187,7 +187,7 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-m-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")));
                                    
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
@@ -214,7 +214,7 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/".";"."http://test.com/user/bob".$settings->datasetUpdateString."/2/"."<>") .
-                                   "&modified=" . urlencode(date("Y-m-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")));
                                    
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
