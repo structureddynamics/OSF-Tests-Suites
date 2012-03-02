@@ -19,7 +19,7 @@ You can install and configure the system integration tests using a simple shell 
 # <code>cd /mnt/</code>
 # <code>sudo wget https://raw.github.com/structureddynamics/structWSF-Tests-Suites/master/system-integration-tests.sh</code>
 # <code>sudo chmod 755 system-integration-tests.sh</code>
-# <code>./system-integration-tests.sh</code>
+# <code>sudo ./system-integration-tests.sh</code>
 
 == What is being tested ==
 
