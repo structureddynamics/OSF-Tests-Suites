@@ -8,9 +8,18 @@ This is the system integration tests suites for structWSF. This is an exaustive 
 
 These tests suites are using the PHPUnit unit testing framework. However, these are not unit tests, but really system integration tests that uses the framework to run the tests and report issues.
 
-== Installation ==
+== Notice ==
 
-== Configuration ==
+Note that these tests suites are under development and they are not covering all the functionalities of structWSF. This will gives a good indication of the working status of the system, but the coverage of functionalities is not yet complete.
+
+== Installation & Configuration ==
+
+You can install and configure the system integration tests using a simple shell script. You only have to perform these four four steps by copying and pasting these few commands in your shell terminal:
+
+# <code>cd /mnt/</code>
+# <code>sudo wget https://raw.github.com/structureddynamics/structWSF-Tests-Suites/master/system-integration-tests.sh</code>
+# <code>sudo chmod 755 system-integration-tests.sh</code>
+# <code>./system-integration-tests.sh</code>
 
 == What is being tested ==
 
