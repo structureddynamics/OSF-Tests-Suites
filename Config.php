@@ -151,14 +151,14 @@
                                   $this->endpointUri."ontology/update/";
                                   
       $this->datasetReadStructXMLResultset = '<resultset>
-          <prefix uri="http://www.w3.org/2002/07/owl#" entity="owl"></prefix>
-          <prefix uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" entity="rdf"></prefix>
-          <prefix uri="http://www.w3.org/2000/01/rdf-schema#" entity="rdfs"></prefix>
-          <prefix uri="http://purl.org/ontology/wsf#" entity="wsf"></prefix>
-          <prefix uri="http://purl.org/ontology/aggregate#" entity="aggr"></prefix>
-          <prefix uri="http://rdfs.org/ns/void#" entity="void"></prefix>
-          <prefix uri="http://rdfs.org/sioc/ns#" entity="sioc"></prefix>
-          <prefix uri="http://purl.org/dc/terms/" entity="dcterms"></prefix>
+          <prefix entity="owl" uri="http://www.w3.org/2002/07/owl#"/>
+          <prefix entity="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+          <prefix entity="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
+          <prefix entity="iron" uri="http://purl.org/ontology/iron#"/>
+          <prefix entity="xsd" uri="http://www.w3.org/2001/XMLSchema#"/>
+          <prefix entity="wsf" uri="http://purl.org/ontology/wsf#"/>
+          <prefix entity="void" uri="http://rdfs.org/ns/void#"/>
+          <prefix entity="dcterms" uri="http://purl.org/dc/terms/"/>
           <subject uri="http://test.com/unittests/" type="void:Dataset">
             <predicate type="dcterms:title">
               <object type="rdfs:Literal">This is a testing dataset</object>
@@ -166,25 +166,25 @@
             <predicate type="dcterms:description">
               <object type="rdfs:Literal">This is a testing dataset</object>
             </predicate>
-            <predicate type="dcterms:created">
-              <object type="rdfs:Literal">'.date("Y-m-j").'</object>
-            </predicate>
             <predicate type="dcterms:creator">
               <object uri="http://test.com/user/bob/" type="sioc:User"></object>
+            </predicate>
+            <predicate type="dcterms:created">
+              <object type="rdfs:Literal">'.date("Y-n-j").'</object>
             </predicate>
           </subject>
         </resultset>      
       ';
       
       $this->datasetUpdatedReadStructXMLResultset = '<resultset>
-              <prefix entity="owl" uri="http://www.w3.org/2002/07/owl#" />
-              <prefix entity="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#" />
-              <prefix entity="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#" />
-              <prefix entity="wsf" uri="http://purl.org/ontology/wsf#" />
-              <prefix entity="aggr" uri="http://purl.org/ontology/aggregate#" />
-              <prefix entity="void" uri="http://rdfs.org/ns/void#" />
-              <prefix entity="sioc" uri="http://rdfs.org/sioc/ns#" />
-              <prefix entity="dcterms" uri="http://purl.org/dc/terms/" />
+              <prefix entity="owl" uri="http://www.w3.org/2002/07/owl#"/>
+              <prefix entity="rdf" uri="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
+              <prefix entity="rdfs" uri="http://www.w3.org/2000/01/rdf-schema#"/>
+              <prefix entity="iron" uri="http://purl.org/ontology/iron#"/>
+              <prefix entity="xsd" uri="http://www.w3.org/2001/XMLSchema#"/>
+              <prefix entity="wsf" uri="http://purl.org/ontology/wsf#"/>
+              <prefix entity="void" uri="http://rdfs.org/ns/void#"/>
+              <prefix entity="dcterms" uri="http://purl.org/dc/terms/"/>
               <subject type="void:Dataset" uri="http://test.com/unittests/">
                   <predicate type="dcterms:title">
                       <object type="rdfs:Literal">This is a testing dataset'.$this->datasetUpdateString.'</object>
@@ -192,14 +192,14 @@
                   <predicate type="dcterms:description">
                       <object type="rdfs:Literal">This is a testing dataset'.$this->datasetUpdateString.'</object>
                   </predicate>
-                  <predicate type="dcterms:created">
-                      <object type="rdfs:Literal">'.date("Y-m-j").'</object>
-                  </predicate>
-                  <predicate type="dcterms:modified">
-                      <object type="rdfs:Literal">'.date("Y-m-j").'</object>
-                  </predicate>
                   <predicate type="dcterms:creator">
                       <object type="sioc:User" uri="http://test.com/user/bob/" />
+                  </predicate>                  
+                  <predicate type="dcterms:created">
+                      <object type="rdfs:Literal">'.date("Y-n-j").'</object>
+                  </predicate>
+                  <predicate type="dcterms:modified">
+                      <object type="rdfs:Literal">'.date("Y-n-j").'</object>
                   </predicate>
                   <predicate type="dcterms:contributor">
                       <object type="sioc:User" uri="http://test.com/user/bob'.$this->datasetUpdateString.'/" />
@@ -210,39 +210,51 @@
       
       $this->datasetReadStructJSONResultset = '
         {
-            "prefixes": {
-                "rdf": "http:\/\/www.w3.org\/1999\/02\/22-rdf-syntax-ns#",
-                "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-                "void": "http://rdfs.org/ns/void#",
-                "dcterms": "http://purl.org/dc/terms/"
-            },
-            "resultset": {
-                "subject": [{
-                    "uri": "http://test.com/unittests/",
-                    "type": "void:Dataset",
-                    "predicate": [{
-                        "dcterms:title": "This is a testing dataset"
-                    }, {
-                        "dcterms:description": "This is a testing dataset"
-                    }, {
-                        "dcterms:created": "'.date("Y-m-j").'"
-                    }, {
-                        "dcterms:creator": {
-                            "uri": "http://test.com/user/bob/"
-                        }
-                    }]
-                }]
-            }
+          "prefixes": {
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+            "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+            "iron": "http://purl.org/ontology/iron#",
+            "xsd": "http://www.w3.org/2001/XMLSchema#",
+            "wsf": "http://purl.org/ontology/wsf#",
+            "void": "http://rdfs.org/ns/void#",
+            "dcterms": "http://purl.org/dc/terms/"
+          },
+          "resultset": {
+            "subject": [
+              {
+                "uri": "http://test.com/unittests/",
+                "type": "void:Dataset",
+                "predicate": [
+                  {
+                    "dcterms:title": "This is a testing dataset"
+                  },
+                  {
+                    "dcterms:description": "This is a testing dataset"
+                  },
+                  {
+                    "dcterms:creator": {
+                      "uri": "http://test.com/user/bob/",
+                      "type": "sioc:User"
+                    }
+                  },
+                  {
+                    "dcterms:created": "2012-2-28"
+                  }
+                ]
+              }
+            ]
+          }
         }      
       ';
       
       $this->datasetReadStructRDFXMLResultset = '<?xml version="1.0"?>
-        <rdf:RDF xmlns:wsf="http://purl.org/ontology/wsf#" xmlns:void="http://rdfs.org/ns/void#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+        <rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:iron="http://purl.org/ontology/iron#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:wsf="http://purl.org/ontology/wsf#" xmlns:void="http://rdfs.org/ns/void#" xmlns:dcterms="http://purl.org/dc/terms/">
             <void:Dataset rdf:about="http://test.com/unittests/">
                 <dcterms:title>This is a testing dataset</dcterms:title>
                 <dcterms:description>This is a testing dataset</dcterms:description>
-                <dcterms:created>'.date("Y-m-j").'</dcterms:created>
                 <dcterms:creator rdf:resource="http://test.com/user/bob/" />
+                <dcterms:created>'.date("Y-n-j").'</dcterms:created>
             </void:Dataset>
         </rdf:RDF>      
       ';
@@ -257,7 +269,7 @@
         <http://test.com/unittests/> a void:Dataset ;
           dcterms:title """This is a testing dataset""" ;
           dcterms:description """This is a testing dataset""" ;
-          dcterms:created """'.date("Y-m-j").'""" ;
+          dcterms:created """'.date("Y-n-j").'""" ;
           dcterms:creator <http://test.com/user/bob/> .      
       ';
     }
