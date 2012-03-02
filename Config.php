@@ -239,7 +239,7 @@
                     }
                   },
                   {
-                    "dcterms:created": "2012-2-28"
+                    "dcterms:created": "'.date("Y-n-j").'"
                   }
                 ]
               }
