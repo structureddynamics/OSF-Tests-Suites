@@ -1,17 +1,38 @@
 <?php
-  include_once("../tests/Config.php");
+
+  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use StructuredDynamics\structwsf\php\api\ws\dataset\update\DatasetUpdateQuery;
+  use StructuredDynamics\structwsf\tests\Config;
+  use StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("../../SplClassLoader.php");
   include_once("../tests/validators.php");
+  include_once("../tests/utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register(); 
+  
+  // Load the \ws namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws->register();  
+  
+  // Load the \php\api\framework namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws->register();  
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register(); 
   
   ini_set("memory_limit","256M");
   set_time_limit(3600);
 
   $settings = new Config(); 
   
-  // Database connectivity procedures
-  include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-  include_once("../tests/utilities.php");
-  
-  class DatasetUpdateTest extends PHPUnit_Framework_TestCase {
+  class DatasetUpdateTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
 
@@ -59,25 +80,29 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/update/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-n-j")));
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      
+      $datasetUpdate->uri($settings->testDataset);
+      
+      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->modified(date("Y-n-j"));
+      
+      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
+      
+      $datasetUpdate->send();
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatus(), "200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetUpdate);
       unset($settings);
     }  
     
@@ -86,22 +111,26 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/update/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-n-j")));
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      
+      $datasetUpdate->uri($settings->testDataset);
+      
+      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->modified(date("Y-n-j"));
+      
+      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
+      
+      $datasetUpdate->send();      
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $resultset = readDataset();
+      $this->assertEquals($datasetUpdate->getStatus(), "200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $resultset = utilities\readDataset();
       
       if(!$resultset)
       {
@@ -112,9 +141,9 @@
         $this->assertXmlStringEqualsXmlString($settings->datasetUpdatedReadStructXMLResultset, $resultset);
       }
       
-      deleteDataset();
+      utilities\deleteDataset();
 
-      unset($wsq);
+      unset($datasetUpdate);
       unset($settings);
     }                      
   
@@ -122,26 +151,31 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-            
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/update/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . 
-                                   "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-n-j")));
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      
+      $datasetUpdate->uri("");
+      
+      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->modified(date("Y-n-j"));
+      
+      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
+      
+      $datasetUpdate->send();      
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-UPDATE-200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
+      $this->assertEquals($datasetUpdate->error->id, "WS-DATASET-UPDATE-200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
 
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetUpdate);
       unset($settings);
     }
   
@@ -149,26 +183,31 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/update/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) . "<>" .
-                                   "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-n-j")));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-UPDATE-203", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-      deleteDataset();
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      
+      $datasetUpdate->uri($settings->testDataset . "<>");
+      
+      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->modified(date("Y-n-j"));
+      
+      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
+      
+      $datasetUpdate->send();      
+                                   
+      $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
+      $this->assertEquals($datasetUpdate->error->id, "WS-DATASET-UPDATE-203", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+
+      utilities\deleteDataset();
             
-      unset($wsq);
+      unset($datasetUpdate);
       unset($settings);
     }  
     
@@ -176,26 +215,31 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");      
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/update/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) . "missing/" .
-                                   "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
-                                   "&modified=" . urlencode(date("Y-n-j")));
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      
+      $datasetUpdate->uri($settings->testDataset . "missing/");
+      
+      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->modified(date("Y-n-j"));
+      
+      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
+      
+      $datasetUpdate->send();      
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-UPDATE-202", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
+      $this->assertEquals($datasetUpdate->error->id, "WS-DATASET-UPDATE-202", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
 
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetUpdate);
       unset($settings);
     } 
     
@@ -203,26 +247,31 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/update/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
-                                   "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/".";"."http://test.com/user/bob".$settings->datasetUpdateString."/2/"."<>") .
-                                   "&modified=" . urlencode(date("Y-n-j")));
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      
+      $datasetUpdate->uri($settings->testDataset);
+      
+      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->modified(date("Y-n-j"));
+      
+      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/" . "<>"));
+      
+      $datasetUpdate->send();      
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-UPDATE-204", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
+      $this->assertEquals($datasetUpdate->error->id, "WS-DATASET-UPDATE-204", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
 
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetUpdate);
       unset($settings);
     }         
   }

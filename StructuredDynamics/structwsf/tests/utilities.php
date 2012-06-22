@@ -1,5 +1,9 @@
 <?php
   
+  namespace StructuredDynamics\structwsf\tests;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  
   /*
   
     These are a series of utility functions that are used to perform specific actions

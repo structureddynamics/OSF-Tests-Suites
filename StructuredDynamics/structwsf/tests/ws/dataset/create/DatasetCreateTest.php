@@ -1,17 +1,39 @@
 <?php
-  include_once("../tests/Config.php");
+
+  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use StructuredDynamics\structwsf\php\api\framework\CRUDPermission;
+  use StructuredDynamics\structwsf\php\api\ws\dataset\create\DatasetCreateQuery;
+  use StructuredDynamics\structwsf\tests\Config;
+  use StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("../../SplClassLoader.php");
   include_once("../tests/validators.php");
+  include_once("../tests/utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register();
+  
+  // Load the \ws namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws->register();  
+  
+  // Load the \php\api\framework namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws->register();  
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register(); 
   
   ini_set("memory_limit","256M");
   set_time_limit(3600);
 
   $settings = new Config(); 
   
-  // Database connectivity procedures
-  include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-  include_once("../tests/utilities.php");
-  
-  class DatasetCreateTest extends PHPUnit_Framework_TestCase {
+  class DatasetCreateTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
 
@@ -62,24 +84,31 @@
       $settings = new Config();  
       
       // Make sure the dataset doesn't exists
-      $this->assertTrue(deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
             
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&title=" . urlencode("This is a testing dataset") .
-                                   "&description=" . urlencode("This is a testing dataset") .
-                                   "&creator=" . urlencode("http://test.com/user/bob/") .
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      deleteDataset();
+      $datasetCreate->uri($settings->testDataset);
       
-      unset($wsq);
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("http://test.com/user/bob/");
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send();
+                                               
+      $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      
+      utilities\deleteDataset();
+      
+      unset($datasetCreate);
       unset($settings);
     }  
     
@@ -88,21 +117,30 @@
       $settings = new Config();  
       
       // Make sure the dataset doesn't exists
-      $this->assertTrue(deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
       
       // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&title=" . urlencode("This is a testing dataset") .
-                                   "&description=" . urlencode("This is a testing dataset") .
-                                   "&creator=" . urlencode("http://test.com/user/bob/") .
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"));
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+      
+      $datasetCreate->uri($settings->testDataset);
+      
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("http://test.com/user/bob/");
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send();      
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $resultset = readDataset();
+      $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));    
+                                         
+      $resultset = utilities\readDataset();
       
       if(!$resultset)
       {
@@ -113,9 +151,9 @@
         $this->assertXmlStringEqualsXmlString($settings->datasetReadStructXMLResultset, $resultset);
       }
       
-      deleteDataset();
+      utilities\deleteDataset();
 
-      unset($wsq);
+      unset($datasetCreate);
       unset($settings);
     }                   
     
@@ -123,25 +161,33 @@
       
       $settings = new Config();  
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&title=" . urlencode("This is a testing dataset") .
-                                   "&description=" . urlencode("This is a testing dataset") .
-                                   "&creator=" . urlencode("http://test.com/user/bob/") .
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"));
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+      
+      $datasetCreate->uri($settings->testDataset);
+      
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("http://test.com/user/bob/");
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send();       
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-CREATE-202", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
+      $this->assertEquals($datasetCreate->error->id, "WS-DATASET-CREATE-202", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       
-      deleteDataset($settings->testDataset);
+      utilities\deleteDataset($settings->testDataset);
       
-      unset($wsq);
+      unset($datasetCreate);
       unset($settings);
     }      
     
@@ -149,21 +195,29 @@
       
       $settings = new Config();  
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . 
-                                   "&title=" . urlencode("This is a testing dataset") .
-                                   "&description=" . urlencode("This is a testing dataset") .
-                                   "&creator=" . urlencode("http://test.com/user/bob/") .
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-CREATE-200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      unset($wsq);
+      $datasetCreate->uri("");
+      
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("http://test.com/user/bob/");
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send();       
+                                   
+      $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
+      $this->assertEquals($datasetCreate->error->id, "WS-DATASET-CREATE-200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      
+      unset($datasetCreate);
       unset($settings);
     }
     
@@ -171,21 +225,29 @@
       
       $settings = new Config();  
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) . "<>" .
-                                   "&title=" . urlencode("This is a testing dataset") .
-                                   "&description=" . urlencode("This is a testing dataset") .
-                                   "&creator=" . urlencode("http://test.com/user/bob/") .
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-CREATE-203", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      unset($wsq);
+      $datasetCreate->uri($settings->testDataset."<>");
+      
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("http://test.com/user/bob/");
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send();       
+                                   
+      $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
+      $this->assertEquals($datasetCreate->error->id, "WS-DATASET-CREATE-203", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      
+      unset($datasetCreate);
       unset($settings);
     }
     
@@ -193,21 +255,29 @@
       
       $settings = new Config();  
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&title=" . urlencode("This is a testing dataset") .
-                                   "&description=" . urlencode("This is a testing dataset") .
-                                   "&creator=" . urlencode("http://test.com/user/bob/") . "<>" . 
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-CREATE-204", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      unset($wsq);
+      $datasetCreate->uri($settings->testDataset);
+      
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("http://test.com/user/bob/"."<>");
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send();       
+                                   
+      $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
+      $this->assertEquals($datasetCreate->error->id, "WS-DATASET-CREATE-204", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      
+      unset($datasetCreate);
       unset($settings);
     } 
                
@@ -215,21 +285,29 @@
       
       $settings = new Config();  
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&title=" . urlencode("This is a testing dataset") .
-                                   "&description=" . urlencode("This is a testing dataset") .
-                                   "&creator=" .
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"));
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+      
+      $datasetCreate->uri($settings->testDataset);
+      
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("");
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send(); 
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       
-      deleteDataset($settings->testDataset);
+      utilities\deleteDataset($settings->testDataset);
       
-      unset($wsq);
+      unset($datasetCreate);
       unset($settings);
     } 
   }

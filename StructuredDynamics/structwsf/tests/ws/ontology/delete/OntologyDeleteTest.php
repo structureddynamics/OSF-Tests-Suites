@@ -1,17 +1,45 @@
 <?php
-  include_once("../tests/Config.php");
+
+  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use StructuredDynamics\structwsf\tests\Config;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\delete\OntologyDeleteQuery;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\read\OntologyReadQuery;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetPropertyFunction;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetClassFunction;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetNamedIndividualFunction;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\delete\DeleteClassFunction;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\delete\DeleteNamedIndividualFunction;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\delete\DeletePropertyFunction;
+  use StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("../../SplClassLoader.php");
   include_once("../tests/validators.php");
+  include_once("../tests/utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register();
+ 
+  // Load the \ws namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws->register();  
+  
+  // Load the \php\api\framework namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws->register();  
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register(); 
   
   ini_set("memory_limit","256M");
   set_time_limit(3600);
 
   $settings = new Config(); 
   
-  // Database connectivity procedures
-  include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-  include_once("../tests/utilities.php");
-  
-  class OntologyDeleteTest extends PHPUnit_Framework_TestCase {
+  class OntologyDeleteTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
     
@@ -79,20 +107,19 @@
       
       $settings = new Config();  
       
-      // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode("") .
-                                   "&function=" . urlencode("deleteOntology") .
-                                   "&parameters=" . urlencode("") .
-                                   "&registered_ip=" . urlencode("self"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-DELETE-201", "Debugging information: ".var_export($wsq, TRUE));    
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology("");
+      
+      $ontologyDelete->deleteOntology();
+      
+      $ontologyDelete->send();
+                                         
+      $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+      $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
+      $this->assertEquals($ontologyDelete->error->id, "WS-ONTOLOGY-DELETE-201", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
-      unset($wsq);
+      unset($ontologyDelete);
       unset($settings);
     }       
 
@@ -100,41 +127,47 @@
       
       $settings = new Config();  
       
-      // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteProperty") .
-                                   "&parameters=" . urlencode("uri=") .
-                                   "&registered_ip=" . urlencode("self"));
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $deletePropertyFunction = new DeletePropertyFunction();
+      
+      $deletePropertyFunction->uri("");
+      
+      $ontologyDelete->deleteProperty($deletePropertyFunction);
+      
+      $ontologyDelete->send();
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-DELETE-202", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+      $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
+      $this->assertEquals($ontologyDelete->error->id, "WS-ONTOLOGY-DELETE-202", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
-      unset($wsq);
+      unset($ontologyDelete);
       unset($settings);
     } 
 
     public function  testDeleteOntology_NoNamedIndividualUriSpecified() {
       
       $settings = new Config();  
+
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteNamedIndividual") .
-                                   "&parameters=" . urlencode("uri=") .
-                                   "&registered_ip=" . urlencode("self"));
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $deleteNamedIndividualFunction = new DeleteNamedIndividualFunction();
+      
+      $deleteNamedIndividualFunction->uri("");
+      
+      $ontologyDelete->deleteNamedIndividual($deleteNamedIndividualFunction);
+      
+      $ontologyDelete->send();      
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-DELETE-203", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+      $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
+      $this->assertEquals($ontologyDelete->error->id, "WS-ONTOLOGY-DELETE-203", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
-      unset($wsq);
+      unset($ontologyDelete);
       unset($settings);
     }         
 
@@ -142,20 +175,23 @@
       
       $settings = new Config();  
       
-      // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteClass") .
-                                   "&parameters=" . urlencode("uri=") .
-                                   "&registered_ip=" . urlencode("self"));
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $deleteClassFunction = new DeleteClassFunction();
+      
+      $deleteClassFunction->uri("");
+      
+      $ontologyDelete->deleteClass($deleteClassFunction);
+      
+      $ontologyDelete->send();      
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-DELETE-204", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+      $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
+      $this->assertEquals($ontologyDelete->error->id, "WS-ONTOLOGY-DELETE-204", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
-      unset($wsq);
+      unset($ontologyDelete);
       unset($settings);
     } 
         
@@ -163,40 +199,41 @@
       
       $settings = new Config();  
       
-      deleteOntology();
+      utilities\deleteOntology();
       
-      $this->assertTrue(createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
-      // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteOntology") .
-                                   "&parameters=" . urlencode("") .
-                                   "&registered_ip=" . urlencode("self"));
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $ontologyDelete->deleteOntology();
+      
+      $ontologyDelete->send();
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
       unset($wsq);
       
-      // Make sure it is deleted      
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" .
-                                   "&parameters=" .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");      
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      
+      $ontologyRead->mime("application/rdf+xml");
+      
+      $ontologyRead->ontology($settings->testOntologyUri);
+      
+      $ontologyRead->getSerialized();
+      
+      $ontologyRead->enableReasoner();
+
+      $ontologyRead->send();             
 
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-303", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyRead->getStatus(), "403", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      $this->assertEquals($ontologyRead->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertEquals($ontologyRead->error->id, "WS-AUTH-VALIDATOR-303", "Debugging information: ".var_export($ontologyRead, TRUE));    
 
-      unset($wsq);      
+      unset($ontologyRead);      
       unset($settings);
     } 
     
@@ -204,42 +241,54 @@
       
       $settings = new Config();  
       
-      deleteOntology();
+      utilities\deleteOntology();
       
-      $this->assertTrue(createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      
+
       
       // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteProperty") .
-                                   "&parameters=" . urlencode("uri=".$settings->targetDatatypePropertyUri) .
-                                   "&registered_ip=" . urlencode("self"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));    
-                                    
-      unset($wsq);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      // Make sure it is deleted      
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=getProperty" .
-                                   "&parameters=" . urlencode("uri=".$settings->targetDatatypePropertyUri) .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $deletePropertyFunction = new DeletePropertyFunction();
+      
+      $deletePropertyFunction->uri($settings->targetDatatypePropertyUri);
+      
+      $ontologyDelete->deleteProperty($deletePropertyFunction);
+      
+      $ontologyDelete->send();      
+      
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
+                                    
+      unset($ontologyDelete);
+      
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      
+      $ontologyRead->mime("application/rdf+xml");
+      
+      $ontologyRead->ontology($settings->testOntologyUri);
+      
+      $getPropertyFunction = new GetPropertyFunction();
+      
+      $getPropertyFunction->uri($settings->targetDatatypePropertyUri);
+      
+      $ontologyRead->getProperty($getPropertyFunction);
+      
+      $ontologyRead->enableReasoner();
 
+      $ontologyRead->send();        
+      
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-READ-204", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyRead->getStatus(), "400", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      $this->assertEquals($ontologyRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertEquals($ontologyRead->error->id, "WS-ONTOLOGY-READ-204", "Debugging information: ".var_export($ontologyRead, TRUE));    
 
-      unset($wsq);      
+      unset($ontologyRead);      
       
-      deleteOntology();      
+      utilities\deleteOntology();      
       
       unset($settings);
     }     
@@ -248,42 +297,53 @@
       
       $settings = new Config();  
       
-      deleteOntology();
+      utilities\deleteOntology();
       
-      $this->assertTrue(createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
       // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteProperty") .
-                                   "&parameters=" . urlencode("uri=".$settings->targetObjectPropertyUri) .
-                                   "&registered_ip=" . urlencode("self"));
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $deletePropertyFunction = new DeletePropertyFunction();
+      
+      $deletePropertyFunction->uri($settings->targetObjectPropertyUri);
+      
+      $ontologyDelete->deleteProperty($deletePropertyFunction);
+      
+      $ontologyDelete->send();       
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
-      unset($wsq);
+      unset($ontologyDelete);
       
       // Make sure it is deleted      
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=getProperty" .
-                                   "&parameters=" . urlencode("uri=".$settings->targetObjectPropertyUri) .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");      
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      
+      $ontologyRead->mime("application/rdf+xml");
+      
+      $ontologyRead->ontology($settings->testOntologyUri);
+      
+      $getPropertyFunction = new GetPropertyFunction();
+      
+      $getPropertyFunction->uri($settings->targetObjectPropertyUri);
+      
+      $ontologyRead->getProperty($getPropertyFunction);
+      
+      $ontologyRead->enableReasoner();
+
+      $ontologyRead->send();             
 
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-READ-204", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyRead->getStatus(), "400", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      $this->assertEquals($ontologyRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertEquals($ontologyRead->error->id, "WS-ONTOLOGY-READ-204", "Debugging information: ".var_export($ontologyRead, TRUE));    
 
-      unset($wsq);      
+      unset($ontologyRead);      
       
-      deleteOntology();      
+      utilities\deleteOntology();      
       
       unset($settings);
     }   
@@ -292,42 +352,53 @@
       
       $settings = new Config();  
       
-      deleteOntology();
+      utilities\deleteOntology();
       
-      $this->assertTrue(createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
       // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteProperty") .
-                                   "&parameters=" . urlencode("uri=".$settings->targetAnnotationPropertyUri) .
-                                   "&registered_ip=" . urlencode("self"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));    
-                                    
-      unset($wsq);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      // Make sure it is deleted      
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=getProperty" .
-                                   "&parameters=" . urlencode("uri=".$settings->targetAnnotationPropertyUri) .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $deletePropertyFunction = new DeletePropertyFunction();
+      
+      $deletePropertyFunction->uri($settings->targetAnnotationPropertyUri);
+      
+      $ontologyDelete->deleteProperty($deletePropertyFunction);
+      
+      $ontologyDelete->send();        
+                                   
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
+                                    
+      unset($ontologyDelete);
+      
+      // Make sure it is deleted     
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      
+      $ontologyRead->mime("application/rdf+xml");
+      
+      $ontologyRead->ontology($settings->testOntologyUri);
+      
+      $getPropertyFunction = new GetPropertyFunction();
+      
+      $getPropertyFunction->uri($settings->targetAnnotationPropertyUri);
+      
+      $ontologyRead->getProperty($getPropertyFunction);
+      
+      $ontologyRead->enableReasoner();
+
+      $ontologyRead->send();    
 
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-READ-204", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyRead->getStatus(), "400", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      $this->assertEquals($ontologyRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertEquals($ontologyRead->error->id, "WS-ONTOLOGY-READ-204", "Debugging information: ".var_export($ontologyRead, TRUE));    
 
-      unset($wsq);      
+      unset($ontologyRead);      
       
-      deleteOntology();      
+      utilities\deleteOntology();      
       
       unset($settings);
     }
@@ -336,46 +407,57 @@
       
       $settings = new Config();  
       
-      deleteOntology();
+      utilities\deleteOntology();
       
-      $this->assertTrue(createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
       // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteClass") .
-                                   "&parameters=" . urlencode("uri=".$settings->targetClassUri) .
-                                   "&registered_ip=" . urlencode("self"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));    
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $deleteClassFunction = new DeleteClassFunction();
+      
+      $deleteClassFunction->uri($settings->targetClassUri);
+      
+      $ontologyDelete->deleteClass($deleteClassFunction);
+      
+      $ontologyDelete->send();        
+      
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
-      unset($wsq);
+      unset($ontologyDelete);
       
       // @TODO For some reason, the Named Individual is not in the ontology anymore, it it is still returned
       // by the getOWLClass() API call when we execute this code. Need some more debugging to figure out
       // why this happens, and by getOWLClass() is not returning null.      
       
       // Make sure it is deleted      
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=getClass" .
-                                   "&parameters=" . urlencode("uri=".$settings->targetClassUri) .
-                                   "&reasoner=" . urlencode("True") .
-                                   "&registered_ip=self");      
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      
+      $ontologyRead->mime("application/rdf+xml");
+      
+      $ontologyRead->ontology($settings->testOntologyUri);
+      
+      $getClassFunction = new GetClassFunction();
+      
+      $getClassFunction->uri($settings->targetClassUri);
+      
+      $ontologyRead->getClass($getClassFunction);
+      
+      $ontologyRead->enableReasoner();
 
+      $ontologyRead->send();  
+         
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-READ-205", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyRead->getStatus(), "400", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      $this->assertEquals($ontologyRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertEquals($ontologyRead->error->id, "WS-ONTOLOGY-READ-205", "Debugging information: ".var_export($ontologyRead, TRUE));    
 
-      unset($wsq);      
+      unset($ontologyRead);      
       
-      deleteOntology();      
+      utilities\deleteOntology();      
       
       unset($settings);
     }    
@@ -384,46 +466,57 @@
       
       $settings = new Config();  
       
-      deleteOntology();
+      utilities\deleteOntology();
       
-      $this->assertTrue(createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
       // Delete Ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("deleteNamedIndividual") .
-                                   "&parameters=" . urlencode("uri=".$settings->targetNamedIndividualUri) .
-                                   "&registered_ip=" . urlencode("self"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));    
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $deleteNamedIndividualFunction = new DeleteNamedIndividualFunction();
+      
+      $deleteNamedIndividualFunction->uri($settings->targetNamedIndividualUri);
+      
+      $ontologyDelete->deleteNamedIndividual($deleteNamedIndividualFunction);
+      
+      $ontologyDelete->send();        
+                                         
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
-      unset($wsq);
+      unset($ontologyDelete);
       
       // @TODO For some reason, the Named Individual is not in the ontology anymore, it it is still returned
       // by the getOWLNamedIndividal() API call when we execute this code. Need some more debugging to figure out
       // why this happens, and by getOWLNamedIndividal() is not returning null.
       
       // Make sure it is deleted      
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=getNamedIndividual" .
-                                   "&parameters=" . urlencode("uri=".$settings->targetNamedIndividualUri) .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");      
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      
+      $ontologyRead->mime("application/rdf+xml");
+      
+      $ontologyRead->ontology($settings->testOntologyUri);
+      
+      $getNamedIndividualFunction = new GetNamedIndividualFunction();
+      
+      $getNamedIndividualFunction->uri($settings->targetNamedIndividualUri);
+      
+      $ontologyRead->getNamedIndividual($getNamedIndividualFunction);
+      
+      $ontologyRead->enableReasoner();
+
+      $ontologyRead->send();        
 
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-READ-206", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($ontologyRead->getStatus(), "400", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      $this->assertEquals($ontologyRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertEquals($ontologyRead->error->id, "WS-ONTOLOGY-READ-206", "Debugging information: ".var_export($ontologyRead, TRUE));    
 
-      unset($wsq);      
+      unset($ontologyRead);      
       
-      deleteOntology();      
+      utilities\deleteOntology();      
       
       unset($settings);
     }     

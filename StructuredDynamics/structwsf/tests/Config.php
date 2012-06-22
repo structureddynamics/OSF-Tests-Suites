@@ -1,5 +1,7 @@
 <?php
 
+  namespace StructuredDynamics\structwsf\tests;
+
   class Config
   {
     // Core configs
@@ -86,7 +88,7 @@
       $this->phpUnitInstallFolder = "/usr/share/php/PHPUnit/";
       
       /** Folder where the structWSF instance is located on the server */
-      $this->structwsfInstanceFolder = "/usr/share/structwsf/";
+      $this->structwsfInstanceFolder = "/usr/share/structwsf/StructuredDynamics/structwsf/ws/";
       
       /** Base URL of the endpoint to test */
       $this->endpointUrl = "http://localhost/ws/";

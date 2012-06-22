@@ -1,17 +1,40 @@
 <?php
-  include_once("../tests/Config.php");
+
+  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\create\OntologyCreateQuery;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\read\OntologyReadQuery;
+  use StructuredDynamics\structwsf\php\api\framework\CRUDPermission;
+  use StructuredDynamics\structwsf\tests\Config;
+  use StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("../../SplClassLoader.php");
   include_once("../tests/validators.php");
+  include_once("../tests/utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register();
+    
+  // Load the \ws namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws->register();  
+  
+  // Load the \php\api\framework namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws->register();  
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register(); 
   
   ini_set("memory_limit","256M");
   set_time_limit(3600);
 
   $settings = new Config(); 
   
-  // Database connectivity procedures
-  include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-  include_once("../tests/utilities.php");
-  
-  class OntologyCreateTest extends PHPUnit_Framework_TestCase {
+  class OntologyCreateTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
 
@@ -60,24 +83,27 @@
       
       $settings = new Config();  
         
-      deleteOntology();  
+      utilities\deleteOntology();  
                  
-      // Create the new ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testOntologyUri) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True") .
-                                   "&advancedIndexation=" . urlencode("True") .
-                                   "&reasoner=" . urlencode("True") .
-                                   "&registered_ip=" . urlencode("Self"));        
-
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+      
+      $ontologyCreate->uri($settings->testOntologyUri);
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->send();
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($ontologyCreate);
       unset($settings);
     }  
     
@@ -85,41 +111,48 @@
       
       $settings = new Config();  
       
-      deleteOntology();
+      utilities\deleteOntology();
       
       // Make sure the ontology doesn't exists
-      $this->assertTrue(deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
       
-      // Create the new ontology
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testOntologyUri) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True") .
-                                   "&advancedIndexation=" . urlencode("True") .
-                                   "&reasoner=" . urlencode("True") .
-                                   "&registered_ip=" . urlencode("Self"));        
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+      
+      $ontologyCreate->uri($settings->testOntologyUri);
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->send();          
 
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       
-      unset($wsq);
+      unset($ontologyCreate);    
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ontology=" . urlencode($settings->testOntologyUri) .
-                                   "&function=" . urlencode("getSerialized") .
-                                   "&parameters=" .
-                                   "&reasoner=" . urlencode("True") .
-                                   "&registered_ip=self");      
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      
+      $ontologyRead->mime("application/rdf+xml");
+      
+      $ontologyRead->ontology($settings->testOntologyUri);
+      
+      $ontologyRead->getSerialized();
+      
+      $ontologyRead->enableReasoner();
 
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-      
-      validateParameterApplicationRdfXml($this, $wsq);
-      
-      deleteDataset();
+      $ontologyRead->send();     
 
-      unset($wsq);
+      $this->assertEquals($ontologyRead->getStatus(), "200", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      
+      utilities\validateParameterApplicationRdfXml($this, $ontologyRead);
+      
+      utilities\deleteDataset();
+
+      unset($ontologyRead);
       unset($settings);
     }                       
     
@@ -127,22 +160,27 @@
       
       $settings = new Config();  
       
-      deleteOntology();
+      utilities\deleteOntology();
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode("") .
-                                   "&globalPermissions=" . urlencode("True;True;True;True") .
-                                   "&advancedIndexation=" . urlencode("True") .
-                                   "&reasoner=" . urlencode("True") .
-                                   "&registered_ip=" . urlencode("Self"));   
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+      
+      $ontologyCreate->uri("");
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->send();        
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-CREATE-200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));
+      $this->assertEquals($ontologyCreate->error->id, "WS-ONTOLOGY-CREATE-200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       
-      unset($wsq);
+      unset($ontologyCreate);
       unset($settings);
     }
     
@@ -150,26 +188,32 @@
       
       $settings = new Config();  
        
-      deleteOntology();    
+      utilities\deleteOntology();    
        
-      $this->assertTrue(createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testOntologyUri) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True") .
-                                   "&advancedIndexation=" . urlencode("True") .
-                                   "&reasoner=" . urlencode("True") .
-                                   "&registered_ip=" . urlencode("Self"));   
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+      
+      $ontologyCreate->uri($settings->testOntologyUri);
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->send();              
+
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-CREATE-302", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));
+      $this->assertEquals($ontologyCreate->error->id, "WS-ONTOLOGY-CREATE-302", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       
-      deleteOntology();   
+      utilities\deleteOntology();   
       
-      unset($wsq);
+      unset($ontologyCreate);
       unset($settings);
     }    
     
@@ -177,20 +221,25 @@
       
       $settings = new Config();  
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/create/", 
-                                   "post", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testInvalidOntologyUri) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True") .
-                                   "&advancedIndexation=" . urlencode("True") .
-                                   "&reasoner=" . urlencode("True") .
-                                   "&registered_ip=" . urlencode("Self"));  
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-CREATE-300", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
       
-      unset($wsq);
+      $ontologyCreate->uri($settings->testInvalidOntologyUri);
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->send();        
+                                   
+      $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));
+      $this->assertEquals($ontologyCreate->error->id, "WS-ONTOLOGY-CREATE-300", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+      
+      unset($ontologyCreate);
       unset($settings);
     }
    

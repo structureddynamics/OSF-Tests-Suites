@@ -1,4 +1,6 @@
 <?php
+  
+  namespace StructuredDynamics\structwsf\tests;
          
   function isValidXML($xml, &$errors = array())
   {
@@ -34,7 +36,7 @@
     else
     {
       // Check if there are subjects into the resultset.
-      $annotatedNeXML = new SimpleXMLElement($xml);
+      $annotatedNeXML = new \SimpleXMLElement($xml);
 
       if(count($annotatedNeXML->xpath('//subject')) > 0)
       {
@@ -110,14 +112,12 @@
   }  
   
   function isValidRDFXML($rdfxml, &$errors = array())
-  {
-    include_once("Config.php");
-    
+  { 
     $settings = new Config(); 
     
     include_once($settings->structwsfInstanceFolder."framework/arc2/ARC2.php");
     
-    $parser = ARC2::getRDFXMLParser();
+    $parser = \ARC2::getRDFXMLParser();
     $parser->parse($settings->testDataset, $rdfxml);
     //$rdfxmlSerializer = ARC2::getRDFXMLSerializer();
 
@@ -136,14 +136,12 @@
   }
   
   function isValidRDFN3($rdfn3, &$errors = array())
-  { 
-    include_once("Config.php");
-    
+  {    
     $settings = new Config(); 
     
     include_once($settings->structwsfInstanceFolder."framework/arc2/ARC2.php");
     
-    $parser = ARC2::getTurtleParser();
+    $parser = \ARC2::getTurtleParser();
     $parser->parse($settings->testDataset, $rdfn3);
     //$turtleSerializer = ARC2::getTurtleSerializer();
 
@@ -183,8 +181,8 @@
   {
     $errors = array();  
     
-    $t->assertEquals(isValidRDFXML($wsq->getResultset(), $errors), TRUE, "[Test is valid RDF+XML] Debugging information: ".var_export($errors, TRUE));                                       
-    $t->assertEquals(isValidRDFXML($wsq->getResultset() . "this is invalid RDFXML", $errors), FALSE, "[Test is invalid RDF+XML] Debugging information: ".var_export($errors, TRUE));                                       
+    $t->assertEquals(isValidRDFXML($wsq->getResultset(), $errors), TRUE, "[Test is valid RDF+XML] Debugging information: ".var_export($errors, TRUE)." [Returned Resultset] ".$wsq->getResultset());                                       
+    $t->assertEquals(isValidRDFXML($wsq->getResultset() . "this is invalid RDFXML", $errors), FALSE, "[Test is invalid RDF+XML] Debugging information: ".var_export($errors, TRUE)." [Returned Resultset] ".$wsq->getResultset());                                       
   }  
   
   function validateParameterApplicationRdfN3(&$t, &$wsq)

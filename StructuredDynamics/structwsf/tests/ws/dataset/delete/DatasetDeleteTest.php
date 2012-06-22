@@ -1,17 +1,38 @@
 <?php
-  include_once("../tests/Config.php");
+
+  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use StructuredDynamics\structwsf\php\api\ws\dataset\delete\DatasetDeleteQuery;
+  use StructuredDynamics\structwsf\tests\Config;
+  use StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("../../SplClassLoader.php");
   include_once("../tests/validators.php");
+  include_once("../tests/utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register();
+ 
+  // Load the \ws namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws->register();  
+  
+  // Load the \php\api\framework namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws->register();   
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register(); 
   
   ini_set("memory_limit","256M");
   set_time_limit(3600);
 
   $settings = new Config(); 
   
-  // Database connectivity procedures
-  include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-  include_once("../tests/utilities.php");
-  
-  class DatasetDeleteTest extends PHPUnit_Framework_TestCase {
+  class DatasetDeleteTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
 
@@ -51,19 +72,19 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
-                                   "get", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset));
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      
+      $datasetDelete->uri($settings->testDataset);
+
+      $datasetDelete->send();
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));    
+      $this->assertEquals($datasetDelete->getStatus(), "200", "Debugging information: ".var_export($datasetDelete, TRUE));    
                                     
-      unset($wsq);
+      unset($datasetDelete);
       unset($settings);
     }  
     
@@ -71,22 +92,23 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $this->assertTrue((readDataset() !== FALSE ? TRUE : FALSE), "Can't read the dataset, check the /dataset/read/ endpoint first...");
+      $this->assertTrue((utilities\readDataset() !== FALSE ? TRUE : FALSE), "Can't read the dataset, check the /dataset/read/ endpoint first...");
       
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
-                                   "get", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertFalse(readDataset(), "Dataset still existing...");
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      
+      $datasetDelete->uri($settings->testDataset);
 
-      unset($wsq);
+      $datasetDelete->send();      
+                                   
+      $this->assertEquals($datasetDelete->getStatus(), "200", "Debugging information: ".var_export($datasetDelete, TRUE)); 
+                                            
+      $this->assertFalse(utilities\readDataset(), "Dataset still existing...");
+
+      unset($datasetDelete);
       unset($settings);
     }                     
     
@@ -94,33 +116,35 @@
       
       $settings = new Config();  
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
-                                   "get", 
-                                   "text/xml",
-                                   "uri=");
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-DELETE-200", "Debugging information: ".var_export($wsq, TRUE));                  
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      unset($wsq);
+      $datasetDelete->uri("");
+
+      $datasetDelete->send();
+                                   
+      $this->assertEquals($datasetDelete->getStatus(), "400", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
+      $this->assertEquals($datasetDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetDelete, TRUE));
+      $this->assertEquals($datasetDelete->error->id, "WS-DATASET-DELETE-200", "Debugging information: ".var_export($datasetDelete, TRUE));                  
+      
+      unset($datasetDelete);
       unset($settings);
     }
     
     public function  testCreateDatasetInvalidDatasetIRI() {
       
       $settings = new Config();  
-      
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
-                                   "get", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) . "<>");
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-DELETE-201", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      unset($wsq);
+      $datasetDelete->uri($settings->testDataset."<>");
+
+      $datasetDelete->send();                                   
+                                   
+      $this->assertEquals($datasetDelete->getStatus(), "400", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
+      $this->assertEquals($datasetDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetDelete, TRUE));
+      $this->assertEquals($datasetDelete->error->id, "WS-DATASET-DELETE-201", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
+      
+      unset($datasetDelete);
       unset($settings);
     }
   }

@@ -1,19 +1,38 @@
 <?php
-    //require_once("C:/Program Files (x86)/NuSphere/PhpED/php53/PEAR/PHPUnit/Autoload.php");
+
+    namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
     
-    include_once("../tests/Config.php");
+    use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+    use StructuredDynamics\structwsf\php\api\ws\auth\lister\AuthListerQuery;
+    use StructuredDynamics\structwsf\tests\Config;
+    use StructuredDynamics\structwsf\tests as utilities;
+     
+    include_once("../../SplClassLoader.php");
     include_once("../tests/validators.php");
-    include_once("../tests/utilities.php");
+    include_once("../tests/utilities.php");  
     
+    // Load the \tests namespace where all the test code is located 
+    $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+    $loader_tests->register();
+   
+    // Load the \ws namespace where all the web service code is located 
+    $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+    $loader_ws->register();  
+    
+    // Load the \php\api\framework namespace where all the web service code is located 
+    $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+    $loader_ws->register();  
+   
+    // Load the \framework namespace where all the supporting (utility) code is located
+    $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+    $loader_framework->register();      
+
     ini_set("memory_limit","256M");
     set_time_limit(3600);
 
     $settings = new Config(); 
-    
-    // Database connectivity procedures
-    include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-    
-    class AuthListerTest extends PHPUnit_Framework_TestCase {
+
+    class AuthListerTest extends \PHPUnit_Framework_TestCase {
       
         static private $outputs = array();
         
@@ -42,9 +61,9 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
           $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
                                        "post", 
@@ -57,7 +76,7 @@
           $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
           $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
 
-          deleteDataset();
+          utilities\deleteDataset();
           
           unset($wsq);
           unset($settings);
@@ -67,9 +86,9 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
           $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
                                        "get", 
@@ -82,7 +101,7 @@
           $this->assertEquals($wsq->getStatus(), "406", "Debugging information: ".var_export($wsq, TRUE));                                       
           $this->assertEquals($wsq->getStatusMessage(), "Not Acceptable", "Debugging information: ".var_export($wsq, TRUE));          
 
-          deleteDataset();
+          utilities\deleteDataset();
           
           unset($wsq);
           unset($settings);
@@ -96,23 +115,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "text/xml",
-                                       "mode=" . urlencode("dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
-                                
-          validateParameterTextXml($this, $wsq);
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getDatasetsUri($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
+                               
+          utilities\validateParameterTextXml($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
 
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -120,23 +143,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+
+          $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/json",
-                                       "mode=" . urlencode("dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister->mime("application/json");
+          
+          $authLister->getDatasetsUri($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                                 
-          validateParameterApplicationJson($this, $wsq);
+          utilities\validateParameterApplicationJson($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }   
         
@@ -144,23 +171,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+xml",
-                                       "mode=" . urlencode("dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+xml");
+          
+          $authLister->getDatasetsUri($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                                 
-          validateParameterApplicationRdfXml($this, $wsq);
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }       
                           
@@ -168,23 +199,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-          
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+n3",
-                                       "mode=" . urlencode("dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
-                                
-          validateParameterApplicationRdfN3($this, $wsq);
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          deleteDataset();
+          $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          unset($wsq);
+          $authLister->mime("application/rdf+n3");
+          
+          $authLister->getDatasetsUri($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
+                                
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
           unset($settings);
         }  
         
@@ -196,23 +231,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "text/xml",
-                                       "mode=" . urlencode("ws") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
-                                
-          validateParameterTextXml($this, $wsq);
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getRegisteredWebServiceEndpointsUri();
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
+          
+          utilities\validateParameterTextXml($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -220,23 +259,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/json",
-                                       "mode=" . urlencode("ws") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/json");
+          
+          $authLister->getRegisteredWebServiceEndpointsUri();
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                                 
-          validateParameterApplicationJson($this, $wsq);
+          utilities\validateParameterApplicationJson($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }   
         
@@ -244,21 +287,25 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+xml",
-                                       "mode=" . urlencode("ws") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
-                                
-          validateParameterApplicationRdfXml($this, $wsq);
+          $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          unset($wsq);
+          $authLister->mime("application/rdf+xml");
+          
+          $authLister->getRegisteredWebServiceEndpointsUri();
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
+                                          
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
+          
+          unset($authLister);
           unset($settings);
         }       
                           
@@ -266,23 +313,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+n3",
-                                       "mode=" . urlencode("ws") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+n3");
+          
+          $authLister->getRegisteredWebServiceEndpointsUri();
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                                 
-          validateParameterApplicationRdfN3($this, $wsq);
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -294,23 +345,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "text/xml",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                  
-          validateParameterTextXml($this, $wsq);
+          utilities\validateParameterTextXml($this, $authLister);
          
-          deleteDataset();          
+          utilities\deleteDataset();          
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -318,23 +373,27 @@
                                                
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/json",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
-                                
-          validateParameterApplicationJson($this, $wsq);
+          $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          deleteDataset();
+          $authLister->mime("application/json");
           
-          unset($wsq);
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
+          
+          utilities\validateParameterApplicationJson($this, $authLister);
+          
+          utilities\deleteDataset();
+          
+          unset($authLister);
           unset($settings);
         }   
         
@@ -342,23 +401,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+xml",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+xml");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                                 
-          validateParameterApplicationRdfXml($this, $wsq);
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }       
                           
@@ -366,23 +429,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-          
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+n3",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
-                                
-          validateParameterApplicationRdfN3($this, $wsq);
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          deleteDataset();
+          $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          unset($wsq);
+          $authLister->mime("application/rdf+n3");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
+                                
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
           unset($settings);
         }
         
@@ -390,23 +457,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "text/xml",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("none") .
-                                       "&registered_ip=" . urlencode("self"));
-                 
-          validateParameterTextXml($this, $wsq);
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
+          
+          utilities\validateParameterTextXml($this, $authLister);
          
-          deleteDataset();          
+          utilities\deleteDataset();          
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -414,23 +485,27 @@
                                                
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/json",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("none") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/json");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                                 
-          validateParameterApplicationJson($this, $wsq);
+          utilities\validateParameterApplicationJson($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }   
         
@@ -438,23 +513,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+xml",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("none") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+xml");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                                 
-          validateParameterApplicationRdfXml($this, $wsq);
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }       
                           
@@ -462,23 +541,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+n3",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("none") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+n3");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                                 
-          validateParameterApplicationRdfN3($this, $wsq);
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }        
         
@@ -486,23 +569,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "text/xml",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode($settings->endpointUri."crud/create/") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();
                  
-          validateParameterTextXml($this, $wsq);
+          utilities\validateParameterTextXml($this, $authLister);
          
-          deleteDataset();          
+          utilities\deleteDataset();          
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -510,23 +597,27 @@
                                                
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/json",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode($settings->endpointUri."crud/create/") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/json");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();          
                                 
-          validateParameterApplicationJson($this, $wsq);
+          utilities\validateParameterApplicationJson($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }   
         
@@ -534,23 +625,27 @@
           
           $settings = new Config();  
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+xml",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode($settings->endpointUri."crud/create/") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+xml");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();          
                                 
-          validateParameterApplicationRdfXml($this, $wsq);
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }       
                           
@@ -558,23 +653,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+n3",
-                                       "mode=" . urlencode("access_dataset") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode($settings->endpointUri."crud/create/") .
-                                       "&registered_ip=" . urlencode("self"));
-                                
-          validateParameterApplicationRdfN3($this, $wsq);
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+n3");
+          
+          $authLister->getDatasetUsersAccesses($settings->testDataset);
+          
+          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();          
+        
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }        
         
@@ -586,23 +685,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "text/xml",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();          
                                 
-          validateParameterTextXml($this, $wsq);
+          utilities\validateParameterTextXml($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -610,23 +713,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/json",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/json");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();            
                                 
-          validateParameterApplicationJson($this, $wsq);
+          utilities\validateParameterApplicationJson($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }   
          
@@ -634,23 +741,27 @@
 
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+xml",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+xml");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();            
                      
-          validateParameterApplicationRdfXml($this, $wsq);
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }       
                           
@@ -658,23 +769,27 @@
 
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+n3",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("all") .
-                                       "&registered_ip=" . urlencode("self"));
-                                
-          validateParameterApplicationRdfN3($this, $wsq);
+          $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          deleteDataset();
+          $authLister->mime("application/rdf+n3");
           
-          unset($wsq);
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();            
+          
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
+          
+          utilities\deleteDataset();
+          
+          unset($authLister);
           unset($settings);
         }   
         
@@ -682,23 +797,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "text/xml",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("none") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();            
                                 
-          validateParameterTextXml($this, $wsq);
+          utilities\validateParameterTextXml($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -706,23 +825,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/json",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("none") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/json");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();               
                                 
-          validateParameterApplicationJson($this, $wsq);
+          utilities\validateParameterApplicationJson($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }   
          
@@ -730,23 +853,27 @@
 
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+xml",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("none") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+xml");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();     
                      
-          validateParameterApplicationRdfXml($this, $wsq);
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }       
                           
@@ -754,23 +881,27 @@
 
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+n3",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode("none") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+n3");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();               
                                 
-          validateParameterApplicationRdfN3($this, $wsq);
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }
         
@@ -778,23 +909,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "text/xml",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode($settings->endpointUri."crud/create/") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();               
                                 
-          validateParameterTextXml($this, $wsq);
+          utilities\validateParameterTextXml($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }  
         
@@ -802,23 +937,27 @@
           
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/json",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode($settings->endpointUri."crud/create/") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/json");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();               
                                 
-          validateParameterApplicationJson($this, $wsq);
+          utilities\validateParameterApplicationJson($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }   
          
@@ -826,23 +965,27 @@
 
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+xml",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode($settings->endpointUri."crud/create/") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+xml");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();               
                      
-          validateParameterApplicationRdfXml($this, $wsq);
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
 
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }       
                           
@@ -850,23 +993,27 @@
 
           $settings = new Config();  
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
-                                       "get", 
-                                       "application/rdf+n3",
-                                       "mode=" . urlencode("access_user") .
-                                       "&dataset=" . urlencode($settings->testDataset) .
-                                       "&target_webservice=" . urlencode($settings->endpointUri."crud/create/") .
-                                       "&registered_ip=" . urlencode("self"));
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("application/rdf+n3");
+          
+          $authLister->getUserAccesses("self");
+          
+          $authLister->includeNoWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->send();               
                                 
-          validateParameterApplicationRdfN3($this, $wsq);
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
           
-          deleteDataset();
+          utilities\deleteDataset();
           
-          unset($wsq);
+          unset($authLister);
           unset($settings);
         }        
         

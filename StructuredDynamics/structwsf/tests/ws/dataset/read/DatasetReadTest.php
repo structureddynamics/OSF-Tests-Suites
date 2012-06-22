@@ -1,19 +1,41 @@
 <?php
-  include_once("../tests/Config.php");
+
+  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use StructuredDynamics\structwsf\php\api\ws\dataset\read\DatasetReadQuery;
+  use StructuredDynamics\structwsf\tests\Config;
+  use StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("../../SplClassLoader.php");
   include_once("../tests/validators.php");
+  include_once("../tests/utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register();
+  
+  // Load the \ws namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws->register();  
+  
+  // Load the \php\api\framework namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws->register();  
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register(); 
   
   ini_set("memory_limit","256M");
   set_time_limit(3600);
 
   $settings = new Config(); 
-  
-  // Database connectivity procedures
+
   include_once($settings->structwsfInstanceFolder . "framework/ProcessorXML.php");
   include_once($settings->structwsfInstanceFolder . "framework/arc2/ARC2.php");
-  include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-  include_once("../tests/utilities.php");
   
-  class DatasetReadTest extends PHPUnit_Framework_TestCase {
+  class DatasetReadTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
 
@@ -55,24 +77,27 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&meta=" . urlencode("True"));
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("text/xml");
+      
+      $datasetRead->uri($settings->testDataset);
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       
-      $this->assertXmlStringEqualsXmlString($settings->datasetReadStructXMLResultset, $wsq->getResultset());
+      $this->assertXmlStringEqualsXmlString($settings->datasetReadStructXMLResultset, $datasetRead->getResultset());
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetRead);
       unset($settings);
     }
     
@@ -80,27 +105,30 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "application/json",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&meta=" . urlencode("True"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("application/json");
       
-      $json1 = json_decode($wsq->getResultset());
+      $datasetRead->uri($settings->testDataset);
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();
+                                   
+      $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      
+      $json1 = json_decode($datasetRead->getResultset());
       $json2 = json_decode($settings->datasetReadStructJSONResultset);
       
-      $this->assertTrue($json1 == $json2, "JSON resultsets not identical. Debugging information: ".var_export($wsq, TRUE));
+      $this->assertTrue($json1 == $json2, "JSON resultsets not identical. Debugging information: ".var_export($datasetRead, TRUE));
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetRead);
       unset($settings);
     }  
     
@@ -108,24 +136,27 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "application/rdf+xml",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&meta=" . urlencode("True"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("application/rdf+xml");
       
-      $this->assertXmlStringEqualsXmlString($settings->datasetReadStructRDFXMLResultset, $wsq->getResultset());
+      $datasetRead->uri($settings->testDataset);
       
-      deleteDataset();
+      $datasetRead->includeMeta();
       
-      unset($wsq);
+      $datasetRead->send();            
+            
+      $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      
+      $this->assertXmlStringEqualsXmlString($settings->datasetReadStructRDFXMLResultset, $datasetRead->getResultset());
+      
+      utilities\deleteDataset();
+      
+      unset($datasetRead);
       unset($settings);
     }      
     
@@ -133,60 +164,67 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
       // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "application/rdf+n3",
-                                   "uri=" . urlencode($settings->testDataset) .
-                                   "&meta=" . urlencode("True"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("application/rdf+n3");
       
-      $parser1 = ARC2::getTurtleParser();
-      $parser1->parse($settings->testDataset, $wsq->getResultset());
+      $datasetRead->uri($settings->testDataset);
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();      
+                                   
+      $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      
+      $parser1 = \ARC2::getTurtleParser();
+      $parser1->parse($settings->testDataset, $datasetRead->getResultset());
       $resourceIndex1 = $parser1->getSimpleIndex(0);
       
-      $parser2 = ARC2::getTurtleParser();
+      $parser2 = \ARC2::getTurtleParser();
       $parser2->parse($settings->testDataset, $settings->datasetReadStructRDFN3Resultset);
       $resourceIndex2 = $parser2->getSimpleIndex(0);
       
-      $this->assertTrue($resourceIndex1 == $resourceIndex2, "RDF+N3 resultsets not identical. Debugging information: ".var_export($wsq->getResultset() , TRUE));
+      $this->assertTrue($resourceIndex1 == $resourceIndex2, "RDF+N3 resultsets not identical. Debugging information: ".var_export($datasetRead->getResultset() , TRUE));
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetRead);
       unset($settings);
     }      
 
     public function  testReadAllDatasets_Serialization_TEXT_XML() {
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");
             
-      // Create the new dataset
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "text/xml",
-                                   "uri=" . urlencode("all") .
-                                   "&meta=" . urlencode("True"));
-                           
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $xml = new ProcessorXML();
-      $xml->loadXML($wsq->getResultset());
+      $datasetRead->mime("text/xml");
+      
+      $datasetRead->uri("all");
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();            
+            
+      $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+
+      $xml = new \StructuredDynamics\structwsf\ws\framework\ProcessorXML();
+      $xml->loadXML($datasetRead->getResultset());
 
       $subjects = $xml->getSubjects();
 
       $founds = 0;
-      
+       
       foreach($subjects as $subject)
-      {
+      {             
         if($xml->getURI($subject) == $settings->testDataset ||
            $xml->getURI($subject) == $settings->testDataset."2/")
         {
@@ -194,74 +232,86 @@
         }
       }
 
-      $this->assertEquals(2, $founds, "Created datasets not found. Debugging information: ".var_export($wsq, TRUE));
+      $this->assertEquals(2, $founds, "Created datasets not found. Debugging information: ".var_export($datasetRead, TRUE));
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      unset($wsq);
+      unset($datasetRead);
       unset($settings);
     }
     
     public function  testReadAllDatasets_Serialization_APPLICATION_JSON() {
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "application/json",
-                                   "uri=" . urlencode("all") .
-                                   "&meta=" . urlencode("True"));
-                            
-      validateParameterApplicationJson($this, $wsq);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("application/json");
       
-      deleteTwoDatasets();
+      $datasetRead->uri("all");
       
-      unset($wsq);
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();            
+     
+      utilities\validateParameterApplicationJson($this, $datasetRead);
+      
+      utilities\deleteTwoDatasets();
+      
+      unset($datasetRead);
       unset($settings);
     }
     
     public function  testReadAllDatasets_Serialization_APPLICATION_RDF_XML() {
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");              
+      $this->assertTrue(utilities\createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");              
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "application/rdf+xml",
-                                   "uri=" . urlencode("all") .
-                                   "&meta=" . urlencode("True"));
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("application/rdf+xml");
+      
+      $datasetRead->uri("all");
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();            
                             
-      validateParameterApplicationRdfXml($this, $wsq);
+      utilities\validateParameterApplicationRdfXml($this, $datasetRead);
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      unset($wsq);
+      unset($datasetRead);
       unset($settings);
     }
 
     public function  testReadAllDatasets_Serialization_APPLICATION_RDF_N3() {
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");      
+      $this->assertTrue(utilities\createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");      
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "application/rdf+n3",
-                                   "uri=" . urlencode("all") .
-                                   "&meta=" . urlencode("True"));
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("application/rdf+n3");
+      
+      $datasetRead->uri("all");
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();            
                             
-      validateParameterApplicationRdfN3($this, $wsq);
+      utilities\validateParameterApplicationRdfN3($this, $datasetRead);
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      unset($wsq);
+      unset($datasetRead);
       unset($settings);
     }
     
@@ -270,23 +320,27 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");      
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "text/xml",
-                                   "uri=" . 
-                                   "&meta=" . urlencode("True"));
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("text/xml");
+      
+      $datasetRead->uri("");
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();            
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-READ-200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));
+      $this->assertEquals($datasetRead->error->id, "WS-DATASET-READ-200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetRead);
       unset($settings);
     }
     
@@ -294,23 +348,27 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                   "get", 
-                                   "text/xml",
-                                   "uri=" . urlencode($settings->testDataset) . "<>" .
-                                   "&meta=" . urlencode("True"));
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("text/xml");
+      
+      $datasetRead->uri($settings->testDataset . "<>");
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->send();            
                                    
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-DATASET-READ-201", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));
+      $this->assertEquals($datasetRead->error->id, "WS-DATASET-READ-201", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($datasetRead);
       unset($settings);
     }  
   }

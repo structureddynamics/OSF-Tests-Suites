@@ -1,23 +1,44 @@
 <?php
-  include_once("../tests/Config.php");
-  include_once("../tests/validators.php");
+
+  namespace StructuredDynamics\structwsf\tests\ws\auth\validator;
   
+  use \StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use \StructuredDynamics\structwsf\php\api\ws\auth\validator\AuthValidatorQuery;
+  use \StructuredDynamics\structwsf\tests\Config;
+  use \StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("../../SplClassLoader.php");
+  include_once("../tests/validators.php");
+  include_once("../tests/utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register();
+  
+  // Load the \ws namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws->register();  
+  
+  // Load the \php\api\framework namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws->register();  
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register();       
+   
   ini_set("memory_limit","256M");
   set_time_limit(3600);
 
   $settings = new Config(); 
-  
-  // Database connectivity procedures
-  include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-  include_once("../tests/utilities.php");
-  
-  class AuthValidatorTest extends PHPUnit_Framework_TestCase {
+    
+  class AuthValidatorTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
 
     public function testWrongEndpointUrl() {
       
-      $settings = new Config();          
+      $settings = new Config();     
       
       $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/" . "wrong", 
                                    "post", 
@@ -56,24 +77,27 @@
       
       $settings = new Config();  
       
-      deleteDataset();
-      
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-            
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . 
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUrl."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      utilities\deleteDataset();
 
-      deleteDataset();
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      unset($wsq);
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip("");
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();
+      
+      $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     } 
     
@@ -81,24 +105,27 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($_SERVER['REMOTE_ADDR']) .
-                                   "&datasets=" . 
-                                   "&ws_uri=" . urlencode($settings->endpointUrl."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-201", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array());
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();            
+            
+      $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-201", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     } 
     
@@ -106,24 +133,27 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($_SERVER['REMOTE_ADDR']) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=");
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-202", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri("");
+      
+      $authValidator->send();             
+                                   
+      $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-202", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }     
     
@@ -131,50 +161,55 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($_SERVER['REMOTE_ADDR']) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset . "<>") .
-                                   "&ws_uri=" . urlencode($settings->endpointUrl."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-203", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."<>"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();                                        
+                                   
+      $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-203", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }     
-    
     
     public function  testInvalidWebServiceIRI() {
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($_SERVER['REMOTE_ADDR']) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUrl."crud/create/" . "<>"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-204", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."wsf/crud/create/"."<>");
+      
+      $authValidator->send();               
+                                   
+      $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-204", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }    
     
@@ -182,22 +217,25 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->requesterIP) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();             
+                                   
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }   
     
@@ -205,77 +243,85 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->requesterIP) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/create/" . "not-registered/"));
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/"."not-registered");
+      
+      $authValidator->send();             
                                    
-      $this->assertEquals($wsq->getStatus(), "500", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Internal Error", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-301", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($authValidator->getStatus(), "500", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Internal Error", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-301", "Debugging information: ".var_export($authValidator, TRUE));                                       
                                       
 
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($authValidator);
       unset($settings);
     }    
-                    
+          
     public function  testDatasetNotExisting() {
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->requesterIP) .
-                                   "&datasets=" . urlencode($settings->testDataset . "not-existing/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/create/"));
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array($settings->testDataset."not-existing"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();              
                                    
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-303", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-303", "Debugging information: ".var_export($authValidator, TRUE));                                       
                                       
 
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($authValidator);
       unset($settings);
     } 
-                    
+
     public function  testOneOfDatasetNotExisting() {
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->requesterIP) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset . "not-existing/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-303", "Debugging information: ".var_export($wsq, TRUE));                                       
-                                      
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset . "not-existing/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();                
+                                   
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-303", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     } 
     
@@ -283,26 +329,28 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDatasetGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createDatasetGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-304", "Debugging information: ".var_export($wsq, TRUE));                                       
-                                      
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();    
+                                   
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-304", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }    
     
@@ -310,26 +358,29 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDatasetGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createDatasetGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/delete/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-307", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/delete/");
+      
+      $authValidator->send();              
+
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-307", "Debugging information: ".var_export($authValidator, TRUE));                                       
                                       
 
-      deleteDataset();
+      utilities\deleteDataset();
       
-      unset($wsq);
+      unset($authValidator);
       unset($settings);
     } 
     
@@ -337,26 +388,28 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDatasetGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createDatasetGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/update/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-305", "Debugging information: ".var_export($wsq, TRUE));                                       
-                                      
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/update/");
+      
+      $authValidator->send();              
+                                   
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-305", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }  
     
@@ -364,26 +417,28 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDatasetGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createDatasetGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/read/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-306", "Debugging information: ".var_export($wsq, TRUE));                                       
-                                      
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/read/");
+      
+      $authValidator->send();              
+                                   
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-306", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     } 
 
@@ -391,23 +446,26 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($_SERVER['REMOTE_ADDR']);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();                
+                                   
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }    
     
@@ -415,23 +473,26 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/delete/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/delete/");
+      
+      $authValidator->send();              
+                                   
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }    
 
@@ -439,23 +500,26 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/update/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteDataset();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/update/");
+      
+      $authValidator->send();              
+                                   
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+      
+      unset($authValidator);
       unset($settings);
     }    
     
@@ -463,51 +527,56 @@
       
       $settings = new Config();  
       
-      deleteDataset();
+      utilities\deleteDataset();
       
-      $this->assertTrue(createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/read/"));
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/read/");
+      
+      $authValidator->send();              
                                    
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
-      deleteDataset();
+      utilities\deleteDataset();
       
       unset($wsq);
       unset($settings);
     }    
     
-    
     public function  testNoCreatePermissionsTwoDatasets() {
       
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasetsGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasetsGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset."2/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-304", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();              
+            
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-304", "Debugging information: ".var_export($authValidator, TRUE));                                       
                                       
 
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      unset($wsq);
+      unset($authValidator);
       unset($settings);
     }    
     
@@ -515,26 +584,29 @@
       
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasetsGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasetsGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset."2/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/delete/"));
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/delete/");
+      
+      $authValidator->send();                          
                                    
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-307", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-307", "Debugging information: ".var_export($authValidator, TRUE));                                       
                                       
 
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      unset($wsq);
+      unset($authValidator);
       unset($settings);
     }    
     
@@ -542,26 +614,29 @@
       
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasetsGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasetsGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset."2/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/update/"));
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/update/");
+      
+      $authValidator->send();                          
                                    
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-305", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-305", "Debugging information: ".var_export($authValidator, TRUE));                                       
                                       
 
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      unset($wsq);
+      unset($authValidator);
       unset($settings);
     }    
     
@@ -569,26 +644,29 @@
       
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasetsGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasetsGlobalPermissionsNone(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset."2/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/read/"));
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/read/");
+      
+      $authValidator->send();              
                                    
-      $this->assertEquals($wsq->getStatus(), "403", "Debugging information: ".var_export($wsq, TRUE));                                       
-      $this->assertEquals($wsq->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($wsq, TRUE));
-      $this->assertEquals($wsq->error->id, "WS-AUTH-VALIDATOR-306", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-306", "Debugging information: ".var_export($authValidator, TRUE));                                       
                                       
 
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      unset($wsq);
+      unset($authValidator);
       unset($settings);
     }  
     
@@ -596,23 +674,26 @@
       
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasets(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasets(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset."2/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/create/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteTwoDatasets();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();              
+                                   
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteTwoDatasets();
+      
+      unset($authValidator);
       unset($settings);
     }        
     
@@ -620,23 +701,26 @@
       
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasets(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasets(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset."2/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/update/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteTwoDatasets();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();              
+                                   
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteTwoDatasets();
+      
+      unset($authValidator);
       unset($settings);
     }        
     
@@ -645,23 +729,26 @@
       
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasets(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasets(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset."2/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/delete/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteTwoDatasets();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();              
+                                   
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteTwoDatasets();
+      
+      unset($authValidator);
       unset($settings);
     }        
     
@@ -669,23 +756,26 @@
       
       $settings = new Config();  
       
-      deleteTwoDatasets();
+      utilities\deleteTwoDatasets();
       
-      $this->assertTrue(createTwoDatasets(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-      $this->assertTrue(createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
+      $this->assertTrue(utilities\createTwoDatasets(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      $this->assertTrue(utilities\createNoAccess_AccessRecord(), "Can't create the access record, check the /auth/registrar/access/ endpoint first...");
             
-      $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/validator/", 
-                                   "post", 
-                                   "text/xml",
-                                   "ip=" . urlencode($settings->randomRequester) .
-                                   "&datasets=" . urlencode($settings->testDataset) . ";" . urlencode($settings->testDataset."2/") .
-                                   "&ws_uri=" . urlencode($settings->endpointUri."crud/read/"));
-                                   
-      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
-
-      deleteTwoDatasets();
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      unset($wsq);
+      $authValidator->ip($settings->randomRequester);
+      
+      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->send();              
+                                   
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteTwoDatasets();
+      
+      unset($authValidator);
       unset($settings);
     }        
   }

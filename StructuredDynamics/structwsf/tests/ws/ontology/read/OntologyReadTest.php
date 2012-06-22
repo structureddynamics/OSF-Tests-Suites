@@ -1,6 +1,22 @@
 <?php
-  include_once("../tests/Config.php");
+
+  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use StructuredDynamics\structwsf\tests\Config;
+  use StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("../../SplClassLoader.php");
   include_once("../tests/validators.php");
+  include_once("../tests/utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register();
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register(); 
   
   ini_set("memory_limit","256M");
   set_time_limit(3600);
@@ -10,16 +26,14 @@
   // Database connectivity procedures
   include_once($settings->structwsfInstanceFolder . "framework/ProcessorXML.php");
   include_once($settings->structwsfInstanceFolder . "framework/arc2/ARC2.php");
-  include_once($settings->structwsfInstanceFolder . "framework/WebServiceQuerier.php");
-  include_once("../tests/utilities.php");
   
-  class OntologyReadTest extends PHPUnit_Framework_TestCase {
+  class OntologyReadTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
 
     static public function setUpBeforeClass() 
     {    
-      createOntology();      
+      utilities\createOntology();      
     }
     
     public function testWrongEndpointUrl() {
@@ -77,7 +91,7 @@
       
       $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
       
-      validateParameterApplicationRdfXml($this, $wsq);
+      utilities\validateParameterApplicationRdfXml($this, $wsq);
                                    
       unset($wsq);
       unset($settings);
@@ -88,7 +102,7 @@
     
     static public function tearDownAfterClass() 
     {
-      deleteOntology();      
+      utilities\deleteOntology();      
     }  
   }
 
