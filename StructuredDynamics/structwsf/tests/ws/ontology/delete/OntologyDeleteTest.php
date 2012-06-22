@@ -1,6 +1,6 @@
 <?php
 
-  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  namespace StructuredDynamics\structwsf\tests\ws\ontology\delete;
   
   use StructuredDynamics\structwsf\framework\WebServiceQuerier;
   use StructuredDynamics\structwsf\tests\Config;
@@ -14,9 +14,9 @@
   use StructuredDynamics\structwsf\php\api\ws\ontology\delete\DeletePropertyFunction;
   use StructuredDynamics\structwsf\tests as utilities;
    
-  include_once("../../SplClassLoader.php");
-  include_once("../tests/validators.php");
-  include_once("../tests/utilities.php");  
+  include_once("SplClassLoader.php");
+  include_once("validators.php");
+  include_once("utilities.php");   
   
   // Load the \tests namespace where all the test code is located 
   $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));

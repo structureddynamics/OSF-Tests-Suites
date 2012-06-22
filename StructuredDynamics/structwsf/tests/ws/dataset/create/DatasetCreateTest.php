@@ -1,6 +1,6 @@
 <?php
 
-  namespace StructuredDynamics\structwsf\tests\ws\auth\lister;
+  namespace StructuredDynamics\structwsf\tests\ws\dataset\create;
   
   use StructuredDynamics\structwsf\framework\WebServiceQuerier;
   use StructuredDynamics\structwsf\php\api\framework\CRUDPermission;
@@ -8,9 +8,9 @@
   use StructuredDynamics\structwsf\tests\Config;
   use StructuredDynamics\structwsf\tests as utilities;
    
-  include_once("../../SplClassLoader.php");
-  include_once("../tests/validators.php");
-  include_once("../tests/utilities.php");  
+  include_once("SplClassLoader.php");
+  include_once("validators.php");
+  include_once("utilities.php");  
   
   // Load the \tests namespace where all the test code is located 
   $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
@@ -21,8 +21,8 @@
   $loader_ws->register();  
   
   // Load the \php\api\framework namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
-  $loader_ws->register();  
+  $loader_api_framework = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_api_framework->register();  
  
   // Load the \framework namespace where all the supporting (utility) code is located
   $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
