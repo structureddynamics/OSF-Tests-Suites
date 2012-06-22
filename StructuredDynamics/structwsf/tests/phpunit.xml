@@ -3,19 +3,19 @@
 <phpunit stopOnFailure="false">
   <testsuites>
     <testsuite name="Authentication Webservice Endpoints">
-      <file>REPLACEME/tests/auth/validator/AuthValidatorTest.php</file>
-      <file>REPLACEME/tests/auth/lister/AuthListerTest.php</file>
+      <file>REPLACEME/tests/ws/auth/validator/AuthValidatorTest.php</file>
+      <file>REPLACEME/tests/ws/auth/lister/AuthListerTest.php</file>
     </testsuite>
     <testsuite name="Datasets Webservice Endpoints">
-      <file>REPLACEME/tests/dataset/create/DatasetCreateTest.php</file>
-      <file>REPLACEME/tests/dataset/delete/DatasetDeleteTest.php</file>
-      <file>REPLACEME/tests/dataset/update/DatasetUpdateTest.php</file>
-      <file>REPLACEME/tests/dataset/read/DatasetReadTest.php</file>
+      <file>REPLACEME/tests/ws/dataset/create/DatasetCreateTest.php</file>
+      <file>REPLACEME/tests/ws/dataset/delete/DatasetDeleteTest.php</file>
+      <file>REPLACEME/tests/ws/dataset/update/DatasetUpdateTest.php</file>
+      <file>REPLACEME/tests/ws/dataset/read/DatasetReadTest.php</file>
     </testsuite>
     <testsuite name="Ontologies Webservice Endpoints">
-      <file>REPLACEME/tests/ontology/create/OntologyCreateTest.php</file>
-      <file>REPLACEME/tests/ontology/delete/OntologyDeleteTest.php</file>
-      <file>REPLACEME/tests/ontology/read/OntologyReadTest.php</file>
+      <file>REPLACEME/tests/ws/ontology/create/OntologyCreateTest.php</file>
+      <file>REPLACEME/tests/ws/ontology/delete/OntologyDeleteTest.php</file>
+      <file>REPLACEME/tests/ws/ontology/read/OntologyReadTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>
