@@ -42,6 +42,20 @@ cecho "\n\nInstall PHPUnit...\n"
 
 sudo apt-get install -y phpunit
 
+# Check where is installed structwsf
+STRUCTWSFFOLDER="/usr/share/structwsf/"
+
+cecho "Where is structWSF installed on your server (default: $STRUCTWSFFOLDER):" $magenta
+
+read NEWSTRUCTWSFFOLDER
+
+[ -n "$NEWSTRUCTWSFFOLDER" ] && STRUCTWSFFOLDER=$NEWSTRUCTWSFFOLDER
+
+# Make sure there is no trailing slashes
+STRUCTWSFFOLDER=$(echo "${STRUCTWSFFOLDER}" | sed -e "s/\/*$//")
+
+
+# Download the tests suites, and move them into the structwsf folder.
 sudo mkdir tests
 
 cd tests
@@ -54,23 +68,17 @@ unzip master
 
 cd `ls -d structureddynamics*/`
 
-sudo mv * ../
+cd StructuredDynamics/structwsf/
 
-cd ..
+# Move the tests suites to structWSF's folder structure
+sudo mv * $STRUCTWSFFOLDER"/StructuredDynamics/structwsf/"
+
+cd ../../../
 
 sudo rm -rf `ls -d structureddynamics*/`
 
-
-STRUCTWSFFOLDER="/usr/share/structwsf/"
-
-cecho "Where is structWSF installed on your server (default: $STRUCTWSFFOLDER):" $magenta
-
-read NEWSTRUCTWSFFOLDER
-
-[ -n "$NEWSTRUCTWSFFOLDER" ] && STRUCTWSFFOLDER=$NEWSTRUCTWSFFOLDER
-
-# Make sure there is no trailing slashes
-STRUCTWSFFOLDER=$(echo "${STRUCTWSFFOLDER}" | sed -e "s/\/*$//")
+# Go to the tests' folder, and change the configuration files
+cd $STRUCTWSFFOLDER"/StructuredDynamics/structwsf/tests/"
 
 DOMAINNAME="localhost"
 
