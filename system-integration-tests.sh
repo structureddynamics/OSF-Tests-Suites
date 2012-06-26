@@ -32,16 +32,6 @@ cecho ()                     # Color-echo.
   return
 }
 
-echo -e "\n\n"
-cecho "--------------------"
-cecho " Installing PHPUnit "
-cecho "--------------------"
-echo -e "\n\n"
-
-cecho "\n\nInstall PHPUnit...\n"
-
-sudo apt-get install -y phpunit
-
 # Check where is installed structwsf
 STRUCTWSFFOLDER="/usr/share/structwsf/"
 
@@ -54,6 +44,44 @@ read NEWSTRUCTWSFFOLDER
 # Make sure there is no trailing slashes
 STRUCTWSFFOLDER=$(echo "${STRUCTWSFFOLDER}" | sed -e "s/\/*$//")
 
+
+STRUCTWSFPHPAPIDOWNLOADURL="https://github.com/structureddynamics/structWSF-PHP-API/zipball/master"
+
+echo -e "\n\n"
+cecho "----------------------------------"
+cecho " Installing the structWSF PHP API "
+cecho "----------------------------------"
+echo -e "\n\n"
+
+# Current location: /usr/share/structwsf/
+
+sudo wget $STRUCTWSFPHPAPIDOWNLOADURL  
+
+cecho "\n\n9.3) Decompressing structWSF PHP API...\n"
+
+sudo unzip "master"  
+
+cd `ls -d structureddynamics*/`
+
+cd "StructuredDynamics/structwsf/"
+
+sudo cp -a php $STRUCTWSFFOLDER"/StructuredDynamics/structwsf/"
+
+cd ../../
+
+sudo rm -rf `ls -d structureddynamics*/`
+
+sudo rm master
+
+echo -e "\n\n"
+cecho "--------------------"
+cecho " Installing PHPUnit "
+cecho "--------------------"
+echo -e "\n\n"
+
+cecho "\n\nInstall PHPUnit...\n"
+
+sudo apt-get install -y phpunit
 
 # Download the tests suites, and move them into the structwsf folder.
 sudo mkdir tests
@@ -90,7 +118,7 @@ read NEWDOMAINNAME
 
 cecho "\n\nConfigure tests...\n"
 
-sudo sed -i "s>REPLACEME>"$INSTALLDIR">" phpunit.xml
+sudo sed -i "s>REPLACEME>"$STRUCTWSFFOLDER"/StructuredDynamics/structwsf>" phpunit.xml
 
 sudo sed -i "s>$this-\>structwsfInstanceFolder = \"/usr/share/structwsf/\";>$this-\>structwsfInstanceFolder = \""$STRUCTWSFFOLDER"/\";>" Config.php
 
