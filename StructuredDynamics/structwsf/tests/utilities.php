@@ -3,6 +3,7 @@
   namespace StructuredDynamics\structwsf\tests;
   
   use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use \StructuredDynamics\structwsf\php\api\ws\crud\delete\CrudDeleteQuery;
   
   /*
   
@@ -148,6 +149,8 @@
     
     return(TRUE);
   } 
+  
+  
    
   function deleteTwoDatasets()
   {
@@ -262,6 +265,37 @@
     }
     
     return(TRUE);                                 
-  }    
+  }   
+  
+  function unregisterWebServiceEndpoint()
+  {
+    //
+    //
+    //
+    //   NEED TO UPDATE THE ENDPOINT TO BE ABLE TO UNREGISTER ENDPOINTS!!!!!
+    //
+    //
+    //
+    //
+    
+    
+    $settings = new Config(); 
+    
+    $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+    
+    $crudDelete->dataset("http://ccr.nhccn.com.au/wsf/");
+                          
+    $crudDelete->uri($settings->newWebServiceUri);
+    
+    $crudDelete->send();
+    
+    if($crudDelete->getStatus() != "200")
+    {
+      print_r(var_export($crudDelete, TRUE));
+      return(FALSE);
+    }
+    
+    return(TRUE);
+  }  
   
 ?>

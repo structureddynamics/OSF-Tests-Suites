@@ -102,6 +102,67 @@
       unset($settings);
     }   
     
+    //
+    // Test existing interface
+    //
+    
+    public function testInterfaceExists() {
+      
+      $settings = new Config();  
+
+      utilities\deleteOntology();
+      
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $ontologyDelete->deleteOntology();
+      
+      $ontologyDelete->sourceInterface("default");
+      
+      $ontologyDelete->send();
+                           
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($ontologyDelete);
+      unset($settings);
+    }  
+    
+    //
+    // Test unexisting interface
+    //
+    
+    public function testInterfaceNotExisting() {
+      
+      $settings = new Config();  
+
+      utilities\deleteOntology();
+      
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $ontologyDelete->deleteOntology();
+      
+      $ontologyDelete->sourceInterface("default-not-existing");
+      
+      $ontologyDelete->send();
+                           
+      $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+      $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
+      $this->assertEquals($ontologyDelete->error->id, "WS-ONTOLOGY-DELETE-301", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($ontologyDelete);
+      unset($settings);
+    }     
     
     public function  testDeleteOntology_NoOntologyUriSpecified() {
       

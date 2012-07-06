@@ -73,6 +73,72 @@
       unset($settings);
     }    
     
+    //
+    // Test existing interface
+    //
+    
+    public function testInterfaceExists() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("text/xml");
+      
+      $datasetRead->uri($settings->testDataset);
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->sourceInterface("default");
+      
+      $datasetRead->send();
+                           
+      $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetRead);
+      unset($settings);
+    }  
+    
+    //
+    // Test unexisting interface
+    //
+    
+    public function testInterfaceNotExisting() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("text/xml");
+      
+      $datasetRead->uri($settings->testDataset);
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->sourceInterface("default-not-existing");
+      
+      $datasetRead->send();
+                           
+      $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));
+      $this->assertEquals($datasetRead->error->id, "WS-DATASET-READ-306", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetRead);
+      unset($settings);
+    }     
+    
     public function  testReadDataset_Serialization_TEXT_XML() {
       
       $settings = new Config();  

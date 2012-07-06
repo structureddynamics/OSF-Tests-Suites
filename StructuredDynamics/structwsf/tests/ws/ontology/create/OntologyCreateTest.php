@@ -79,11 +79,81 @@
       unset($settings);
     }    
     
+    //
+    // Test existing interface
+    //
+    
+    public function testInterfaceExists() {
+      
+      $settings = new Config();  
+
+      utilities\deleteOntology();
+                 
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+      
+      $ontologyCreate->uri($settings->testOntologyUri);
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->sourceInterface("default");
+      
+      $ontologyCreate->send();
+                           
+      $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+
+      utilities\deleteOntology();
+
+      unset($ontologyCreate);
+      unset($settings);
+    }  
+    
+    //
+    // Test unexisting interface
+    //
+    
+    public function testInterfaceNotExisting() {
+      
+      $settings = new Config();  
+
+      utilities\deleteOntology();
+                 
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+      
+      $ontologyCreate->uri($settings->testOntologyUri);
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->sourceInterface("default-not-existing");
+      
+      $ontologyCreate->send();
+                           
+      $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));
+      $this->assertEquals($ontologyCreate->error->id, "WS-ONTOLOGY-CREATE-303", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+
+      utilities\deleteOntology();
+
+      unset($ontologyCreate);
+      unset($settings);
+    }     
+    
     public function  testCreateOntology() {
       
       $settings = new Config();  
         
-      utilities\deleteOntology();  
+      utilities\deleteOntology();
                  
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
       
@@ -101,7 +171,7 @@
                                    
       $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       
-      utilities\deleteDataset();
+      utilities\deleteOntology();
       
       unset($ontologyCreate);
       unset($settings);
@@ -111,10 +181,8 @@
       
       $settings = new Config();  
       
-      utilities\deleteOntology();
-      
       // Make sure the ontology doesn't exists
-      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      utilities\deleteOntology();
       
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
       
@@ -150,7 +218,7 @@
       
       utilities\validateParameterApplicationRdfXml($this, $ontologyRead);
       
-      utilities\deleteDataset();
+      utilities\deleteOntology();
 
       unset($ontologyRead);
       unset($settings);

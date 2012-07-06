@@ -71,7 +71,19 @@
     public $targetClassUri = "";      
     
     /** URI of a named individual of the test ontology */
-    public $targetNamedIndividualUri = "";          
+    public $targetNamedIndividualUri = "";  
+    
+    /** Title of a new web service endpoint to register in the network */
+    public $newWebServiceTitle = "";        
+    
+    /** Endpoint URL of a new web service endpoint to register in the network */
+    public $newWebServiceEndpointUrl = "";        
+    
+    /** CRUD usage of a new web service endpoint to register in the network */
+    public $newWebServiceCrudUsage = "";        
+    
+    /** URI of the resource representing a new web service endpoint to register in the network */
+    public $newWebServiceUri = "";        
     
     function __construct()
     {
@@ -125,6 +137,18 @@
       
       /** URI of a named individual of the test ontology */
       $this->targetNamedIndividualUri = "http://foo.org/test#niA";      
+      
+      /** Title of a new web service endpoint to register in the network */
+      $this->newWebServiceTitle = "New Web Service Endpoint";        
+      
+      /** Endpoint URL of a new web service endpoint to register in the network */
+      $this->newWebServiceEndpointUrl = $this->endpointUrl."new/";        
+      
+      /** CRUD usage of a new web service endpoint to register in the network */
+      $this->newWebServiceCrudUsage = "True;True;True;True";
+      
+      /** URI of the resource representing a new web service endpoint to register in the network */
+      $this->newWebServiceUri = $this->endpointUri."new/";
       
       /** String to use to update (change) values of the triples of a dataset description */
       $this->datasetUpdateString = "-update";

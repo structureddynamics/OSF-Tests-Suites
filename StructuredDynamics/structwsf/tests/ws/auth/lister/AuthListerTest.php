@@ -105,7 +105,77 @@
           
           unset($wsq);
           unset($settings);
-        }                   
+        }      
+        
+        //
+        // Test existing interface
+        //
+        
+        public function testInterfaceExists() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getDatasetsUri($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->sourceInterface("default");
+          
+          $authLister->send();
+                               
+          $this->assertEquals($authLister->getStatus(), "200", "Debugging information: ".var_export($authLister, TRUE));                                       
+
+          utilities\deleteDataset();
+
+          unset($authLister);
+          unset($settings);
+        }  
+        
+        //
+        // Test unexisting interface
+        //
+        
+        public function testInterfaceNotExisting() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl);
+          
+          $authLister->mime("text/xml");
+          
+          $authLister->getDatasetsUri($settings->testDataset);
+          
+          $authLister->includeAllWebServiceUris();
+          
+          $authLister->registeredIp("self");
+          
+          $authLister->sourceInterface("default-not-existing");
+          
+          $authLister->send();
+                               
+          $this->assertEquals($authLister->getStatus(), "400", "Debugging information: ".var_export($authLister, TRUE));                                       
+          $this->assertEquals($authLister->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authLister, TRUE));
+          $this->assertEquals($authLister->error->id, "WS-AUTH-LISTER-305", "Debugging information: ".var_export($authLister, TRUE));                                       
+
+          utilities\deleteDataset();
+
+          unset($authLister);
+          unset($settings);
+        }  
         
         //
         // Test all serializations of the mode=dataset param
