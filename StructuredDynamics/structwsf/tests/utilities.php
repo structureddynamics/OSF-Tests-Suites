@@ -260,7 +260,7 @@
                                  "&registered_ip=" . urlencode("Self"));    
     
     if($wsq->getStatus() != "200")
-    {            
+    { 
       return(FALSE);
     }
     

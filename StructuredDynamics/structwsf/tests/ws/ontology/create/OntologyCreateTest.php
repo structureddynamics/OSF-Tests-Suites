@@ -79,6 +79,73 @@
       unset($settings);
     }    
     
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteOntology();
+                 
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+      
+      $ontologyCreate->uri($settings->testOntologyUri);
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->sourceInterface("default");
+      
+      $ontologyCreate->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion);
+      
+      $ontologyCreate->send();
+                           
+      $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+
+      utilities\deleteOntology();
+
+      unset($ontologyCreate);
+      unset($settings);    
+    }
+    
+    
+    public function testInvalidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteOntology();
+                 
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+      
+      $ontologyCreate->uri($settings->testOntologyUri);
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $ontologyCreate->globalPermissions($permissions);
+      
+      $ontologyCreate->enableAdvancedIndexation();
+      
+      $ontologyCreate->enableReasoner();
+      
+      $ontologyCreate->sourceInterface("default");
+      
+      $ontologyCreate->sourceInterfaceVersion("667.4");
+      
+      $ontologyCreate->send();
+                           
+      $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+      $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));
+      $this->assertEquals($ontologyCreate->error->id, "WS-ONTOLOGY-CREATE-304", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+
+      utilities\deleteOntology();
+
+      unset($ontologyCreate);
+      unset($settings);    
+    }    
+    
     //
     // Test existing interface
     //

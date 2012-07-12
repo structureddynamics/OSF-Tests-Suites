@@ -76,6 +76,53 @@
       unset($settings);
     }   
     
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+      
+      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
+                                   "post", 
+                                   "text/xml",
+                                   "ontology=" . urlencode($settings->testOntologyUri) .
+                                   "&function=" . urlencode("getSerialized") .
+                                   "&parameters=" .
+                                   "&interface=default".
+                                   "&version=".$settings->ontologyReadInterfaceVersion .
+                                   "&reasoner=" . urlencode("True") .
+                                   "&registered_ip=self");
+      
+      $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
+      
+      utilities\validateParameterApplicationRdfXml($this, $wsq);
+                                   
+      unset($wsq);
+      unset($settings);   
+    }
+    
+    
+    public function testInvalidInterfaceVersion() {
+      
+      $settings = new Config();  
+      
+      $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/read/", 
+                                   "post", 
+                                   "text/xml",
+                                   "ontology=" . urlencode($settings->testOntologyUri) .
+                                   "&function=" . urlencode("getSerialized") .
+                                   "&parameters=" .
+                                   "&interface=default".
+                                   "&version=667.4".
+                                   "&reasoner=" . urlencode("True") .
+                                   "&registered_ip=self");
+      
+      $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
+      $this->assertEquals($wsq->error->id, "WS-ONTOLOGY-READ-302", "Debugging information: ".var_export($wsq, TRUE));                                                                          
+                                   
+      unset($wsq);
+      unset($settings);   
+    }    
+    
     //
     // Test existing interface
     //

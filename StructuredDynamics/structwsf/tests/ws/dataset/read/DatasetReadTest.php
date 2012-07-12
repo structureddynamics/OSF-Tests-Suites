@@ -73,6 +73,69 @@
       unset($settings);
     }    
     
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("text/xml");
+      
+      $datasetRead->uri($settings->testDataset);
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->sourceInterface("default");
+      
+      $datasetRead->sourceInterfaceVersion($settings->datasetReadInterfaceVersion);
+      
+      $datasetRead->send();
+                           
+      $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetRead);
+      unset($settings);  
+    }
+    
+    
+    public function testInvalidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+
+      $datasetRead->mime("text/xml");
+      
+      $datasetRead->uri($settings->testDataset);
+      
+      $datasetRead->includeMeta();
+      
+      $datasetRead->sourceInterface("default");
+      
+      $datasetRead->sourceInterfaceVersion("667.4");
+      
+      $datasetRead->send();
+                           
+      $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));
+      $this->assertEquals($datasetRead->error->id, "WS-DATASET-READ-307", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetRead);
+      unset($settings);
+    }    
+    
     //
     // Test existing interface
     //

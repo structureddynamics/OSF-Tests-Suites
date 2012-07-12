@@ -76,6 +76,77 @@
       unset($settings);
     }    
     
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      
+      $datasetUpdate->uri($settings->testDataset);
+      
+      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->modified(date("Y-n-j"));
+      
+      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
+      
+      $datasetUpdate->sourceInterface("default");
+      
+      $datasetUpdate->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion);
+      
+      $datasetUpdate->send();
+                           
+      $this->assertEquals($datasetUpdate->getStatus(), "200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetUpdate);
+      unset($settings);
+    }
+    
+    
+    public function testInvalidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      
+      $datasetUpdate->uri($settings->testDataset);
+      
+      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
+      
+      $datasetUpdate->modified(date("Y-n-j"));
+      
+      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
+      
+      $datasetUpdate->sourceInterface("default");
+      
+      $datasetUpdate->sourceInterfaceVersion("667.4");
+      
+      $datasetUpdate->send();
+                           
+      $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
+      $this->assertEquals($datasetUpdate->error->id, "WS-DATASET-UPDATE-305", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetUpdate);
+      unset($settings);
+    }    
+    
     //
     // Test existing interface
     //

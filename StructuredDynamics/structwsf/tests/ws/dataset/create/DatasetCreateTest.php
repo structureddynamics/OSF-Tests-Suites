@@ -79,6 +79,84 @@
       unset($settings);
     }    
     
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      // Make sure the dataset doesn't exists
+      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+            
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+      
+      $datasetCreate->uri($settings->testDataset);
+      
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("http://test.com/user/bob/");
+      
+      $datasetCreate->sourceInterface("default");
+      
+      $datasetCreate->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion);
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send();
+                           
+      $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetCreate);
+      unset($settings);  
+    }
+    
+    
+    public function testInvalidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      // Make sure the dataset doesn't exists
+      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+            
+      $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+      
+      $datasetCreate->uri($settings->testDataset);
+      
+      $datasetCreate->title("This is a testing dataset");
+      
+      $datasetCreate->description("This is a testing dataset");
+      
+      $datasetCreate->creator("http://test.com/user/bob/");
+      
+      $datasetCreate->sourceInterface("default");
+      
+      $datasetCreate->sourceInterfaceVersion("667.4");
+      
+      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      
+      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+      
+      $datasetCreate->globalPermissions($permissions);
+      
+      $datasetCreate->send();
+                           
+      $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
+      $this->assertEquals($datasetCreate->error->id, "WS-DATASET-CREATE-302", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetCreate);
+      unset($settings);                             
+    }    
+    
+    
     //
     // Test existing interface
     //

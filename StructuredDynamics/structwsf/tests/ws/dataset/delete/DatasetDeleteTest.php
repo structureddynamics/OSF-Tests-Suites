@@ -68,6 +68,61 @@
       unset($settings);
     }    
     
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      
+      $datasetDelete->uri($settings->testDataset);
+      
+      $datasetDelete->sourceInterface("default");
+      
+      $datasetDelete->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion);
+
+      $datasetDelete->send();
+                           
+      $this->assertEquals($datasetDelete->getStatus(), "200", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetDelete);
+      unset($settings);  
+    }
+    
+    
+    public function testInvalidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      
+      $datasetDelete->uri($settings->testDataset);
+      
+      $datasetDelete->sourceInterface("default");
+      
+      $datasetDelete->sourceInterfaceVersion("667.4");
+
+      $datasetDelete->send();
+                           
+      $this->assertEquals($datasetDelete->getStatus(), "400", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
+      $this->assertEquals($datasetDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetDelete, TRUE));
+      $this->assertEquals($datasetDelete->error->id, "WS-DATASET-DELETE-308", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($datasetDelete);
+      unset($settings);  
+    }    
+    
     //
     // Test existing interface
     //

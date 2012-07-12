@@ -102,6 +102,65 @@
       unset($settings);
     }   
     
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteOntology();
+      
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $ontologyDelete->deleteOntology();
+      
+      $ontologyDelete->sourceInterface("default");
+      
+      $ontologyDelete->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion);
+      
+      $ontologyDelete->send();
+                           
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($ontologyDelete);
+      unset($settings);   
+    }
+    
+    
+    public function testInvalidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteOntology();
+      
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
+      
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->ontology($settings->testOntologyUri);
+      
+      $ontologyDelete->deleteOntology();
+      
+      $ontologyDelete->sourceInterface("default");
+      
+      $ontologyDelete->sourceInterfaceVersion("667.4");
+      
+      $ontologyDelete->send();
+                           
+      $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+      $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
+      $this->assertEquals($ontologyDelete->error->id, "WS-ONTOLOGY-DELETE-302", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($ontologyDelete);
+      unset($settings);                              
+    }    
+    
     //
     // Test existing interface
     //

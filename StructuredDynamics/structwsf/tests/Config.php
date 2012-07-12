@@ -83,7 +83,34 @@
     public $newWebServiceCrudUsage = "";        
     
     /** URI of the resource representing a new web service endpoint to register in the network */
-    public $newWebServiceUri = "";        
+    public $newWebServiceUri = "";     
+    
+    /** Auth Validator web service endpoint's interface version */
+    public $authValidatorInterfaceVersion = "";   
+    
+    /** Auth Lister web service endpoint's interface version */
+    public $authListerInterfaceVersion = "";   
+    
+    /** Dataset Create web service endpoint's interface version */
+    public $datasetCreateInterfaceVersion = "";   
+    
+    /** Dataset Read web service endpoint's interface version */
+    public $datasetReadInterfaceVersion = "";   
+    
+    /** Dataset Update web service endpoint's interface version */
+    public $datasetUpdateInterfaceVersion = "";   
+    
+    /** Dataset Delete web service endpoint's interface version */
+    public $datasetDeleteInterfaceVersion = "";   
+    
+    /** Ontology Create web service endpoint's interface version */
+    public $ontologyCreateInterfaceVersion = "";   
+    
+    /** Ontology Delete web service endpoint's interface version */
+    public $ontologyDeleteInterfaceVersion = "";   
+    
+    /** Ontology Read web service endpoint's interface version */
+    public $ontologyReadInterfaceVersion = "";   
     
     function __construct()
     {
@@ -152,6 +179,33 @@
       
       /** String to use to update (change) values of the triples of a dataset description */
       $this->datasetUpdateString = "-update";
+      
+      /** Auth Validator web service endpoint's interface version */
+      $this->authValidatorInterfaceVersion = "1.0";   
+      
+      /** Auth Lister web service endpoint's interface version */
+      $this->authListerInterfaceVersion = "1.0";   
+      
+      /** Dataset Create web service endpoint's interface version */
+      $this->datasetCreateInterfaceVersion = "1.0";   
+      
+      /** Dataset Read web service endpoint's interface version */
+      $this->datasetReadInterfaceVersion = "1.0";   
+      
+      /** Dataset Update web service endpoint's interface version */
+      $this->datasetUpdateInterfaceVersion = "1.0";   
+      
+      /** Dataset Delete web service endpoint's interface version */
+      $this->datasetDeleteInterfaceVersion = "1.0";   
+      
+      /** Ontology Create web service endpoint's interface version */
+      $this->ontologyCreateInterfaceVersion = "1.0";   
+      
+      /** Ontology Delete web service endpoint's interface version */
+      $this->ontologyDeleteInterfaceVersion = "1.0";   
+      
+      /** Ontology Read web service endpoint's interface version */
+      $this->ontologyReadInterfaceVersion = "1.0";        
             
       $this->datasetWebservices = $this->endpointUri."auth/validator/;".
                                   $this->endpointUri."auth/lister/;".

@@ -74,6 +74,69 @@
       unset($settings);
     }    
     
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']));
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->sourceInterface("default");
+
+      $authValidator->sourceInterfaceVersion($settings->authValidatorInterfaceVersion);
+      
+      $authValidator->send();
+                           
+      $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($authValidator);
+      unset($settings);    
+    }
+    
+    
+    public function testInvalidInterfaceVersion() {
+      
+      $settings = new Config();  
+
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+      
+      $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
+      
+      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']));
+      
+      $authValidator->datasets(array($settings->testDataset));
+      
+      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
+      
+      $authValidator->sourceInterface("default");
+
+      $authValidator->sourceInterfaceVersion("667.4");
+      
+      $authValidator->send();
+                           
+      $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
+      $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
+      $this->assertEquals($authValidator->error->id, "WS-AUTH-VALIDATOR-309", "Debugging information: ".var_export($authValidator, TRUE));                                       
+
+      utilities\deleteDataset();
+
+      unset($authValidator);
+      unset($settings);    
+    }    
+    
     //
     // Test existing interface
     //
