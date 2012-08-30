@@ -81,7 +81,14 @@ echo -e "\n\n"
 
 cecho "\n\nInstall PHPUnit...\n"
 
-sudo apt-get install -y phpunit
+sudo apt-get install -y php-pear
+
+pear channel-discover pear.phpunit.de
+pear channel-discover pear.symfony-project.com
+pear upgrade-all
+
+sudo pear install --force --alldeps phpunit/PHPUnit
+
 
 # Download the tests suites, and move them into the structwsf folder.
 sudo mkdir tests
