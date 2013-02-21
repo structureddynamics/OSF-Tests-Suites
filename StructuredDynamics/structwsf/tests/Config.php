@@ -112,6 +112,9 @@
     /** Ontology Read web service endpoint's interface version */
     public $ontologyReadInterfaceVersion = "";   
     
+    /** structWSF web service interface to use for all endpoints */
+    public $webServiceInterface = "";
+    
     function __construct()
     {
       /** 
@@ -122,6 +125,13 @@
       {
         $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
       }
+      
+      /** 
+        structWSF web service interface to use for all endpoints 
+        Note: if you specify "default", then the default interfaces defined in the
+              network.ini file will be used for the calls
+      */
+      $this->webServiceInterface = "DefaultSourceInterface";
         
       /** Folder where PHPUnit is installed on the server */
       $this->phpUnitInstallFolder = "/usr/share/php/PHPUnit/";
