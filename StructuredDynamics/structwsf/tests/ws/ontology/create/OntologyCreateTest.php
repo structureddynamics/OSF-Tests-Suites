@@ -49,6 +49,8 @@
                                    "&globalPermissions=" . urlencode("True;True;True;True") .
                                    "&advancedIndexation=" . urlencode("True") .
                                    "&reasoner=" . urlencode("True") .
+                                   "&interface=". urlencode($settings->ontologyCreateInterface) .
+                                   "&version=". urlencode($settings->ontologyCreateInterfaceVersion) .
                                    "&registered_ip=" . urlencode("Self"));        
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -69,6 +71,8 @@
                                    "&globalPermissions=" . urlencode("True;True;True;True") .
                                    "&advancedIndexation=" . urlencode("True") .
                                    "&reasoner=" . urlencode("True") .
+                                   "&interface=". urlencode($settings->ontologyCreateInterface) .
+                                   "&version=". urlencode($settings->ontologyCreateInterfaceVersion) .
                                    "&registered_ip=" . urlencode("Self"));        
 
                                    
@@ -91,17 +95,12 @@
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->sourceInterface("default");
-      
-      $ontologyCreate->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion);
-      
-      $ontologyCreate->send();
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();
                            
       $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
 
@@ -124,17 +123,12 @@
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->sourceInterface("default");
-      
-      $ontologyCreate->sourceInterfaceVersion("667.4");
-      
-      $ontologyCreate->send();
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion("667.4")
+                     ->send();
                            
       $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));
@@ -162,15 +156,12 @@
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->sourceInterface("default");
-      
-      $ontologyCreate->send();
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();
                            
       $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
 
@@ -196,15 +187,12 @@
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->sourceInterface("default-not-existing");
-      
-      $ontologyCreate->send();
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface("default-not-existing")
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();
                            
       $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));
@@ -228,13 +216,12 @@
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->send();
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();
                                    
       $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       
@@ -257,13 +244,12 @@
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->send();          
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();          
 
       $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       
@@ -271,15 +257,13 @@
       
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
       
-      $ontologyRead->mime("application/rdf+xml");
-      
-      $ontologyRead->ontology($settings->testOntologyUri);
-      
-      $ontologyRead->getSerialized();
-      
-      $ontologyRead->enableReasoner();
-
-      $ontologyRead->send();     
+      $ontologyRead->mime("application/rdf+xml")
+                   ->ontology($settings->testOntologyUri)
+                   ->getSerialized()
+                   ->enableReasoner()
+                   ->sourceInterface($settings->ontologyCreateInterface)
+                   ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                   ->send();     
 
       $this->assertEquals($ontologyRead->getStatus(), "200", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
       
@@ -300,16 +284,15 @@
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
       
       $ontologyCreate->uri("");
-      
+                     
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->send();        
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();        
                                    
       $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));
@@ -333,13 +316,12 @@
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->send();              
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();              
 
                                    
       $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
@@ -362,13 +344,12 @@
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $ontologyCreate->globalPermissions($permissions);
-      
-      $ontologyCreate->enableAdvancedIndexation();
-      
-      $ontologyCreate->enableReasoner();
-      
-      $ontologyCreate->send();        
+      $ontologyCreate->globalPermissions($permissions)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();        
                                    
       $this->assertEquals($ontologyCreate->getStatus(), "400", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       $this->assertEquals($ontologyCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyCreate, TRUE));

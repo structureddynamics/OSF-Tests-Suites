@@ -4,7 +4,6 @@
   <testsuites>
     <testsuite name="Authentication Webservice Endpoints">
       <file>REPLACEME/tests/ws/auth/validator/AuthValidatorTest.php</file>
-      <file>REPLACEME/tests/ws/auth/registrar/ws/AuthRegistrarWsTest.php</file>
       <file>REPLACEME/tests/ws/auth/lister/AuthListerTest.php</file>
     </testsuite>
     <testsuite name="Datasets Webservice Endpoints">
@@ -16,7 +15,6 @@
     <testsuite name="Ontologies Webservice Endpoints">
       <file>REPLACEME/tests/ws/ontology/create/OntologyCreateTest.php</file>
       <file>REPLACEME/tests/ws/ontology/delete/OntologyDeleteTest.php</file>
-      <file>REPLACEME/tests/ws/ontology/read/OntologyReadTest.php</file>
     </testsuite>
   </testsuites>
 </phpunit>

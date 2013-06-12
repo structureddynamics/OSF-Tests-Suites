@@ -47,6 +47,8 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
+                                   "&interface=". urlencode($settings->datasetUpdateInterface) .
+                                   "&version=". urlencode($settings->datasetUpdateInterfaceVersion) .
                                    "&modified=" . urlencode(date("Y-n-j")));
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -67,6 +69,8 @@
                                    "&title=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&description=" . urlencode("This is a testing dataset".$settings->datasetUpdateString) .
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
+                                   "&interface=". urlencode($settings->datasetUpdateInterface) .
+                                   "&version=". urlencode($settings->datasetUpdateInterfaceVersion) .
                                    "&modified=" . urlencode(date("Y-n-j")));
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -86,21 +90,14 @@
             
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset);
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->sourceInterface("default");
-      
-      $datasetUpdate->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion);
-      
-      $datasetUpdate->send();
+      $datasetUpdate->uri($settings->testDataset)
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($datasetUpdate->getStatus(), "200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
 
@@ -121,21 +118,14 @@
             
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset);
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->sourceInterface("default");
-      
-      $datasetUpdate->sourceInterfaceVersion("667.4");
-      
-      $datasetUpdate->send();
+      $datasetUpdate->uri($settings->testDataset)
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion("667.4")
+                    ->send();
                            
       $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
@@ -161,19 +151,14 @@
             
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset);
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->sourceInterface("default");
-      
-      $datasetUpdate->send();
+      $datasetUpdate->uri($settings->testDataset)
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($datasetUpdate->getStatus(), "200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
 
@@ -197,19 +182,14 @@
             
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset);
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->sourceInterface("default-not-existing");
-      
-      $datasetUpdate->send();
+      $datasetUpdate->uri($settings->testDataset)
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface("default-not-existing")
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
@@ -231,17 +211,14 @@
             
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset);
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->send();
+      $datasetUpdate->uri($settings->testDataset)
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();
                                    
       $this->assertEquals($datasetUpdate->getStatus(), "200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       
@@ -262,17 +239,14 @@
       
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset);
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->send();      
+      $datasetUpdate->uri($settings->testDataset)
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();      
                                    
       $this->assertEquals($datasetUpdate->getStatus(), "200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       $resultset = utilities\readDataset();
@@ -302,17 +276,14 @@
       
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri("");
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->send();      
+      $datasetUpdate->uri("")
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();      
                                    
       $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
@@ -334,17 +305,14 @@
 
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset . "<>");
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->send();      
+      $datasetUpdate->uri($settings->testDataset . "<>")
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();      
                                    
       $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
@@ -366,17 +334,14 @@
       
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset . "missing/");
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"));
-      
-      $datasetUpdate->send();      
+      $datasetUpdate->uri($settings->testDataset . "missing/")
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();      
                                    
       $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
@@ -398,17 +363,14 @@
       
       $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
       
-      $datasetUpdate->uri($settings->testDataset);
-      
-      $datasetUpdate->title("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->description("This is a testing dataset".$settings->datasetUpdateString);
-      
-      $datasetUpdate->modified(date("Y-n-j"));
-      
-      $datasetUpdate->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/" . "<>"));
-      
-      $datasetUpdate->send();      
+      $datasetUpdate->uri($settings->testDataset)
+                    ->title("This is a testing dataset".$settings->datasetUpdateString)
+                    ->description("This is a testing dataset".$settings->datasetUpdateString)
+                    ->modified(date("Y-n-j"))
+                    ->contributors(array("http://test.com/user/bob".$settings->datasetUpdateString."/" . "<>"))
+                    ->sourceInterface($settings->datasetUpdateInterface)
+                    ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
+                    ->send();      
                                    
       $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));

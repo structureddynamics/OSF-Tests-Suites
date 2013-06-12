@@ -53,6 +53,8 @@
                                    "ontology=" . urlencode($settings->testOntologyUri) .
                                    "&function=" . urlencode("deleteOntology") .
                                    "&parameters=" . urlencode("") .
+                                   "&interface=". urlencode($settings->ontologyDeleteInterface) .
+                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion) .
                                    "&registered_ip=" . urlencode("self"));
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -72,6 +74,8 @@
                                    "ontology=" . urlencode($settings->testOntologyUri) .
                                    "&function=" . urlencode("deleteOntology") .
                                    "&parameters=" . urlencode("") .
+                                   "&interface=". urlencode($settings->ontologyDeleteInterface) .
+                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion) .
                                    "&registered_ip=" . urlencode("self"));
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -92,6 +96,8 @@
                                    "ontology=" . urlencode($settings->testOntologyUri) .
                                    "&function=" . urlencode("deleteOntology" . "unknown") .
                                    "&parameters=" . urlencode("") .
+                                   "&interface=". urlencode($settings->ontologyDeleteInterface) .
+                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion) .
                                    "&registered_ip=" . urlencode("self"));
                                    
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -112,15 +118,12 @@
       
       $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      $ontologyDelete->ontology($settings->testOntologyUri);
-      
-      $ontologyDelete->deleteOntology();
-      
-      $ontologyDelete->sourceInterface("default");
-      
-      $ontologyDelete->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion);
-      
-      $ontologyDelete->send();
+      $ontologyDelete->ontology($settings->testOntologyUri)
+                     ->deleteOntology()
+                     ->sourceInterface("default")
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();
                            
       $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
 
@@ -141,15 +144,11 @@
       
       $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      $ontologyDelete->ontology($settings->testOntologyUri);
-      
-      $ontologyDelete->deleteOntology();
-      
-      $ontologyDelete->sourceInterface("default");
-      
-      $ontologyDelete->sourceInterfaceVersion("667.4");
-      
-      $ontologyDelete->send();
+      $ontologyDelete->ontology($settings->testOntologyUri)
+                     ->deleteOntology()
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion("667.4")
+                     ->send();
                            
       $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
       $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
@@ -175,13 +174,11 @@
       
       $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      $ontologyDelete->ontology($settings->testOntologyUri);
-      
-      $ontologyDelete->deleteOntology();
-      
-      $ontologyDelete->sourceInterface("default");
-      
-      $ontologyDelete->send();
+      $ontologyDelete->ontology($settings->testOntologyUri)
+                     ->deleteOntology()
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();
                            
       $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
 
@@ -205,13 +202,11 @@
       
       $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      $ontologyDelete->ontology($settings->testOntologyUri);
-      
-      $ontologyDelete->deleteOntology();
-      
-      $ontologyDelete->sourceInterface("default-not-existing");
-      
-      $ontologyDelete->send();
+      $ontologyDelete->ontology($settings->testOntologyUri)
+                     ->deleteOntology()
+                     ->sourceInterface("default-not-existing")
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();
                            
       $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
       $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
@@ -229,11 +224,11 @@
       
       $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      $ontologyDelete->ontology("");
-      
-      $ontologyDelete->deleteOntology();
-      
-      $ontologyDelete->send();
+      $ontologyDelete->ontology("")
+                     ->deleteOntology()
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();
                                          
       $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
       $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
@@ -255,9 +250,10 @@
       
       $deletePropertyFunction->uri("");
       
-      $ontologyDelete->deleteProperty($deletePropertyFunction);
-      
-      $ontologyDelete->send();
+      $ontologyDelete->deleteProperty($deletePropertyFunction)
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();
                                    
       $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
       $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
@@ -279,9 +275,10 @@
       
       $deleteNamedIndividualFunction->uri("");
       
-      $ontologyDelete->deleteNamedIndividual($deleteNamedIndividualFunction);
-      
-      $ontologyDelete->send();      
+      $ontologyDelete->deleteNamedIndividual($deleteNamedIndividualFunction)
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();      
                                    
       $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
       $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
@@ -303,9 +300,10 @@
       
       $deleteClassFunction->uri("");
       
-      $ontologyDelete->deleteClass($deleteClassFunction);
-      
-      $ontologyDelete->send();      
+      $ontologyDelete->deleteClass($deleteClassFunction)
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();      
                                    
       $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
       $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
@@ -325,11 +323,11 @@
       
       $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
       
-      $ontologyDelete->ontology($settings->testOntologyUri);
-      
-      $ontologyDelete->deleteOntology();
-      
-      $ontologyDelete->send();
+      $ontologyDelete->ontology($settings->testOntologyUri)
+                     ->deleteOntology()
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();
                                    
       $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
@@ -337,21 +335,17 @@
       
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
       
-      $ontologyRead->mime("application/rdf+xml");
-      
-      $ontologyRead->ontology($settings->testOntologyUri);
-      
-      $ontologyRead->getSerialized();
-      
-      $ontologyRead->enableReasoner();
+      $ontologyRead->mime("application/rdf+xml")
+                   ->ontology($settings->testOntologyUri)
+                   ->getSerialized()
+                   ->enableReasoner()
+                   ->sourceInterface($settings->ontologyReadInterface)
+                   ->sourceInterfaceVersion($settings->ontologyReadInterfaceVersion)
+                   ->send();             
 
-      $ontologyRead->send();             
-
-      // Since the ontology is not existing anymore, there is not auth information, so it means it as been
-      // properly deleted.                                   
-      $this->assertEquals($ontologyRead->getStatus(), "403", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
-      $this->assertEquals($ontologyRead->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($ontologyRead, TRUE));
-      $this->assertEquals($ontologyRead->error->id, "WS-AUTH-VALIDATOR-303", "Debugging information: ".var_export($ontologyRead, TRUE));    
+      $this->assertEquals($ontologyRead->getStatus(), "400", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      $this->assertEquals($ontologyRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertEquals($ontologyRead->error->id, "WS-ONTOLOGY-READ-300", "Debugging information: ".var_export($ontologyRead, TRUE));    
 
       unset($ontologyRead);      
       unset($settings);
@@ -376,9 +370,10 @@
       
       $deletePropertyFunction->uri($settings->targetDatatypePropertyUri);
       
-      $ontologyDelete->deleteProperty($deletePropertyFunction);
-      
-      $ontologyDelete->send();      
+      $ontologyDelete->deleteProperty($deletePropertyFunction)
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();      
       
       $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
@@ -386,19 +381,18 @@
       
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
       
-      $ontologyRead->mime("application/rdf+xml");
-      
-      $ontologyRead->ontology($settings->testOntologyUri);
+      $ontologyRead->mime("application/rdf+xml")
+                   ->ontology($settings->testOntologyUri);
       
       $getPropertyFunction = new GetPropertyFunction();
       
       $getPropertyFunction->uri($settings->targetDatatypePropertyUri);
       
-      $ontologyRead->getProperty($getPropertyFunction);
-      
-      $ontologyRead->enableReasoner();
-
-      $ontologyRead->send();        
+      $ontologyRead->getProperty($getPropertyFunction)
+                   ->enableReasoner()
+                   ->sourceInterface($settings->ontologyReadInterface)
+                   ->sourceInterfaceVersion($settings->ontologyReadInterfaceVersion)
+                   ->send();        
       
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
@@ -430,9 +424,10 @@
       
       $deletePropertyFunction->uri($settings->targetObjectPropertyUri);
       
-      $ontologyDelete->deleteProperty($deletePropertyFunction);
-      
-      $ontologyDelete->send();       
+      $ontologyDelete->deleteProperty($deletePropertyFunction)
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();       
                                    
       $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
@@ -441,19 +436,18 @@
       // Make sure it is deleted      
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
       
-      $ontologyRead->mime("application/rdf+xml");
-      
-      $ontologyRead->ontology($settings->testOntologyUri);
+      $ontologyRead->mime("application/rdf+xml")
+                   ->ontology($settings->testOntologyUri);
       
       $getPropertyFunction = new GetPropertyFunction();
       
       $getPropertyFunction->uri($settings->targetObjectPropertyUri);
       
-      $ontologyRead->getProperty($getPropertyFunction);
-      
-      $ontologyRead->enableReasoner();
-
-      $ontologyRead->send();             
+      $ontologyRead->getProperty($getPropertyFunction)
+                   ->enableReasoner()
+                   ->sourceInterface($settings->ontologyReadInterface)
+                   ->sourceInterfaceVersion($settings->ontologyReadInterfaceVersion)
+                   ->send();             
 
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
@@ -485,9 +479,10 @@
       
       $deletePropertyFunction->uri($settings->targetAnnotationPropertyUri);
       
-      $ontologyDelete->deleteProperty($deletePropertyFunction);
-      
-      $ontologyDelete->send();        
+      $ontologyDelete->deleteProperty($deletePropertyFunction)
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();        
                                    
       $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
@@ -496,19 +491,18 @@
       // Make sure it is deleted     
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
       
-      $ontologyRead->mime("application/rdf+xml");
-      
-      $ontologyRead->ontology($settings->testOntologyUri);
+      $ontologyRead->mime("application/rdf+xml")
+                   ->ontology($settings->testOntologyUri);
       
       $getPropertyFunction = new GetPropertyFunction();
       
       $getPropertyFunction->uri($settings->targetAnnotationPropertyUri);
       
-      $ontologyRead->getProperty($getPropertyFunction);
-      
-      $ontologyRead->enableReasoner();
-
-      $ontologyRead->send();    
+      $ontologyRead->getProperty($getPropertyFunction)
+                   ->enableReasoner()
+                   ->sourceInterface($settings->ontologyReadInterface)
+                   ->sourceInterfaceVersion($settings->ontologyReadInterfaceVersion)
+                   ->send();    
 
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
@@ -540,9 +534,10 @@
       
       $deleteClassFunction->uri($settings->targetClassUri);
       
-      $ontologyDelete->deleteClass($deleteClassFunction);
-      
-      $ontologyDelete->send();        
+      $ontologyDelete->deleteClass($deleteClassFunction)
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();        
       
       $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
@@ -555,19 +550,18 @@
       // Make sure it is deleted      
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
       
-      $ontologyRead->mime("application/rdf+xml");
-      
-      $ontologyRead->ontology($settings->testOntologyUri);
+      $ontologyRead->mime("application/rdf+xml")
+                   ->ontology($settings->testOntologyUri);
       
       $getClassFunction = new GetClassFunction();
       
       $getClassFunction->uri($settings->targetClassUri);
       
-      $ontologyRead->getClass($getClassFunction);
-      
-      $ontologyRead->enableReasoner();
-
-      $ontologyRead->send();  
+      $ontologyRead->getClass($getClassFunction)
+                   ->enableReasoner()
+                   ->sourceInterface($settings->ontologyReadInterface)
+                   ->sourceInterfaceVersion($settings->ontologyReadInterfaceVersion)
+                   ->send();  
          
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   
@@ -599,9 +593,10 @@
       
       $deleteNamedIndividualFunction->uri($settings->targetNamedIndividualUri);
       
-      $ontologyDelete->deleteNamedIndividual($deleteNamedIndividualFunction);
-      
-      $ontologyDelete->send();        
+      $ontologyDelete->deleteNamedIndividual($deleteNamedIndividualFunction)
+                     ->sourceInterface($settings->ontologyDeleteInterface)
+                     ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                     ->send();        
                                          
       $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
@@ -614,19 +609,18 @@
       // Make sure it is deleted      
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
       
-      $ontologyRead->mime("application/rdf+xml");
-      
-      $ontologyRead->ontology($settings->testOntologyUri);
+      $ontologyRead->mime("application/rdf+xml")
+                   ->ontology($settings->testOntologyUri);
       
       $getNamedIndividualFunction = new GetNamedIndividualFunction();
       
       $getNamedIndividualFunction->uri($settings->targetNamedIndividualUri);
       
-      $ontologyRead->getNamedIndividual($getNamedIndividualFunction);
-      
-      $ontologyRead->enableReasoner();
-
-      $ontologyRead->send();        
+      $ontologyRead->getNamedIndividual($getNamedIndividualFunction)
+                   ->enableReasoner()
+                   ->sourceInterface($settings->ontologyReadInterface)
+                   ->sourceInterfaceVersion($settings->ontologyReadInterfaceVersion)
+                   ->send();        
 
       // Since the ontology is not existing anymore, there is not auth information, so it means it as been
       // properly deleted.                                   

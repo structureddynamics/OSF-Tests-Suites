@@ -46,6 +46,8 @@
                                        "mode=" . urlencode("dataset") .
                                        "&dataset=" . urlencode($settings->testDataset) .
                                        "&target_webservice=" . urlencode("all") .
+                                       "&interface=". urlencode($settings->authListerInterface) .
+                                       "&version=". urlencode($settings->authListerInterfaceVersion) .
                                        "&registered_ip=" . urlencode("self"));
                                        
           $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -71,6 +73,8 @@
                                        "mode=" . urlencode("dataset") .
                                        "&dataset=" . urlencode($settings->testDataset) .
                                        "&target_webservice=" . urlencode("all") .
+                                       "&interface=". urlencode($settings->authListerInterface) .
+                                       "&version=". urlencode($settings->authListerInterfaceVersion) .
                                        "&registered_ip=" . urlencode("self"));
                                        
           $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -96,6 +100,8 @@
                                        "mode=" . urlencode("dataset") .
                                        "&dataset=" . urlencode($settings->testDataset) .
                                        "&target_webservice=" . urlencode("all") .
+                                       "&interface=". urlencode($settings->authListerInterface) .
+                                       "&version=". urlencode($settings->authListerInterfaceVersion) .
                                        "&registered_ip=" . urlencode("self"));
                                        
           $this->assertEquals($wsq->getStatus(), "406", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -117,19 +123,13 @@
         
         $authLister = new AuthListerQuery($settings->endpointUrl);
         
-        $authLister->mime("text/xml");
-        
-        $authLister->getDatasetsUri($settings->testDataset);
-        
-        $authLister->includeAllWebServiceUris();
-        
-        $authLister->registeredIp("self");
-        
-        $authLister->sourceInterface("default");
-        
-        $authLister->sourceInterfaceVersion($settings->authValidatorInterfaceVersion);
-        
-        $authLister->send();
+        $authLister->mime("text/xml")
+                   ->getDatasetsUri($settings->testDataset)
+                   ->includeAllWebServiceUris()
+                   ->registeredIp("self")
+                   ->sourceInterface($settings->authListerInterface)
+                   ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                   ->send();
                              
         $this->assertEquals($authLister->getStatus(), "200", "Debugging information: ".var_export($authLister, TRUE));                                       
 
@@ -150,19 +150,13 @@
         
         $authLister = new AuthListerQuery($settings->endpointUrl);
         
-        $authLister->mime("text/xml");
-        
-        $authLister->getDatasetsUri($settings->testDataset);
-        
-        $authLister->includeAllWebServiceUris();
-        
-        $authLister->registeredIp("self");
-        
-        $authLister->sourceInterface("default");
-        
-        $authLister->sourceInterfaceVersion("667.4");
-        
-        $authLister->send();
+        $authLister->mime("text/xml")
+                   ->getDatasetsUri($settings->testDataset)
+                   ->includeAllWebServiceUris()
+                   ->registeredIp("self")
+                   ->sourceInterface($settings->authListerInterface)
+                   ->sourceInterfaceVersion("667.4")
+                   ->send();
                              
         $this->assertEquals($authLister->getStatus(), "400", "Debugging information: ".var_export($authLister, TRUE));                                       
         $this->assertEquals($authLister->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authLister, TRUE));
@@ -188,17 +182,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getDatasetsUri($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->sourceInterface("default");
-          
-          $authLister->send();
+          $authLister->mime("text/xml")
+                     ->getDatasetsUri($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                
           $this->assertEquals($authLister->getStatus(), "200", "Debugging information: ".var_export($authLister, TRUE));                                       
 
@@ -222,17 +212,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getDatasetsUri($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->sourceInterface("default-not-existing");
-          
-          $authLister->send();
+          $authLister->mime("text/xml")
+                     ->getDatasetsUri($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface("default-not-existing")
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                
           $this->assertEquals($authLister->getStatus(), "400", "Debugging information: ".var_export($authLister, TRUE));                                       
           $this->assertEquals($authLister->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authLister, TRUE));
@@ -258,15 +244,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getDatasetsUri($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("text/xml")
+                     ->getDatasetsUri($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                
           utilities\validateParameterTextXml($this, $authLister);
 
@@ -286,15 +270,13 @@
 
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/json");
-          
-          $authLister->getDatasetsUri($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/json")
+                     ->getDatasetsUri($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationJson($this, $authLister);
           
@@ -314,15 +296,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+xml");
-          
-          $authLister->getDatasetsUri($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/rdf+xml")
+                     ->getDatasetsUri($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationRdfXml($this, $authLister);
 
@@ -342,15 +322,13 @@
 
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+n3");
-          
-          $authLister->getDatasetsUri($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/rdf+n3")
+                     ->getDatasetsUri($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationRdfN3($this, $authLister);
 
@@ -374,15 +352,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getRegisteredWebServiceEndpointsUri();
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("text/xml")
+                     ->getRegisteredWebServiceEndpointsUri()
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
           
           utilities\validateParameterTextXml($this, $authLister);
 
@@ -402,15 +378,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/json");
-          
-          $authLister->getRegisteredWebServiceEndpointsUri();
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/json")
+                     ->getRegisteredWebServiceEndpointsUri()
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationJson($this, $authLister);
 
@@ -430,15 +404,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+xml");
-          
-          $authLister->getRegisteredWebServiceEndpointsUri();
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/rdf+xml")
+                     ->getRegisteredWebServiceEndpointsUri()
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                           
           utilities\validateParameterApplicationRdfXml($this, $authLister);
           
@@ -456,15 +428,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+n3");
-          
-          $authLister->getRegisteredWebServiceEndpointsUri();
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/rdf+n3")
+                     ->getRegisteredWebServiceEndpointsUri()
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationRdfN3($this, $authLister);
 
@@ -488,15 +458,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("text/xml")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                  
           utilities\validateParameterTextXml($this, $authLister);
          
@@ -516,15 +484,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/json");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/json")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
           
           utilities\validateParameterApplicationJson($this, $authLister);
           
@@ -544,15 +510,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+xml");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/rdf+xml")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationRdfXml($this, $authLister);
           
@@ -572,15 +536,13 @@
 
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+n3");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/rdf+n3")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationRdfN3($this, $authLister);
 
@@ -600,15 +562,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("text/xml")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->send();
           
           utilities\validateParameterTextXml($this, $authLister);
          
@@ -628,15 +588,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/json");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/json")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationJson($this, $authLister);
           
@@ -656,15 +614,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+xml");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/rdf+xml")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeNoWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->registeredIp("self")
+                     ->send();
                                 
           utilities\validateParameterApplicationRdfXml($this, $authLister);
           
@@ -684,15 +640,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+n3");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("application/rdf+n3")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                                 
           utilities\validateParameterApplicationRdfN3($this, $authLister);
 
@@ -712,15 +666,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();
+          $authLister->mime("text/xml")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
                  
           utilities\validateParameterTextXml($this, $authLister);
          
@@ -740,15 +692,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/json");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();          
+          $authLister->mime("application/json")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();          
                                 
           utilities\validateParameterApplicationJson($this, $authLister);
           
@@ -768,15 +718,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+xml");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();          
+          $authLister->mime("application/rdf+xml")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();          
                                 
           utilities\validateParameterApplicationRdfXml($this, $authLister);
           
@@ -796,15 +744,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+n3");
-          
-          $authLister->getDatasetUsersAccesses($settings->testDataset);
-          
-          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();          
+          $authLister->mime("application/rdf+n3")
+                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();          
         
           utilities\validateParameterApplicationRdfN3($this, $authLister);
 
@@ -828,15 +774,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();          
+          $authLister->mime("text/xml")
+                     ->getUserAccesses("self")
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();          
                                 
           utilities\validateParameterTextXml($this, $authLister);
           
@@ -856,15 +800,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/json");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();            
+          $authLister->mime("application/json")
+                     ->getUserAccesses("self")
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();            
                                 
           utilities\validateParameterApplicationJson($this, $authLister);
           
@@ -884,15 +826,13 @@
 
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+xml");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();            
+          $authLister->mime("application/rdf+xml")
+                     ->getUserAccesses("self")
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();            
                      
           utilities\validateParameterApplicationRdfXml($this, $authLister);
 
@@ -912,15 +852,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+n3");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeAllWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();            
+          $authLister->mime("application/rdf+n3")
+                     ->getUserAccesses("self")
+                     ->includeAllWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();            
           
           utilities\validateParameterApplicationRdfN3($this, $authLister);
           
@@ -940,15 +878,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();            
+          $authLister->mime("text/xml")
+                     ->getUserAccesses("self")
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();            
                                 
           utilities\validateParameterTextXml($this, $authLister);
           
@@ -968,15 +904,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/json");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();               
+          $authLister->mime("application/json")
+                     ->getUserAccesses("self")
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();               
                                 
           utilities\validateParameterApplicationJson($this, $authLister);
           
@@ -996,15 +930,13 @@
 
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+xml");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();     
+          $authLister->mime("application/rdf+xml")
+                     ->getUserAccesses("self")
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();     
                      
           utilities\validateParameterApplicationRdfXml($this, $authLister);
 
@@ -1024,15 +956,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+n3");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();               
+          $authLister->mime("application/rdf+n3")
+                     ->getUserAccesses("self")
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();               
                                 
           utilities\validateParameterApplicationRdfN3($this, $authLister);
           
@@ -1052,15 +982,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("text/xml");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeTargerWebServiceUri($settings->endpointUri."crud/create/");
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();               
+          $authLister->mime("text/xml")
+                     ->getUserAccesses("self")
+                     ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();               
                                 
           utilities\validateParameterTextXml($this, $authLister);
           
@@ -1080,15 +1008,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/json");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();               
+          $authLister->mime("application/json")
+                     ->getUserAccesses("self")
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();               
                                 
           utilities\validateParameterApplicationJson($this, $authLister);
           
@@ -1108,15 +1034,13 @@
 
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+xml");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();               
+          $authLister->mime("application/rdf+xml")
+                     ->getUserAccesses("self")
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();               
                      
           utilities\validateParameterApplicationRdfXml($this, $authLister);
 
@@ -1136,15 +1060,13 @@
           
           $authLister = new AuthListerQuery($settings->endpointUrl);
           
-          $authLister->mime("application/rdf+n3");
-          
-          $authLister->getUserAccesses("self");
-          
-          $authLister->includeNoWebServiceUris();
-          
-          $authLister->registeredIp("self");
-          
-          $authLister->send();               
+          $authLister->mime("application/rdf+n3")
+                     ->getUserAccesses("self")
+                     ->includeNoWebServiceUris()
+                     ->registeredIp("self")
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();               
                                 
           utilities\validateParameterApplicationRdfN3($this, $authLister);
           

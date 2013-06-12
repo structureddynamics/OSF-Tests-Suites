@@ -22,7 +22,7 @@
     public $testDataset = "";
     
     /** List of web services endpoint URI that are used on all testing datasets */
-    public $datasetWebservices = "";
+    public $datasetWebservices = array();
     
     /** The IP of the server that runs the tests. */
     public $requesterIP = "";
@@ -85,35 +85,86 @@
     /** URI of the resource representing a new web service endpoint to register in the network */
     public $newWebServiceUri = "";     
     
+    /** Auth Validator web service endpoint's interface */
+    public $authValidatorInterface = "DefaultSourceInterface";   
+    
     /** Auth Validator web service endpoint's interface version */
-    public $authValidatorInterfaceVersion = "";   
+    public $authValidatorInterfaceVersion = ""; 
+      
+    /** Auth Registrar Access web service endpoint's interface */
+    public $authRegistrarAccessInterface = "DefaultSourceInterface";   
+    
+    /** Auth Validator web service endpoint's interface version */
+    public $authRegistrarAccessInterfaceVersion = "";   
     
     /** Auth Lister web service endpoint's interface version */
     public $authListerInterfaceVersion = "";   
     
+    /** Auth Lister web service endpoint's interface */
+    public $authListerInterface = "DefaultSourceInterface";   
+    
     /** Dataset Create web service endpoint's interface version */
     public $datasetCreateInterfaceVersion = "";   
+    
+    /** Dataset Create web service endpoint's interface */
+    public $datasetCreateInterface = "DefaultSourceInterface";   
     
     /** Dataset Read web service endpoint's interface version */
     public $datasetReadInterfaceVersion = "";   
     
+    /** Dataset Read web service endpoint's interface */
+    public $datasetReadInterface = "DefaultSourceInterface";   
+    
     /** Dataset Update web service endpoint's interface version */
     public $datasetUpdateInterfaceVersion = "";   
+    
+    /** Dataset Update web service endpoint's interface */
+    public $datasetUpdateInterface = "DefaultSourceInterface";   
     
     /** Dataset Delete web service endpoint's interface version */
     public $datasetDeleteInterfaceVersion = "";   
     
+    /** Dataset Delete web service endpoint's interface */
+    public $datasetDeleteInterface = "DefaultSourceInterface";   
+    
     /** Ontology Create web service endpoint's interface version */
     public $ontologyCreateInterfaceVersion = "";   
+    
+    /** Ontology Create web service endpoint's interface */
+    public $ontologyCreateInterface = "DefaultSourceInterface";   
     
     /** Ontology Delete web service endpoint's interface version */
     public $ontologyDeleteInterfaceVersion = "";   
     
+    /** Ontology Delete web service endpoint's interface */
+    public $ontologyDeleteInterface = "DefaultSourceInterface";   
+    
     /** Ontology Read web service endpoint's interface version */
     public $ontologyReadInterfaceVersion = "";   
     
-    /** structWSF web service interface to use for all endpoints */
-    public $webServiceInterface = "";
+    /** Ontology Read web service endpoint's interface */
+    public $ontologyReadInterface = "DefaultSourceInterface";   
+    
+    /** CRUD Create web service endpoint's interface version */
+    public $crudCreateInterfaceVersion = "";   
+    
+    /** CRUD Create web service endpoint's interface */
+    public $crudCreateInterface = "DefaultSourceInterface";  
+    
+    /** CRUD Update web service endpoint's interface version */
+    public $crudUpdateInterfaceVersion = "";   
+    
+    /** CRUD Update web service endpoint's interface */
+    public $crudUpdateInterface = "DefaultSourceInterface";  
+    
+    /** CRUD Read web service endpoint's interface version */
+    public $crudReadInterfaceVersion = "";   
+    
+    /** CRUD Read web service endpoint's interface */
+    public $crudReadInterface = "DefaultSourceInterface";  
+    
+    /** Directory where content files used by the tests are located */
+    public $contentDir = ''; 
     
     function __construct()
     {
@@ -125,6 +176,9 @@
       {
         $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
       }
+      
+      /** Directory where content files used by the tests are located */
+      $this->contentDir = __DIR__ . '/content/';
       
       /** 
         structWSF web service interface to use for all endpoints 
@@ -193,6 +247,9 @@
       /** Auth Validator web service endpoint's interface version */
       $this->authValidatorInterfaceVersion = "1.0";   
       
+      /** Auth Registrar Access web service endpoint's interface version */
+      $this->authRegistrarInterfaceVersion = "1.0";         
+      
       /** Auth Lister web service endpoint's interface version */
       $this->authListerInterfaceVersion = "1.0";   
       
@@ -216,29 +273,83 @@
       
       /** Ontology Read web service endpoint's interface version */
       $this->ontologyReadInterfaceVersion = "1.0";        
+      
+      /** CRUD Create web service endpoint's interface version */
+      $this->crudCreateInterfaceVersion = "1.0";        
+      
+      /** CRUD Update web service endpoint's interface version */
+      $this->crudUpdateInterfaceVersion = "1.0";        
+      
+      /** CRUD Read web service endpoint's interface version */
+      $this->crudReadInterfaceVersion = "1.0";        
+
+      /** Auth Validator web service endpoint's interface */
+      $this->authValidatorInterface = "DefaultSourceInterface";   
+      
+      /** Auth Registrar Access web service endpoint's interface */
+      $this->authRegistrarInterface = "DefaultSourceInterface";   
+      
+      /** Auth Lister web service endpoint's interface version */
+      $this->authListerInterface = "DefaultSourceInterface";   
+      
+      /** Dataset Create web service endpoint's interface */
+      $this->datasetCreateInterface = "DefaultSourceInterface";   
+      
+      /** Dataset Read web service endpoint's interface */
+      $this->datasetReadInterface = "DefaultSourceInterface";   
+      
+      /** Dataset Update web service endpoint's interface */
+      $this->datasetUpdateInterface = "DefaultSourceInterface";   
+      
+      /** Dataset Delete web service endpoint's interface */
+      $this->datasetDeleteInterface = "DefaultSourceInterface";   
+      
+      /** Ontology Create web service endpoint's interface */
+      $this->ontologyCreateInterface = "DefaultSourceInterface";   
+      
+      /** Ontology Delete web service endpoint's interface */
+      $this->ontologyDeleteInterface = "DefaultSourceInterface";   
+      
+      /** Ontology Read web service endpoint's interface */
+      $this->ontologyReadInterface = "DefaultSourceInterface";        
+      
+      /** CRUD Create web service endpoint's interface */
+      $this->crudCreateInterface = "DefaultSourceInterface";        
+      
+      /** CRUD Update web service endpoint's interface */
+      $this->crudUpdateInterface = "DefaultSourceInterface";        
+      
+      /** CRUD Read web service endpoint's interface */
+      $this->crudReadInterface = "DefaultSourceInterface";        
+
             
-      $this->datasetWebservices = $this->endpointUri."auth/validator/;".
-                                  $this->endpointUri."auth/lister/;".
-                                  $this->endpointUri."sparql/;".
-                                  $this->endpointUri."converter/bibtex/;".
-                                  $this->endpointUri."converter/tsv/;".
-                                  $this->endpointUri."converter/irjson/;".
-                                  $this->endpointUri."search/;".
-                                  $this->endpointUri."browse/;".
-                                  $this->endpointUri."auth/registrar/ws/;".
-                                  $this->endpointUri."auth/registrar/access/;".
-                                  $this->endpointUri."dataset/create/;".
-                                  $this->endpointUri."dataset/read/;".
-                                  $this->endpointUri."dataset/update/;".
-                                  $this->endpointUri."dataset/delete/;".
-                                  $this->endpointUri."crud/create/;".
-                                  $this->endpointUri."crud/read/;".
-                                  $this->endpointUri."crud/update/;".
-                                  $this->endpointUri."crud/delete/;".
-                                  $this->endpointUri."ontology/create/;".
-                                  $this->endpointUri."ontology/delete/;".
-                                  $this->endpointUri."ontology/read/;".
-                                  $this->endpointUri."ontology/update/";
+      $this->datasetWebservices = array($this->endpointUri."auth/validator/",
+                                        $this->endpointUri."auth/lister/",
+                                        $this->endpointUri."sparql/",
+                                        $this->endpointUri."converter/bibtex/",
+                                        $this->endpointUri."converter/tsv/",
+                                        $this->endpointUri."converter/irjson/",
+                                        $this->endpointUri."search/",
+                                        $this->endpointUri."browse/",
+                                        $this->endpointUri."auth/registrar/ws/",
+                                        $this->endpointUri."auth/registrar/access/",
+                                        $this->endpointUri."dataset/create/",
+                                        $this->endpointUri."dataset/read/",
+                                        $this->endpointUri."dataset/update/",
+                                        $this->endpointUri."dataset/delete/",
+                                        $this->endpointUri."crud/create/",
+                                        $this->endpointUri."crud/read/",
+                                        $this->endpointUri."crud/update/",
+                                        $this->endpointUri."crud/delete/",
+                                        $this->endpointUri."revision/update/",
+                                        $this->endpointUri."revision/read/",
+                                        $this->endpointUri."revision/delete/",
+                                        $this->endpointUri."revision/lister/",
+                                        $this->endpointUri."revision/diff/",
+                                        $this->endpointUri."ontology/create/",
+                                        $this->endpointUri."ontology/delete/",
+                                        $this->endpointUri."ontology/read/",
+                                        $this->endpointUri."ontology/update/");
                                   
       $this->datasetReadStructXMLResultset = '<resultset>
           <prefix entity="owl" uri="http://www.w3.org/2002/07/owl#"/>

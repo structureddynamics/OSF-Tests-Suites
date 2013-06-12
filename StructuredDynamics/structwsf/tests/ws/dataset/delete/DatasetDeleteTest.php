@@ -43,6 +43,8 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/" . "wrong", 
                                    "get", 
                                    "text/xml",
+                                   "&interface=". urlencode($settings->datasetDeleteInterface) .
+                                   "&version=". urlencode($settings->datasetDeleteInterfaceVersion) .
                                    "uri=" . urlencode($settings->testDataset));
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -59,6 +61,8 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
                                    "post", 
                                    "text/xml",
+                                   "&interface=". urlencode($settings->datasetDeleteInterface) .
+                                   "&version=". urlencode($settings->datasetDeleteInterfaceVersion) .
                                    "uri=" . urlencode($settings->testDataset));
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -78,13 +82,11 @@
       
       $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      $datasetDelete->uri($settings->testDataset);
-      
-      $datasetDelete->sourceInterface("default");
-      
-      $datasetDelete->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion);
-
-      $datasetDelete->send();
+      $datasetDelete->uri($settings->testDataset)
+                    ->sourceInterface("default")
+                    ->sourceInterface($settings->datasetDeleteInterface)
+                    ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($datasetDelete->getStatus(), "200", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
 
@@ -105,13 +107,10 @@
       
       $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      $datasetDelete->uri($settings->testDataset);
-      
-      $datasetDelete->sourceInterface("default");
-      
-      $datasetDelete->sourceInterfaceVersion("667.4");
-
-      $datasetDelete->send();
+      $datasetDelete->uri($settings->testDataset)
+                    ->sourceInterface($settings->datasetDeleteInterface)
+                    ->sourceInterfaceVersion("667.4")
+                    ->send();
                            
       $this->assertEquals($datasetDelete->getStatus(), "400", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
       $this->assertEquals($datasetDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetDelete, TRUE));
@@ -137,11 +136,10 @@
       
       $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      $datasetDelete->uri($settings->testDataset);
-      
-      $datasetDelete->sourceInterface("default");
-
-      $datasetDelete->send();
+      $datasetDelete->uri($settings->testDataset)
+                    ->sourceInterface($settings->datasetDeleteInterface)
+                    ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($datasetDelete->getStatus(), "200", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
 
@@ -165,11 +163,10 @@
       
       $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      $datasetDelete->uri($settings->testDataset);
-      
-      $datasetDelete->sourceInterface("default-not-existing");
-
-      $datasetDelete->send();
+      $datasetDelete->uri($settings->testDataset)
+                    ->sourceInterface("default-not-existing")
+                    ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($datasetDelete->getStatus(), "400", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
       $this->assertEquals($datasetDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetDelete, TRUE));
@@ -191,9 +188,10 @@
       
       $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      $datasetDelete->uri($settings->testDataset);
-
-      $datasetDelete->send();
+      $datasetDelete->uri($settings->testDataset)
+                    ->sourceInterface($settings->datasetDeleteInterface)
+                    ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                    ->send();
                                    
       $this->assertEquals($datasetDelete->getStatus(), "200", "Debugging information: ".var_export($datasetDelete, TRUE));    
                                     
@@ -213,9 +211,10 @@
       
       $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      $datasetDelete->uri($settings->testDataset);
-
-      $datasetDelete->send();      
+      $datasetDelete->uri($settings->testDataset)
+                    ->sourceInterface($settings->datasetDeleteInterface)
+                    ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                    ->send();      
                                    
       $this->assertEquals($datasetDelete->getStatus(), "200", "Debugging information: ".var_export($datasetDelete, TRUE)); 
                                             
@@ -231,9 +230,10 @@
       
       $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      $datasetDelete->uri("");
-
-      $datasetDelete->send();
+      $datasetDelete->uri("")
+                    ->sourceInterface($settings->datasetDeleteInterface)
+                    ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                    ->send();
                                    
       $this->assertEquals($datasetDelete->getStatus(), "400", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
       $this->assertEquals($datasetDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetDelete, TRUE));
@@ -249,9 +249,10 @@
                                    
       $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
       
-      $datasetDelete->uri($settings->testDataset."<>");
-
-      $datasetDelete->send();                                   
+      $datasetDelete->uri($settings->testDataset."<>")
+                    ->sourceInterface($settings->datasetDeleteInterface)
+                    ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                    ->send();                                   
                                    
       $this->assertEquals($datasetDelete->getStatus(), "400", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
       $this->assertEquals($datasetDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetDelete, TRUE));

@@ -47,6 +47,8 @@
                                    "get", 
                                    "text/xml",
                                    "uri=" . urlencode($settings->testDataset) .
+                                   "&interface=". urlencode($settings->datasetReadInterface) .
+                                   "&version=". urlencode($settings->datasetReadInterfaceVersion) .
                                    "&meta=" . urlencode("True"));
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -64,6 +66,8 @@
                                    "post", 
                                    "text/xml",
                                    "uri=" . urlencode($settings->testDataset) .
+                                   "&interface=". urlencode($settings->datasetReadInterface) .
+                                   "&version=". urlencode($settings->datasetReadInterfaceVersion) .
                                    "&meta=" . urlencode("True"));
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -83,17 +87,12 @@
             
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("text/xml");
-      
-      $datasetRead->uri($settings->testDataset);
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->sourceInterface("default");
-      
-      $datasetRead->sourceInterfaceVersion($settings->datasetReadInterfaceVersion);
-      
-      $datasetRead->send();
+      $datasetRead->mime("text/xml")
+                  ->uri($settings->testDataset)
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();
                            
       $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
 
@@ -114,17 +113,12 @@
             
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("text/xml");
-      
-      $datasetRead->uri($settings->testDataset);
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->sourceInterface("default");
-      
-      $datasetRead->sourceInterfaceVersion("667.4");
-      
-      $datasetRead->send();
+      $datasetRead->mime("text/xml")
+                  ->uri($settings->testDataset)
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion("667.4")
+                  ->send();
                            
       $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));
@@ -150,15 +144,12 @@
             
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("text/xml");
-      
-      $datasetRead->uri($settings->testDataset);
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->sourceInterface("default");
-      
-      $datasetRead->send();
+      $datasetRead->mime("text/xml")
+                  ->uri($settings->testDataset)
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();
                            
       $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
 
@@ -182,15 +173,12 @@
             
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("text/xml");
-      
-      $datasetRead->uri($settings->testDataset);
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->sourceInterface("default-not-existing");
-      
-      $datasetRead->send();
+      $datasetRead->mime("text/xml")
+                  ->uri($settings->testDataset)
+                  ->includeMeta()
+                  ->sourceInterface("default-not-existing")
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();
                            
       $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));
@@ -212,13 +200,12 @@
             
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("text/xml");
-      
-      $datasetRead->uri($settings->testDataset);
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();
+      $datasetRead->mime("text/xml")
+                  ->uri($settings->testDataset)
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();
                                    
       $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       
@@ -240,13 +227,12 @@
             
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("application/json");
-      
-      $datasetRead->uri($settings->testDataset);
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();
+      $datasetRead->mime("application/json")
+                  ->uri($settings->testDataset)
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();
                                    
       $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       
@@ -271,13 +257,12 @@
             
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("application/rdf+xml");
-      
-      $datasetRead->uri($settings->testDataset);
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();            
+      $datasetRead->mime("application/rdf+xml")
+                  ->uri($settings->testDataset)
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();            
             
       $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       
@@ -300,13 +285,12 @@
       // Create the new dataset
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("application/rdf+n3");
-      
-      $datasetRead->uri($settings->testDataset);
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();      
+      $datasetRead->mime("application/rdf+n3")
+                  ->uri($settings->testDataset)
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();      
                                    
       $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       
@@ -335,13 +319,12 @@
             
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("text/xml");
-      
-      $datasetRead->uri("all");
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();            
+      $datasetRead->mime("text/xml")
+                  ->uri("all")
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();            
             
       $this->assertEquals($datasetRead->getStatus(), "200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
 
@@ -378,13 +361,12 @@
       
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("application/json");
-      
-      $datasetRead->uri("all");
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();            
+      $datasetRead->mime("application/json")
+                  ->uri("all")
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();            
      
       utilities\validateParameterApplicationJson($this, $datasetRead);
       
@@ -403,13 +385,12 @@
       
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("application/rdf+xml");
-      
-      $datasetRead->uri("all");
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();            
+      $datasetRead->mime("application/rdf+xml")
+                  ->uri("all")
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();            
                             
       utilities\validateParameterApplicationRdfXml($this, $datasetRead);
       
@@ -428,13 +409,12 @@
       
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("application/rdf+n3");
-      
-      $datasetRead->uri("all");
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();            
+      $datasetRead->mime("application/rdf+n3")
+                  ->uri("all")
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();            
                             
       utilities\validateParameterApplicationRdfN3($this, $datasetRead);
       
@@ -455,13 +435,12 @@
       
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("text/xml");
-      
-      $datasetRead->uri("");
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();            
+      $datasetRead->mime("text/xml")
+                  ->uri("")
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();            
                                    
       $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));
@@ -483,13 +462,12 @@
       
       $datasetRead = new DatasetReadQuery($settings->endpointUrl);
 
-      $datasetRead->mime("text/xml");
-      
-      $datasetRead->uri($settings->testDataset . "<>");
-      
-      $datasetRead->includeMeta();
-      
-      $datasetRead->send();            
+      $datasetRead->mime("text/xml")
+                  ->uri($settings->testDataset . "<>")
+                  ->includeMeta()
+                  ->sourceInterface($settings->datasetReadInterface)
+                  ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                  ->send();            
                                    
       $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));

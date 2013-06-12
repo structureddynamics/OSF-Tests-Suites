@@ -2,8 +2,16 @@
   
   namespace StructuredDynamics\structwsf\tests;
   
-  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use \StructuredDynamics\structwsf\php\api\ws\auth\registrar\access\AuthRegistrarAccessQuery;
   use \StructuredDynamics\structwsf\php\api\ws\crud\delete\CrudDeleteQuery;
+  use \StructuredDynamics\structwsf\php\api\ws\crud\create\CrudCreateQuery;
+  use \StructuredDynamics\structwsf\php\api\ws\crud\update\CrudUpdateQuery;
+  use \StructuredDynamics\structwsf\php\api\ws\dataset\create\DatasetCreateQuery;
+  use \StructuredDynamics\structwsf\php\api\ws\dataset\delete\DatasetDeleteQuery;
+  use \StructuredDynamics\structwsf\php\api\ws\dataset\read\DatasetReadQuery;
+  use \StructuredDynamics\structwsf\php\api\framework\CRUDPermission;
+  use \StructuredDynamics\structwsf\php\api\ws\ontology\create\OntologyCreateQuery;
+  use \StructuredDynamics\structwsf\php\api\ws\ontology\delete\OntologyDeleteQuery;
   
   /*
   
@@ -13,22 +21,102 @@
   
   */
   
+  function createRevisionedRecord()
+  {
+    $settings = new Config();  
+    
+    createDataset();
+               
+    $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+    
+    $crudCreate->dataset($settings->testDataset)
+               ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+               ->documentMimeIsRdfN3()
+               ->enableFullIndexationMode()
+               ->sourceInterface($settings->crudCreateInterface)
+               ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+               ->send();
+           
+    if(!$crudCreate->isSuccessful())
+    {            
+      return(FALSE);
+    }   
+    
+    $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+    
+    $crudUpdate->dataset($settings->testDataset)
+               ->document(file_get_contents($settings->contentDir.'crud_update.n3'))
+               ->documentMimeIsRdfN3()
+               ->createRevision()
+               ->isPublished()
+               ->sourceInterface($settings->crudUpdateInterface)
+               ->sourceInterfaceVersion($settings->crudUpdateInterfaceVersion)
+               ->send();
+           
+    if(!$crudUpdate->isSuccessful())
+    {          
+      return(FALSE);
+    }       
+                     
+    return(TRUE);     
+  }
+  
+  function createUnrevisionedRecord()
+  {
+    $settings = new Config();  
+    
+    createDataset();
+               
+    $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+    
+    $crudCreate->dataset($settings->testDataset)
+               ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+               ->documentMimeIsRdfN3()
+               ->enableFullIndexationMode()
+               ->sourceInterface($settings->crudCreateInterface)
+               ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+               ->send();
+           
+    if(!$crudCreate->isSuccessful())
+    {   die(var_export($crudCreate, TRUE));
+      return(FALSE);
+    }   
+                     
+    return(TRUE);     
+  }  
+  
+  function deleteUnrevisionedRecord()
+  {
+    deleteDataset();
+  }
+  
+  function deleteRevisionedRecord()
+  {
+    deleteDataset();
+  }
   
   function createDataset()
   {
     $settings = new Config();     
+
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+                                 
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                 "post", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset) .
-                                 "&title=" . urlencode("This is a testing dataset") .
-                                 "&description=" . urlencode("This is a testing dataset") .
-                                 "&creator=" . urlencode("http://test.com/user/bob/") .
-                                 "&webservices=" . urlencode($settings->datasetWebservices) .
-                                 "&globalPermissions=" . urlencode("True;True;True;True"));    
-                         
-    if($wsq->getStatus() != "200")
+    $datasetCreate->uri($settings->testDataset)
+                  ->title("This is a testing dataset")
+                  ->description("This is a testing dataset")
+                  ->creator("http://test.com/user/bob/")
+                  ->targetWebservices($settings->datasetWebservices)
+                  ->globalPermissions($crudPermissions)
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetCreateInterface)
+                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                  ->send();
+    
+    
+    
+    if(!$datasetCreate->isSuccessful())
     {            
       return(FALSE);
     }
@@ -40,17 +128,22 @@
   {
     $settings = new Config();     
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                 "post", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset) .
-                                 "&title=" . urlencode("This is a testing dataset") .
-                                 "&description=" . urlencode("This is a testing dataset") .
-                                 "&creator=" . urlencode("http://test.com/user/bob/") .
-                                 "&webservices=" . urlencode($settings->datasetWebservices) .
-                                 "&globalPermissions=" . urlencode("False;False;False;False"));    
+    $crudPermissions = new CRUDPermission(FALSE, FALSE, FALSE, FALSE);
+                                 
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    
+    $datasetCreate->uri($settings->testDataset)
+                  ->title("This is a testing dataset")
+                  ->description("This is a testing dataset")
+                  ->creator("http://test.com/user/bob/")
+                  ->targetWebservices($settings->datasetWebservices)
+                  ->globalPermissions($crudPermissions)
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetCreateInterface)
+                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                  ->send();
                          
-    if($wsq->getStatus() != "200")
+    if(!$datasetCreate->isSuccessful())
     {
       return(FALSE);
     }
@@ -62,32 +155,40 @@
   {
     $settings = new Config();     
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                 "post", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset) .
-                                 "&title=" . urlencode("This is a testing dataset") .
-                                 "&description=" . urlencode("This is a testing dataset") .
-                                 "&creator=" . urlencode("http://test.com/user/bob/") .
-                                 "&webservices=" . urlencode($settings->datasetWebservices) .
-                                 "&globalPermissions=" . urlencode("True;True;True;True"));    
-                               
-    if($wsq->getStatus() != "200")
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+                                 
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    
+    $datasetCreate->uri($settings->testDataset)
+                  ->title("This is a testing dataset")
+                  ->description("This is a testing dataset")
+                  ->creator("http://test.com/user/bob/")
+                  ->targetWebservices($settings->datasetWebservices)
+                  ->globalPermissions($crudPermissions)
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetCreateInterface)
+                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                  ->send();
+                         
+    if(!$datasetCreate->isSuccessful())    
     {
       return(FALSE);
     }
-
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                 "post", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset."2/")  .
-                                 "&title=" . urlencode("This is a testing dataset") .
-                                 "&description=" . urlencode("This is a testing dataset") .
-                                 "&creator=" . urlencode("http://test.com/user/bob/") .
-                                 "&webservices=" . urlencode($settings->datasetWebservices) .
-                                 "&globalPermissions=" . urlencode("True;True;True;True"));    
-                               
-    if($wsq->getStatus() != "200")
+                                 
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    
+    $datasetCreate->uri($settings->testDataset.'2/')
+                  ->title("This is a testing dataset")
+                  ->description("This is a testing dataset")
+                  ->creator("http://test.com/user/bob/")
+                  ->targetWebservices($settings->datasetWebservices)
+                  ->globalPermissions($crudPermissions)
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetCreateInterface)
+                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                  ->send();
+                         
+    if(!$datasetCreate->isSuccessful())    
     {
       return(FALSE);
     }
@@ -100,32 +201,38 @@
   {
     $settings = new Config();     
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                 "post", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset) .
-                                 "&title=" . urlencode("This is a testing dataset") .
-                                 "&description=" . urlencode("This is a testing dataset") .
-                                 "&creator=" . urlencode("http://test.com/user/bob/") .
-                                 "&webservices=" . urlencode($settings->datasetWebservices) .
-                                 "&globalPermissions=" . urlencode("False;False;False;False"));    
-                               
-    if($wsq->getStatus() != "200")
+    $crudPermissions = new CRUDPermission(FALSE, FALSE, FALSE, FALSE);
+                                 
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    
+    $datasetCreate->uri($settings->testDataset)
+                  ->title("This is a testing dataset")
+                  ->description("This is a testing dataset")
+                  ->creator("http://test.com/user/bob/")
+                  ->targetWebservices($settings->datasetWebservices)
+                  ->globalPermissions($crudPermissions)
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetCreateInterface)
+                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                  ->send();
+                         
+    if(!$datasetCreate->isSuccessful())    
     {
       return(FALSE);
     }
 
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/create/", 
-                                 "post", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset."2/")  .
-                                 "&title=" . urlencode("This is a testing dataset") .
-                                 "&description=" . urlencode("This is a testing dataset") .
-                                 "&creator=" . urlencode("http://test.com/user/bob/") .
-                                 "&webservices=" . urlencode($settings->datasetWebservices) .
-                                 "&globalPermissions=" . urlencode("False;False;False;False"));    
-                               
-    if($wsq->getStatus() != "200")
+    $datasetCreate->uri($settings->testDataset.'2/')
+                  ->title("This is a testing dataset")
+                  ->description("This is a testing dataset")
+                  ->creator("http://test.com/user/bob/")
+                  ->targetWebservices($settings->datasetWebservices)
+                  ->globalPermissions($crudPermissions)
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetCreateInterface)
+                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                  ->send();
+                         
+    if(!$datasetCreate->isSuccessful())    
     {
       return(FALSE);
     }
@@ -136,13 +243,16 @@
   function deleteDataset()
   {
     $settings = new Config(); 
+
+    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
-                                 "get", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset));    
-    
-    if($wsq->getStatus() != "200")
+    $datasetDelete->uri($settings->testDataset)
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetDeleteInterface)
+                  ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                  ->send();
+                  
+    if(!$datasetDelete->isSuccessful())
     {
       return(FALSE);
     }
@@ -156,22 +266,28 @@
   {
     $settings = new Config(); 
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
-                                 "get", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset));    
+    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
     
-    if($wsq->getStatus() != "200")
+    $datasetDelete->uri($settings->testDataset)
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetDeleteInterface)
+                  ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                  ->send();
+    
+    if(!$datasetDelete->isSuccessful())    
     {
       return(FALSE);
     }
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
-                                 "get", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset) . "2/");    
+    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
     
-    if($wsq->getStatus() != "200")
+    $datasetDelete->uri($settings->testDataset.'2/')
+                  ->mime('text/xml')
+                  ->sourceInterface($settings->datasetDeleteInterface)
+                  ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
+                  ->send();
+    
+    if(!$datasetDelete->isSuccessful())    
     {
       return(FALSE);
     }
@@ -182,18 +298,21 @@
   function readDataset()
   {
     $settings = new Config(); 
+                                 
+    $datasetRead = new DatasetReadQuery($settings->endpointUrl);
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/read/", 
-                                 "get", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testDataset));    
-
-    if($wsq->getStatus() != "200")
+    $datasetRead->uri($settings->testDataset)
+                ->mime('text/xml')
+                ->sourceInterface($settings->datasetReadInterface)
+                ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
+                ->send();
+                                      
+    if(!$datasetRead->isSuccessful())
     {
       return(FALSE);
     }
     
-    return($wsq->getResultset());    
+    return($datasetRead->getResultset());    
   }
   
   function createRecord($rdf)
@@ -210,16 +329,17 @@
   {
     $settings = new Config();     
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/registrar/access/", 
-                                 "post", 
-                                 "text/xml",
-                                 "crud=" . urlencode("False;False;False;False") .
-                                 "&ws_uris=" . $settings->datasetWebservices .
-                                 "&dataset=" . urlencode($settings->testDataset) .
-                                 "&action=" . urlencode("create") .
-                                 "&registered_ip=" . urlencode($settings->randomRequester));    
+    $crudPermissions = new CRUDPermission(FALSE, FALSE, FALSE, FALSE);                                 
+                                 
+    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl);
+    
+    $authRegistrarAccess->create($settings->randomRequester, $settings->testDataset, $crudPermissions, $settings->datasetWebservices)
+                        ->mime('text/xml')
+                        ->sourceInterface($settings->authRegistrarAccessInterface)
+                        ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                        ->send();
                          
-    if($wsq->getStatus() != "200")
+    if(!$authRegistrarAccess->isSuccessful())
     {
       return(FALSE);
     }
@@ -230,17 +350,21 @@
   function createOntology()
   {
     $settings = new Config();     
+        
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);         
+                                 
+    $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/create/", 
-                                 "post", 
-                                 "text/xml",
-                                 "uri=" . urlencode($settings->testOntologyUri) .
-                                 "&globalPermissions=" . urlencode("True;True;True;True") .
-                                 "&advancedIndexation=" . urlencode("True") .
-                                 "&reasoner=" . urlencode("True") .
-                                 "&registered_ip=" . urlencode("Self"));    
+    $ontologyCreate->enableAdvancedIndexation()
+                   ->enableReasoner()
+                   ->uri($settings->testOntologyUri)
+                   ->globalPermissions($crudPermissions)
+                   ->mime('text/xml')
+                   ->sourceInterface($settings->ontologyCreateInterface)
+                   ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                   ->send();
                          
-    if($wsq->getStatus() != "200")
+    if(!$ontologyCreate->isSuccessful())
     {            
       return(FALSE);
     }
@@ -252,14 +376,16 @@
   {
     $settings = new Config();     
     
-    $wsq = new WebServiceQuerier($settings->endpointUrl . "ontology/delete/", 
-                                 "post", 
-                                 "text/xml",
-                                 "ontology=" . urlencode($settings->testOntologyUri) .
-                                 "&function=" . urlencode("deleteOntology") .
-                                 "&registered_ip=" . urlencode("Self"));    
+    $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
     
-    if($wsq->getStatus() != "200")
+    $ontologyDelete->ontology($settings->testOntologyUri)
+                   ->deleteOntology()
+                   ->mime('text/xml')
+                   ->sourceInterface($settings->ontologyDeleteInterface)
+                   ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
+                   ->send();
+    
+    if(!$ontologyDelete->isSuccessful())
     { 
       return(FALSE);
     }
@@ -276,20 +402,18 @@
     //
     //
     //
-    //
-    
     
     $settings = new Config(); 
     
     $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
     
-    $crudDelete->dataset("http://ccr.nhccn.com.au/wsf/");
-                          
-    $crudDelete->uri($settings->newWebServiceUri);
+    $crudDelete->dataset("http://ccr.nhccn.com.au/wsf/")
+               ->uri($settings->newWebServiceUri)
+               ->sourceInterface(/* TO SET */)
+               ->sourceInterfaceVersion(/* TO SET */)               
+               ->send();
     
-    $crudDelete->send();
-    
-    if($crudDelete->getStatus() != "200")
+    if(!$crudDelete->isSuccessful())
     {
       print_r(var_export($crudDelete, TRUE));
       return(FALSE);

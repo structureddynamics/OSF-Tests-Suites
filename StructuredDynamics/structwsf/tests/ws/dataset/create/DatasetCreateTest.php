@@ -48,7 +48,9 @@
                                    "&title=" . urlencode("This is a testing dataset") .
                                    "&description=" . urlencode("This is a testing dataset") .
                                    "&creator=" . urlencode("http://test.com/user/bob/") .
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
+                                   "&webservices=" . urlencode(implode(';', $settings->datasetWebservices)) .
+                                   "&interface=". urlencode($settings->datasetCreateInterface) .
+                                   "&version=". urlencode($settings->datasetCreateInterfaceVersion) .
                                    "&globalPermissions=" . urlencode("True;True;True;True"));
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -69,7 +71,9 @@
                                    "&title=" . urlencode("This is a testing dataset") .
                                    "&description=" . urlencode("This is a testing dataset") .
                                    "&creator=" . urlencode("http://test.com/user/bob/") .
-                                   "&webservices=" . urlencode($settings->datasetWebservices) .
+                                   "&webservices=" . urlencode(implode(';', $settings->datasetWebservices)) .
+                                   "&interface=". urlencode($settings->datasetCreateInterface) .
+                                   "&version=". urlencode($settings->datasetCreateInterfaceVersion) .
                                    "&globalPermissions=" . urlencode("True;True;True;True"));
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -88,19 +92,13 @@
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->sourceInterface("default");
-      
-      $datasetCreate->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion);
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->creator("http://test.com/user/bob/")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -126,19 +124,13 @@
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->sourceInterface("default");
-      
-      $datasetCreate->sourceInterfaceVersion("667.4");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->creator("http://test.com/user/bob/")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion("667.4")
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -170,23 +162,18 @@
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->sourceInterface("default");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->creator("http://test.com/user/bob/")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();
+      $datasetCreate->globalPermissions($permissions)
+                    ->send();
                            
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
 
@@ -209,17 +196,13 @@
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->sourceInterface("default-not-existing");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->creator("http://test.com/user/bob/")
+                    ->sourceInterface("default-not-existing")
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -246,15 +229,13 @@
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->creator("http://test.com/user/bob/")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -280,15 +261,13 @@
       // Create the new dataset
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->creator("http://test.com/user/bob/")
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -323,15 +302,13 @@
       
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->creator("http://test.com/user/bob/")
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -355,15 +332,13 @@
       
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri("");
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri("")
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->creator("http://test.com/user/bob/")
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -385,15 +360,13 @@
       
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset."<>");
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset."<>")
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->creator("http://test.com/user/bob/")
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -415,15 +388,13 @@
       
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("http://test.com/user/bob/"."<>");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->creator("http://test.com/user/bob/"."<>")
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       
@@ -445,15 +416,13 @@
       
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
       
-      $datasetCreate->uri($settings->testDataset);
-      
-      $datasetCreate->title("This is a testing dataset");
-      
-      $datasetCreate->description("This is a testing dataset");
-      
-      $datasetCreate->creator("");
-      
-      $datasetCreate->targetWebservices(explode(";", $settings->datasetWebservices));
+      $datasetCreate->uri($settings->testDataset)
+                    ->title("This is a testing dataset")
+                    ->description("This is a testing dataset")
+                    ->sourceInterface($settings->datasetCreateInterface)
+                    ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
+                    ->creator("")
+                    ->targetWebservices($settings->datasetWebservices);
       
       $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
       

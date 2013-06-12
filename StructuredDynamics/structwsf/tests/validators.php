@@ -119,9 +119,6 @@
     
     $parser = \ARC2::getRDFXMLParser();
     $parser->parse($settings->testDataset, $rdfxml);
-    //$rdfxmlSerializer = ARC2::getRDFXMLSerializer();
-
-    //$resourceIndex = $parser->getSimpleIndex(0);
 
     if(count($parser->getErrors()) > 0)
     {
@@ -143,9 +140,6 @@
     
     $parser = \ARC2::getTurtleParser();
     $parser->parse($settings->testDataset, $rdfn3);
-    //$turtleSerializer = ARC2::getTurtleSerializer();
-
-    //$resourceIndex = $parser->getSimpleIndex(0);
 
     if(count($parser->getErrors()) > 0)
     {
@@ -192,5 +186,6 @@
     $t->assertEquals(isValidRDFN3($wsq->getResultset(), $errors), TRUE, "[Test is valid RDF+N3] Debugging information: ".var_export($errors, TRUE));                                       
     $t->assertEquals(isValidRDFN3($wsq->getResultset() . "this is invalid RDFN3", $errors), FALSE, "[Test is invalid RDF+N3] Debugging information: ".var_export($errors, TRUE));                                       
   }  
+       
   
 ?>

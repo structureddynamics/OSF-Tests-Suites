@@ -46,6 +46,8 @@
                                    "text/xml",
                                    "ip=" . urlencode($_SERVER['REMOTE_ADDR']) .
                                    "&datasets=" . urlencode($settings->testDataset) .
+                                   "&interface=". urlencode($settings->authValidatorInterface) .
+                                   "&version=". urlencode($settings->authValidatorInterfaceVersion) .
                                    "&ws_uri=" . urlencode($settings->endpointUrl."crud/create/"));
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -65,6 +67,8 @@
                                    "text/xml",
                                    "ip=" . urlencode($_SERVER['REMOTE_ADDR']) .
                                    "&datasets=" . urlencode($settings->testDataset) .
+                                   "&interface=". urlencode($settings->authValidatorInterface) .
+                                   "&version=". urlencode($settings->authValidatorInterfaceVersion) .
                                    "&ws_uri=" . urlencode($settings->endpointUrl."crud/create/"));
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -84,17 +88,12 @@
       
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']));
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->sourceInterface("default");
-
-      $authValidator->sourceInterfaceVersion($settings->authValidatorInterfaceVersion);
-      
-      $authValidator->send();
+      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']))
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -115,17 +114,12 @@
       
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']));
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->sourceInterface("default");
-
-      $authValidator->sourceInterfaceVersion("667.4");
-      
-      $authValidator->send();
+      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']))
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion("667.4")
+                    ->send();
                            
       $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
@@ -151,15 +145,12 @@
       
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']));
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->sourceInterface("default");
-      
-      $authValidator->send();
+      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']))
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -183,15 +174,12 @@
       
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']));
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->sourceInterface("default-not-existing");
-      
-      $authValidator->send();
+      $authValidator->ip(urlencode($_SERVER['REMOTE_ADDR']))
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface("default-not-existing")
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();
                            
       $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
@@ -213,13 +201,12 @@
       
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip("");
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();
+      $authValidator->ip("")
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();
       
       $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
@@ -241,13 +228,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array());
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();            
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array())
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();            
             
       $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
@@ -269,13 +255,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri("");
-      
-      $authValidator->send();             
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri("")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();             
                                    
       $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
@@ -297,13 +282,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."<>"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();                                        
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array($settings->testDataset, $settings->testDataset."<>"))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();                                        
                                    
       $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
@@ -325,13 +309,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."wsf/crud/create/"."<>");
-      
-      $authValidator->send();               
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."wsf/crud/create/"."<>")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();               
                                    
       $this->assertEquals($authValidator->getStatus(), "400", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authValidator, TRUE));
@@ -353,14 +336,13 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();             
-                                   
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();             
+
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
       utilities\deleteDataset();
@@ -379,13 +361,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/"."not-registered");
-      
-      $authValidator->send();             
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/"."not-registered")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();             
                                    
       $this->assertEquals($authValidator->getStatus(), "500", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Internal Error", "Debugging information: ".var_export($authValidator, TRUE));
@@ -408,13 +389,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array($settings->testDataset."not-existing"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();              
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array($settings->testDataset."not-existing"))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -437,13 +417,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset . "not-existing/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();                
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array($settings->testDataset, $settings->testDataset . "not-existing/"))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();                
                                    
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -466,13 +445,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();    
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();    
                                    
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -495,13 +473,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/delete/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/delete/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
 
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -525,13 +502,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/update/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/update/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -554,13 +530,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/read/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/read/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -583,13 +558,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($_SERVER['REMOTE_ADDR']);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();                
+      $authValidator->ip($_SERVER['REMOTE_ADDR'])
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();                
                                    
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -610,13 +584,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/delete/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/delete/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -637,13 +610,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/update/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/update/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -664,13 +636,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/read/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset))
+                    ->webServiceUri($settings->endpointUri."crud/read/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -691,13 +662,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset, $settings->testDataset."2/"))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
             
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -721,13 +691,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/delete/");
-      
-      $authValidator->send();                          
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset, $settings->testDataset."2/"))
+                    ->webServiceUri($settings->endpointUri."crud/delete/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();                          
                                    
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -751,13 +720,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/update/");
-      
-      $authValidator->send();                          
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset, $settings->testDataset."2/"))
+                    ->webServiceUri($settings->endpointUri."crud/update/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();                          
                                    
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -781,13 +749,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/read/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset, $settings->testDataset."2/"))
+                    ->webServiceUri($settings->endpointUri."crud/read/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "403", "Debugging information: ".var_export($authValidator, TRUE));                                       
       $this->assertEquals($authValidator->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($authValidator, TRUE));
@@ -811,13 +778,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset, $settings->testDataset."2/"))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -838,13 +804,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset, $settings->testDataset."2/"))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -866,13 +831,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset, $settings->testDataset."2/"))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
@@ -893,13 +857,12 @@
             
       $authValidator = new AuthValidatorQuery($settings->endpointUrl);     
       
-      $authValidator->ip($settings->randomRequester);
-      
-      $authValidator->datasets(array($settings->testDataset, $settings->testDataset."2/"));
-      
-      $authValidator->webServiceUri($settings->endpointUri."crud/create/");
-      
-      $authValidator->send();              
+      $authValidator->ip($settings->randomRequester)
+                    ->datasets(array($settings->testDataset, $settings->testDataset."2/"))
+                    ->webServiceUri($settings->endpointUri."crud/create/")
+                    ->sourceInterface($settings->authValidatorInterface)
+                    ->sourceInterfaceVersion($settings->authValidatorInterfaceVersion)
+                    ->send();              
                                    
       $this->assertEquals($authValidator->getStatus(), "200", "Debugging information: ".var_export($authValidator, TRUE));                                       
 
