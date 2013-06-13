@@ -1,0 +1,33 @@
+  @prefix owl: <http://www.w3.org/2002/07/owl#> .
+  @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+  @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+  @prefix iron: <http://purl.org/ontology/iron#> .
+  @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+  @prefix wsf: <http://purl.org/ontology/wsf#> .
+  @prefix wgs84_pos: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+
+  <http://foo.com/datasets/tests/foo> a wsf:Product ;
+                                      iron:prefLabel """A Pretty Good Product - (modified)""" ;
+                                      iron:description """This is really a great product!"""@en ;
+                                      wsf:related_product <http://foo.com/datasets/tests/foo_related_modified> ;
+                                      wsf:product_available_since """2013-06-05 18:00:00"""^^xsd:dateTime ;
+                                      wsf:product_in_inventory """9"""^^xsd:int ;
+                                      wsf:product_unit """4.570000171661377"""^^xsd:float .
+
+  <http://foo.com/datasets/tests/foo/reified/1> a rdf:Statement ;
+      rdf:subject <http://foo.com/datasets/tests/foo> ;
+      rdf:predicate wsf:related_product ;
+      rdf:object <http://foo.com/datasets/tests/foo_related> ;
+      wsf:value """object property reified triple""" .
+
+  <http://foo.com/datasets/tests/foo/reified/2> a rdf:Statement ;
+      rdf:subject <http://foo.com/datasets/tests/foo> ;
+      rdf:predicate iron:prefLabel ;
+      rdf:object """A Pretty Good Product""" ;
+      wsf:value """datatype property reified triple""" .
+      
+  <http://foo.com/datasets/tests/bar> a wsf:Organization ;
+                                      iron:prefLabel """Products Organization Inc. - (modified)""" ;
+                                      wgs84_pos:lat """49.8760799999956""" ;
+                                      wgs84_pos:long """-97.306264999999""" ;
+                                      wsf:produce <http://foo.com/datasets/tests/foo> .    

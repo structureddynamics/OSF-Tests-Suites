@@ -179,6 +179,61 @@
     $t->assertEquals(isValidRDFXML($wsq->getResultset() . "this is invalid RDFXML", $errors), FALSE, "[Test is invalid RDF+XML] Debugging information: ".var_export($errors, TRUE)." [Returned Resultset] ".$wsq->getResultset());                                       
   }  
   
+  function compareRdfXml($actual, $expected)
+  {
+    $settings = new Config(); 
+    
+    include_once($settings->structwsfInstanceFolder."framework/arc2/ARC2.php");
+    
+    $parserActual = \ARC2::getRDFParser();
+    $parserActual->parse($settings->testDataset, $actual);
+
+    if(count($parserActual->getErrors()) > 0)
+    {
+      return(FALSE);
+    }                                                       
+    
+    $parserExpected = \ARC2::getRDFParser();
+    $parserExpected->parse($settings->testDataset, $expected);
+
+    if(count($parserExpected->getErrors()) > 0)
+    {
+      return(FALSE);
+    } 
+    
+    $parserActual = $parserActual->getSimpleIndex(0);
+    $parserExpected = $parserExpected->getSimpleIndex(0);    
+    
+    // Remove possible is-part-of that may be included by the endpoint
+    unset($parserActual[key($parserActual)]['http://purl.org/dc/terms/isPartOf']);
+    unset($parserExpected[key($parserExpected)]['http://purl.org/dc/terms/isPartOf']);
+    
+    if(count(rdfdiff($parserActual, $parserExpected)) > 0)
+    {
+      return(FALSE);
+    }
+    
+    if(count(rdfdiff($parserExpected, $parserActual)) > 0)
+    {
+      return(FALSE);
+    }    
+    
+    return(TRUE);
+  }
+  
+  function compareStructJSON($actual, $expected)
+  {
+    $actual = json_decode($actual, TRUE);
+    $expected = json_decode($expected, TRUE);
+
+    if(count(arrayRecursiveDiff($actual, $expected)) > 0)
+    {
+      return(FALSE);
+    }      
+    
+    return(TRUE);
+  }
+  
   function validateParameterApplicationRdfN3(&$t, &$wsq)
   { 
     $errors = array();  
@@ -186,6 +241,60 @@
     $t->assertEquals(isValidRDFN3($wsq->getResultset(), $errors), TRUE, "[Test is valid RDF+N3] Debugging information: ".var_export($errors, TRUE));                                       
     $t->assertEquals(isValidRDFN3($wsq->getResultset() . "this is invalid RDFN3", $errors), FALSE, "[Test is invalid RDF+N3] Debugging information: ".var_export($errors, TRUE));                                       
   }  
-       
+  
+  /**
+  * Source: http://web.archive.org/web/20100611171012/http://n2.talis.com/svn/playground/kwijibo/PHP/arc/plugins/trunk/ARC2_IndexUtilsPlugin.php
+  */
+  function rdfdiff()
+  {
+    $indices = func_get_args();
+    $base = array_shift($indices);
+    $diff = array();
+    foreach($base as $base_uri => $base_ps){
+      foreach($indices as $index){
+        if(!isset($index[$base_uri])){
+          $diff[$base_uri] = $base_ps;
+        } else {
+          foreach($base_ps as $base_p => $base_obs){
+            if(!isset($index[$base_uri][$base_p])){
+              $diff[$base_uri][$base_p] = $base_obs;
+            } else {
+              foreach($base_obs as $base_o){
+                if(!in_array($base_o, $index[$base_uri][$base_p])){
+                  $diff[$base_uri][$base_p][]=$base_o;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    
+    return $diff;    
+  } 
+  
+  /**
+  * Source: http://php.net/manual/en/function.array-diff.php
+  */
+  function arrayRecursiveDiff($aArray1, $aArray2) 
+  {
+    $aReturn = array();
+
+    foreach ($aArray1 as $mKey => $mValue) {
+      if (array_key_exists($mKey, $aArray2)) {
+        if (is_array($mValue)) {
+          $aRecursiveDiff = arrayRecursiveDiff($mValue, $aArray2[$mKey]);
+          if (count($aRecursiveDiff)) { $aReturn[$mKey] = $aRecursiveDiff; }
+        } else {
+          if ($mValue != $aArray2[$mKey]) {
+            $aReturn[$mKey] = $mValue;
+          }
+        }
+      } else {
+        $aReturn[$mKey] = $mValue;
+      }
+    }
+    return $aReturn;
+  }  
   
 ?>
