@@ -179,8 +179,12 @@
     $t->assertEquals(isValidRDFXML($wsq->getResultset() . "this is invalid RDFXML", $errors), FALSE, "[Test is invalid RDF+XML] Debugging information: ".var_export($errors, TRUE)." [Returned Resultset] ".$wsq->getResultset());                                       
   }  
   
-  function compareRdfXml($actual, $expected)
-  {
+  function compareRdf($actual, $expected)
+  {    
+    // fix possible blank node references
+    $actual = str_replace('bnode:', "_:", $actual);
+    $expected = str_replace('bnode:', "_:", $expected);
+    
     $settings = new Config(); 
     
     include_once($settings->structwsfInstanceFolder."framework/arc2/ARC2.php");
@@ -205,9 +209,12 @@
     $parserExpected = $parserExpected->getSimpleIndex(0);    
     
     // Remove possible is-part-of that may be included by the endpoint
-    unset($parserActual[key($parserActual)]['http://purl.org/dc/terms/isPartOf']);
-    unset($parserExpected[key($parserExpected)]['http://purl.org/dc/terms/isPartOf']);
-    
+    foreach($parserActual as $uri => $description)
+    {
+      unset($parserActual[$uri]['http://purl.org/dc/terms/isPartOf']);
+      unset($parserExpected[$uri]['http://purl.org/dc/terms/isPartOf']);
+    }
+
     if(count(rdfdiff($parserActual, $parserExpected)) > 0)
     {
       return(FALSE);

@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:wsf="http://purl.org/ontology/wsf#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:iron="http://purl.org/ontology/iron#">
+  <wsf:Product rdf:about="http://foo.com/datasets/tests/foo">
+    <iron:prefLabel>A Pretty Good Product - (modified)</iron:prefLabel>
+    <iron:description xml:lang="en">This is really a great product!</iron:description>
+    <wsf:related_product rdf:resource="http://foo.com/datasets/tests/foo_related_modified" />
+    <wsf:product_available_since rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-06-05 18:00:00</wsf:product_available_since>
+    <wsf:product_in_inventory rdf:datatype="http://www.w3.org/2001/XMLSchema#int">9</wsf:product_in_inventory>
+    <wsf:product_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.570000171661377</wsf:product_unit>
+  </wsf:Product>
+</rdf:RDF>

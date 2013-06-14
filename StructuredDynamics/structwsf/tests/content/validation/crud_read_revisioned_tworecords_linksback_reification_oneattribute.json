@@ -1,0 +1,48 @@
+{
+  "prefixes": {
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "iron": "http://purl.org/ontology/iron#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "wsf": "http://purl.org/ontology/wsf#",
+    "dcterms": "http://purl.org/dc/terms/"
+  },
+  "resultset": {
+    "subject": [
+      {
+        "uri": "http://foo.com/datasets/tests/foo",
+        "type": "wsf:Product",
+        "predicate": [
+          {
+            "wsf:related_product": {
+              "uri": "http://foo.com/datasets/tests/foo_related_modified",
+              "reify": [
+                {
+                  "type": "wsf:value",
+                  "value": "object property reified triple"
+                }
+              ]
+            }
+          },
+          {
+            "dcterms:isPartOf": {
+              "uri": "http://test.com/unittests/"
+            }
+          }
+        ]
+      },
+      {
+        "uri": "http://foo.com/datasets/tests/bar",
+        "type": "wsf:Organization",
+        "predicate": [
+          {
+            "dcterms:isPartOf": {
+              "uri": "http://test.com/unittests/"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
