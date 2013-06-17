@@ -4,6 +4,7 @@
   
   use StructuredDynamics\structwsf\framework\WebServiceQuerier;
   use StructuredDynamics\structwsf\php\api\ws\crud\update\CrudUpdateQuery;
+  use StructuredDynamics\structwsf\php\api\ws\revision\lister\RevisionListerQuery;
   use StructuredDynamics\structwsf\tests\Config;
   use StructuredDynamics\structwsf\tests as utilities;
    
@@ -363,6 +364,47 @@
       $this->assertEquals($crudUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($crudUpdate, TRUE));
       $this->assertEquals($crudUpdate->error->id, "WS-CRUD-UPDATE-313", "Debugging information: ".var_export($crudUpdate, TRUE));                                       
 
+      utilities\deleteUnrevisionedRecord();
+      
+      unset($crudCreate);
+      unset($settings);  
+    }    
+    
+    public function testUpdateCreateNoRevision() {
+      
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(FALSE), "Can't create the unrevisioned records...");
+                 
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      
+      $crudUpdate->ignoreRevision()
+                 ->isPublished()
+                 ->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_update.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->sourceInterface($settings->crudUpdateInterface)
+                 ->sourceInterfaceVersion($settings->crudUpdateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudUpdate->getStatus(), "200", "Debugging information: ".var_export($crudUpdate, TRUE));        
+
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      
+      $revisionLister->dataset($settings->testDataset)
+                     ->shortResults()
+                     ->uri('http://foo.com/datasets/tests/foo')
+                     ->mime('resultset')
+                     ->send();
+                     
+      $this->assertEquals($revisionLister->getStatus(), "200", "Debugging information: ".var_export($revisionLister, TRUE));        
+      
+      $resultset = $revisionLister->getResultset()->getResultset();
+
+      $this->assertTrue((count($resultset['unspecified']) == 2), "Debugging information: ".var_export($resultset, TRUE));        
+      
       utilities\deleteUnrevisionedRecord();
       
       unset($crudCreate);
