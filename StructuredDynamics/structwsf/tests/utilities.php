@@ -21,7 +21,7 @@
   
   */
   
-  function createRevisionedRecord()
+  function createRevisionedRecord($published = TRUE)
   {
     $settings = new Config();  
     
@@ -41,23 +41,32 @@
     {            
       return(FALSE);
     }   
-    
+
     $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
     
     $crudUpdate->dataset($settings->testDataset)
                ->document(file_get_contents($settings->contentDir.'crud_update.n3'))
                ->documentMimeIsRdfN3()
                ->createRevision()
-               ->isPublished()
                ->sourceInterface($settings->crudUpdateInterface)
-               ->sourceInterfaceVersion($settings->crudUpdateInterfaceVersion)
-               ->send();
+               ->sourceInterfaceVersion($settings->crudUpdateInterfaceVersion);
+               
+    if($published)
+    {
+      $crudUpdate->isPublished()
+                 ->send();
+    }
+    else
+    {
+      $crudUpdate->isUnspecified()
+                 ->send();
+    }
            
     if(!$crudUpdate->isSuccessful())
     {          
       return(FALSE);
     }       
-                     
+                  
     return(TRUE);     
   }
   
@@ -315,14 +324,28 @@
     return($datasetRead->getResultset());    
   }
   
-  function createRecord($rdf)
+  function createRecord()
   {
+    $settings = new Config();  
     
-  }
-  
-  function deleteRecord($rdf)
-  {
+    createDataset();
+               
+    $crudCreate = new CrudCreateQuery($settings->endpointUrl);
     
+    $crudCreate->dataset($settings->testDataset)
+               ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+               ->documentMimeIsRdfN3()
+               ->enableFullIndexationMode()
+               ->sourceInterface($settings->crudCreateInterface)
+               ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+               ->send();
+           
+    if(!$crudCreate->isSuccessful())
+    {            
+      return(FALSE);
+    }      
+                     
+    return(TRUE);      
   }
   
   function createNoAccess_AccessRecord()
