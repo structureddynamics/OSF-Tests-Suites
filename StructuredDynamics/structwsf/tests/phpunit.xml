@@ -21,5 +21,8 @@
       <file>REPLACEME/tests/ws/crud/delete/CrudDeleteTest.php</file>
       <file>REPLACEME/tests/ws/crud/read/CrudReadTest.php</file>
     </testsuite>
+    <testsuite name="Revision Webservice Endpoints">
+      <file>REPLACEME/tests/ws/revision/delete/RevisionDeleteTest.php</file>
+    </testsuite>    
   </testsuites>
 </phpunit>

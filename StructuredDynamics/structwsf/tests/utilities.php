@@ -10,6 +10,7 @@
   use \StructuredDynamics\structwsf\php\api\ws\dataset\delete\DatasetDeleteQuery;
   use \StructuredDynamics\structwsf\php\api\ws\dataset\read\DatasetReadQuery;
   use \StructuredDynamics\structwsf\php\api\framework\CRUDPermission;
+  use \StructuredDynamics\structwsf\php\api\ws\revision\lister\RevisionListerQuery;
   use \StructuredDynamics\structwsf\php\api\ws\ontology\create\OntologyCreateQuery;
   use \StructuredDynamics\structwsf\php\api\ws\ontology\delete\OntologyDeleteQuery;
   
@@ -438,11 +439,37 @@
     
     if(!$crudDelete->isSuccessful())
     {
-      print_r(var_export($crudDelete, TRUE));
       return(FALSE);
     }
     
     return(TRUE);
   }  
+  
+  function getLastRevisionUri($uri)
+  {
+    $settings = new Config();
+    
+    $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+    
+    $revisionLister->dataset($settings->testDataset)
+                   ->mime('resultset')
+                   ->uri($uri)
+                   ->shortResults()
+                   ->send();
+                   
+    if(!$revisionLister->isSuccessful())
+    {
+      return(FALSE);
+    } 
+    
+    $resultset = $revisionLister->getResultset()->getResultset();                  
+                   
+    if(!isset($resultset['unspecified']))                   
+    {
+      return(FALSE);
+    }
+    
+    return(key($resultset['unspecified']));
+  }
   
 ?>
