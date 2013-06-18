@@ -282,6 +282,9 @@
       
       /** CRUD Read web service endpoint's interface version */
       $this->crudReadInterfaceVersion = "1.0";        
+      
+      /** CRUD Delete web service endpoint's interface version */
+      $this->crudDeleteInterfaceVersion = "1.0";        
 
       /** Auth Validator web service endpoint's interface */
       $this->authValidatorInterface = "DefaultSourceInterface";   
@@ -321,6 +324,9 @@
       
       /** CRUD Read web service endpoint's interface */
       $this->crudReadInterface = "DefaultSourceInterface";        
+      
+      /** CRUD Delete web service endpoint's interface */
+      $this->crudDeleteInterface = "DefaultSourceInterface";        
 
             
       $this->datasetWebservices = array($this->endpointUri."auth/validator/",
