@@ -472,4 +472,31 @@
     return(key($resultset['unspecified']));
   }
   
+  function getInitialRevisionUri($uri)
+  {
+    $settings = new Config();
+    
+    $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+    
+    $revisionLister->dataset($settings->testDataset)
+                   ->mime('resultset')
+                   ->uri($uri)
+                   ->shortResults()
+                   ->send();
+                   
+    if(!$revisionLister->isSuccessful())
+    {
+      return(FALSE);
+    } 
+    
+    $resultset = $revisionLister->getResultset()->getResultset();                  
+                   
+    if(!isset($resultset['unspecified']))                   
+    {
+      return(FALSE);
+    }
+    
+    return(key(array_slice($resultset['unspecified'], -1, 1, TRUE)));
+  }
+  
 ?>

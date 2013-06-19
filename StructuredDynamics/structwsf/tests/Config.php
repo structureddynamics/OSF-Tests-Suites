@@ -288,6 +288,9 @@
       
       /** Revision Delete web service endpoint's interface version */
       $this->revisionDeleteInterfaceVersion = "1.0";        
+      
+      /** Revision Read web service endpoint's interface version */
+      $this->revisionReadInterfaceVersion = "1.0";        
 
       /** Auth Validator web service endpoint's interface */
       $this->authValidatorInterface = "DefaultSourceInterface";   
@@ -333,6 +336,9 @@
       
       /** Revision Delete web service endpoint's interface */
       $this->revisionDeleteInterface = "DefaultSourceInterface";        
+      
+      /** Revision Read web service endpoint's interface */
+      $this->revisionReadInterface = "DefaultSourceInterface";        
 
             
       $this->datasetWebservices = array($this->endpointUri."auth/validator/",

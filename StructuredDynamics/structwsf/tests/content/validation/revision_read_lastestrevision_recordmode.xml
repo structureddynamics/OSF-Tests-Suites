@@ -1,29 +1,23 @@
 <?xml version="1.0"?>
 <rdf:RDF xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:wsf="http://purl.org/ontology/wsf#" xmlns:wgs84_pos="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:iron="http://purl.org/ontology/iron#">
   <wsf:Product rdf:about="http://foo.com/datasets/tests/foo">
-    <iron:prefLabel>A Pretty Good Product</iron:prefLabel>
+    <iron:prefLabel>A Pretty Good Product - (modified)</iron:prefLabel>
     <iron:description xml:lang="en">This is really a great product!</iron:description>
-    <wsf:related_product rdf:resource="http://foo.com/datasets/tests/foo_related" />
+    <wsf:related_product rdf:resource="http://foo.com/datasets/tests/foo_related_modified" />
     <wsf:product_available_since rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-06-05 18:00:00</wsf:product_available_since>
-    <wsf:product_in_inventory rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</wsf:product_in_inventory>
+    <wsf:product_in_inventory rdf:datatype="http://www.w3.org/2001/XMLSchema#int">9</wsf:product_in_inventory>
     <wsf:product_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.570000171661377</wsf:product_unit>
   </wsf:Product>
   <rdf:Statement rdf:about="bnode:c32b66f43c6ea94a54b8f8963ea4e42a">
     <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
     <rdf:predicate rdf:resource="http://purl.org/ontology/wsf#related_product" />
-    <rdf:object rdf:resource="http://foo.com/datasets/tests/foo_related" />
+    <rdf:object rdf:resource="http://foo.com/datasets/tests/foo_related_modified" />
     <wsf:value>object property reified triple</wsf:value>
   </rdf:Statement>
   <rdf:Statement rdf:about="bnode:3d786ce247f363f57f42602f43a3cb1b">
     <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
     <rdf:predicate rdf:resource="http://purl.org/ontology/iron#prefLabel" />
-    <rdf:object>A Pretty Good Product</rdf:object>
+    <rdf:object>A Pretty Good Product - (modified)</rdf:object>
     <wsf:value>datatype property reified triple</wsf:value>
   </rdf:Statement>
-  <wsf:Organization rdf:about="http://foo.com/datasets/tests/bar">
-    <iron:prefLabel>Products Organization Inc.</iron:prefLabel>
-    <wgs84_pos:lat>49.8760799999956</wgs84_pos:lat>
-    <wgs84_pos:long>-97.306264999999</wgs84_pos:long>
-    <wsf:produce rdf:resource="http://foo.com/datasets/tests/foo" />
-  </wsf:Organization>
 </rdf:RDF>
