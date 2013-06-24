@@ -163,6 +163,30 @@
     /** CRUD Read web service endpoint's interface */
     public $crudReadInterface = "DefaultSourceInterface";  
     
+    /** CRUD Delete web service endpoint's interface version */
+    public $crudDeleteInterfaceVersion = "";   
+    
+    /** CRUD Delete web service endpoint's interface */
+    public $crudDeleteInterface = "DefaultSourceInterface";  
+    
+    /** Revision Delete web service endpoint's interface version */
+    public $revisionDeleteInterfaceVersion = "";   
+    
+    /** Revision Delete web service endpoint's interface */
+    public $revisionDeleteInterface = "DefaultSourceInterface";  
+    
+    /** Revision Read web service endpoint's interface version */
+    public $revisionReadInterfaceVersion = "";   
+    
+    /** Revision Read web service endpoint's interface */
+    public $revisionReadInterface = "DefaultSourceInterface";  
+    
+    /** Revision Update web service endpoint's interface version */
+    public $revisionUpdateInterfaceVersion = "";   
+    
+    /** Revision Update web service endpoint's interface */
+    public $revisionUpdateInterface = "DefaultSourceInterface";  
+    
     /** Directory where content files used by the tests are located */
     public $contentDir = ''; 
     
@@ -291,6 +315,9 @@
       
       /** Revision Read web service endpoint's interface version */
       $this->revisionReadInterfaceVersion = "1.0";        
+      
+      /** Revision Update web service endpoint's interface version */
+      $this->revisionUpdateInterfaceVersion = "1.0";        
 
       /** Auth Validator web service endpoint's interface */
       $this->authValidatorInterface = "DefaultSourceInterface";   
@@ -339,6 +366,9 @@
       
       /** Revision Read web service endpoint's interface */
       $this->revisionReadInterface = "DefaultSourceInterface";        
+      
+      /** Revision Update web service endpoint's interface */
+      $this->revisionUpdateInterface = "DefaultSourceInterface";        
 
             
       $this->datasetWebservices = array($this->endpointUri."auth/validator/",
