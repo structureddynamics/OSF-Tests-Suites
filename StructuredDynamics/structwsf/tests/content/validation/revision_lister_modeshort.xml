@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#">
+
+  <wsf:Revision rdf:about="http://test.com/unittests/revisions/1372163172.2899">
+    <wsf:revisionTime rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1372163172.2899</wsf:revisionTime>
+  </wsf:Revision>
+  <wsf:Revision rdf:about="http://test.com/unittests/revisions/1372163172.26">
+    <wsf:revisionTime rdf:datatype="http://www.w3.org/2001/XMLSchema#double">1372163172.26</wsf:revisionTime>
+  </wsf:Revision>
+</rdf:RDF>

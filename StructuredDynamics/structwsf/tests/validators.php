@@ -228,17 +228,34 @@
     return(TRUE);
   }
   
-  function compareStructJSON($actual, $expected)
+  function compareStructJSON($actual, $expected, $compareValues = TRUE)
   {
     $actual = json_decode($actual, TRUE);
     $expected = json_decode($expected, TRUE);
 
-    if(count(arrayRecursiveDiff($actual, $expected)) > 0)
+    if($compareValues)
     {
-      return(FALSE);
-    }      
-    
-    return(TRUE);
+      if(count(arrayRecursiveDiff($actual, $expected)) > 0)
+      {
+        return(FALSE);
+      }      
+      
+      return(TRUE);
+    }
+    else
+    {
+      if(count(arrayRecursiveStructureDiff($actual, $expected)) > 0)
+      {
+        return(FALSE);
+      }      
+
+      if(count(arrayRecursiveStructureDiff($expected, $actual)) > 0)
+      {
+        return(FALSE);
+      }      
+      
+      return(TRUE);
+    }
   }
   
   function validateParameterApplicationRdfN3(&$t, &$wsq)
@@ -303,5 +320,23 @@
     }
     return $aReturn;
   }  
+
+  function arrayRecursiveStructureDiff($aArray1, $aArray2) 
+  {
+    $aReturn = array();
+
+    foreach ($aArray1 as $mKey => $mValue) {
+      if (array_key_exists($mKey, $aArray2)) {
+        if (is_array($mValue)) {
+          $aRecursiveDiff = arrayRecursiveStructureDiff($mValue, $aArray2[$mKey]);
+          if (count($aRecursiveDiff)) { $aReturn[$mKey] = $aRecursiveDiff; }
+        }
+      } else {
+        $aReturn[$mKey] = $mValue;
+      }
+    }
+    return $aReturn;
+  }  
+
   
 ?>
