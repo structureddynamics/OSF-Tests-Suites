@@ -193,6 +193,12 @@
     /** Revision Lister web service endpoint's interface */
     public $revisionListerInterface = "DefaultSourceInterface";  
     
+    /** Revision Diff web service endpoint's interface version */
+    public $revisionDiffInterfaceVersion = "";   
+    
+    /** Revision Diff web service endpoint's interface */
+    public $revisionDiffInterface = "DefaultSourceInterface";  
+    
     /** Directory where content files used by the tests are located */
     public $contentDir = ''; 
     
@@ -327,6 +333,9 @@
       
       /** Revision Lister web service endpoint's interface version */
       $this->revisionListerInterfaceVersion = "1.0";        
+      
+      /** Revision Diff web service endpoint's interface version */
+      $this->revisionDiffInterfaceVersion = "1.0";        
 
       /** Auth Validator web service endpoint's interface */
       $this->authValidatorInterface = "DefaultSourceInterface";   
@@ -381,6 +390,9 @@
       
       /** Revision Lister web service endpoint's interface */
       $this->revisionListerInterface = "DefaultSourceInterface";        
+      
+      /** Revision Diff web service endpoint's interface */
+      $this->revisionDiffInterface = "DefaultSourceInterface";        
 
             
       $this->datasetWebservices = array($this->endpointUri."auth/validator/",

@@ -1,0 +1,547 @@
+<?php
+
+  namespace StructuredDynamics\structwsf\tests\ws\diff\lister;
+  
+  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
+  use StructuredDynamics\structwsf\php\api\ws\revision\lister\RevisionListerQuery;
+  use StructuredDynamics\structwsf\php\api\ws\revision\diff\RevisionDiffQuery;
+  use StructuredDynamics\structwsf\framework\Resultset;
+  use StructuredDynamics\structwsf\tests\Config;
+  use StructuredDynamics\structwsf\tests as utilities;
+   
+  include_once("SplClassLoader.php");
+  include_once("validators.php");
+  include_once("utilities.php");  
+  
+  // Load the \tests namespace where all the test code is located 
+  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests->register();
+    
+  // Load the \ws namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws->register();  
+  
+  // Load the \php\api\framework namespace where all the web service code is located 
+  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws->register();  
+ 
+  // Load the \framework namespace where all the supporting (utility) code is located
+  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework->register(); 
+  
+  ini_set("memory_limit","256M");
+  set_time_limit(3600);
+
+  $settings = new Config(); 
+  
+  class RevisionDiffTest extends \PHPUnit_Framework_TestCase {
+    
+    static private $outputs = array();
+    
+    public function testWrongEndpointUrl() {
+      
+      $settings = new Config();          
+      
+      $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/diff/" . "wrong", 
+                                   "get", 
+                                   "text/xml",
+                                   "&lrevuri=" . urlencode('') .
+                                   "&rrevuri=" . urlencode('') .
+                                   "&dataset=" . urlencode($settings->testDataset) .
+                                   "&interface=". urlencode($settings->revisionDiffInterface) .
+                                   "&version=". urlencode($settings->revisionDiffInterfaceVersion) .
+                                   "&registered_ip=" . urlencode("Self"));        
+                         
+      $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
+      
+      unset($wsq);
+      unset($settings);
+    }
+    
+    public function testWrongEndpointMethodPost() {
+      
+      $settings = new Config();  
+      
+      $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/diff/", 
+                                   "post", 
+                                   "text/xml",
+                                   "&lrevuri=" . urlencode('') .
+                                   "&rrevuri=" . urlencode('') .
+                                   "&dataset=" . urlencode($settings->testDataset) .
+                                   "&interface=". urlencode($settings->revisionDiffInterface) .
+                                   "&version=". urlencode($settings->revisionDiffInterfaceVersion) .
+                                   "&registered_ip=" . urlencode("Self"));       
+                                   
+      $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
+      $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
+      
+      unset($wsq);
+      unset($settings);
+    }    
+    
+    public function testValidInterfaceVersion() {
+      
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();
+                   
+      $this->assertEquals($revisionDiff->getStatus(), "200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }
+    
+    public function testInvalidInterfaceVersion() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion('667.7')                   
+                   ->send();
+                   
+      $this->assertEquals($revisionDiff->getStatus(), "400", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      $this->assertEquals($revisionDiff->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($revisionDiff, TRUE));
+      $this->assertEquals($revisionDiff->error->id, "WS-REVISION-DIFF-302", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);              
+    }  
+
+    public function testInterfaceExists() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();
+                   
+      $this->assertEquals($revisionDiff->getStatus(), "200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }   
+    
+    public function testInterfaceNotExisting() {
+      
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->sourceInterface('unexisting-interface')
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();
+            
+      $this->assertEquals($revisionDiff->getStatus(), "400", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      $this->assertEquals($revisionDiff->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($revisionDiff, TRUE));
+      $this->assertEquals($revisionDiff->error->id, "WS-REVISION-DIFF-300", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);        
+   }  
+   
+   public function testMissingDataset() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset('')
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();
+                   
+      $this->assertEquals($revisionDiff->getStatus(), "400", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      $this->assertEquals($revisionDiff->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($revisionDiff, TRUE));
+      $this->assertEquals($revisionDiff->error->id, "WS-REVISION-DIFF-200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    } 
+    
+    public function testMissingFirstRevision() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri('')
+                   ->rightRevisionUri($rrevuri)
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();
+                   
+      $this->assertEquals($revisionDiff->getStatus(), "400", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      $this->assertEquals($revisionDiff->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($revisionDiff, TRUE));
+      $this->assertEquals($revisionDiff->error->id, "WS-REVISION-DIFF-201", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }               
+    
+    public function testMissingSecondRevision() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri('')
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();
+                   
+      $this->assertEquals($revisionDiff->getStatus(), "400", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      $this->assertEquals($revisionDiff->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($revisionDiff, TRUE));
+      $this->assertEquals($revisionDiff->error->id, "WS-REVISION-DIFF-202", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }               
+
+    public function testCompareRevisionsFromDifferentRecords() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/bar');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();
+                   
+      $this->assertEquals($revisionDiff->getStatus(), "400", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      $this->assertEquals($revisionDiff->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($revisionDiff, TRUE));
+      $this->assertEquals($revisionDiff->error->id, "WS-REVISION-DIFF-305", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }               
+
+    public function testDiff_RDFXML() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->mime('application/rdf+xml')
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();                  
+          
+      $this->assertEquals($revisionDiff->getStatus(), "200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      utilities\validateParameterApplicationRdfXml($this, $revisionDiff);
+
+      $expected = new \DOMDocument;
+      $expected->loadXML(file_get_contents($settings->contentDir.'validation/revision_diff.xml'));
+ 
+      $actual = new \DOMDocument;
+      $actual->loadXML($revisionDiff->getResultset());      
+      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);   
+      
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }  
+
+    public function testDiff_RDFN3() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->mime('application/rdf+n3')
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();                  
+          
+      $this->assertEquals($revisionDiff->getStatus(), "200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      
+      utilities\validateParameterApplicationRdfN3($this, $revisionDiff);
+      
+      include_once($settings->structwsfInstanceFolder."framework/arc2/ARC2.php");
+      
+      $parserExpected = \ARC2::getRDFParser();
+      $parserExpected->parse($settings->testDataset, file_get_contents($settings->contentDir.'validation/revision_diff.xml'));      
+      
+      $parserActual = \ARC2::getRDFParser();
+      $parserActual->parse($settings->testDataset, $revisionDiff->getResultset());      
+
+      $expected = new \DOMDocument;
+      $expected->loadXML($parserExpected->toRDFXML($parserExpected->getSimpleIndex(0)));
+ 
+      $actual = new \DOMDocument;
+      $actual->loadXML($parserActual->toRDFXML($parserActual->getSimpleIndex(0)));      
+      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);     
+            
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }  
+    
+    public function testDiff_StructJSON() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->mime('application/json')
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();                  
+
+      $this->assertEquals($revisionDiff->getStatus(), "200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      
+      utilities\validateParameterApplicationJson($this, $revisionDiff);
+      
+      $this->assertTrue(utilities\compareStructJSON($revisionDiff->getResultset(), file_get_contents($settings->contentDir.'validation/revision_diff.json'), FALSE));
+    
+            
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }    
+
+    public function testDiff_StructXML() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->mime('text/xml')
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();                  
+            
+      $this->assertEquals($revisionDiff->getStatus(), "200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      
+      utilities\validateParameterTextXml($this, $revisionDiff);
+
+      $resultset = new Resultset($settings->endpointUrl);
+      
+      // To test the structXML serialization, we import it into a Resultset() object and we export as RDF+XML
+      // then we compare it to the expected RDF+XML resultset.
+      $resultset->importStructXMLResultset($revisionDiff->getResultset());
+      
+      $expected = new \DOMDocument;
+      $expected->loadXML(file_get_contents($settings->contentDir.'validation/revision_diff.xml'));
+ 
+      $actual = new \DOMDocument;
+      $actual->loadXML($resultset->getResultsetRDFXML());      
+      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+            
+      utilities\deleteRevisionedRecord();
+
+      unset($revisionDiff);
+      unset($settings);    
+    }
+    
+    public function testDiff_Resultset() {
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
+
+      $lrevuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
+      $rrevuri = utilities\getInitialRevisionUri('http://foo.com/datasets/tests/foo');
+      
+      $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
+      $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
+
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      
+      $revisionDiff->dataset($settings->testDataset)
+                   ->leftRevisionUri($lrevuri)
+                   ->rightRevisionUri($rrevuri)
+                   ->mime('resultset')
+                   ->sourceInterface($settings->revisionDiffInterface)
+                   ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
+                   ->send();                  
+                        
+      $this->assertEquals($revisionDiff->getStatus(), "200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      
+      $expected = new \DOMDocument;
+      $expected->loadXML(file_get_contents($settings->contentDir.'validation/revision_diff.xml'));
+ 
+      $actual = new \DOMDocument;
+      $actual->loadXML($revisionDiff->getResultset()->getResultsetRDFXML());      
+      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);
+
+      unset($revisionDiff);
+      unset($settings);    
+    }
+}
+  
+?>

@@ -26,6 +26,7 @@
       <file>REPLACEME/tests/ws/revision/delete/RevisionReadTest.php</file>
       <file>REPLACEME/tests/ws/revision/delete/RevisionUpdateTest.php</file>
       <file>REPLACEME/tests/ws/revision/delete/RevisionListerTest.php</file>
+      <file>REPLACEME/tests/ws/revision/delete/RevisionDiffTest.php</file>
     </testsuite>    
   </testsuites>
 </phpunit>

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#"
+         xmlns:cs="http://purl.org/vocab/changeset/schema#">
+
+  <rdf:Statement rdf:about="removal-3d786ce247f363f57f42602f43a3cb1b">
+    <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
+    <rdf:predicate rdf:resource="http://purl.org/ontology/iron#prefLabel" />
+    <rdf:object>A Pretty Good Product - (modified)</rdf:object>
+  </rdf:Statement>
+  <rdf:Statement rdf:about="removal-c32b66f43c6ea94a54b8f8963ea4e42a">
+    <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
+    <rdf:predicate rdf:resource="http://purl.org/ontology/wsf#related_product" />
+    <rdf:object rdf:resource="http://foo.com/datasets/tests/foo_related_modified" />
+  </rdf:Statement>
+  <rdf:Statement rdf:about="removal-7f3ffb4505981304e96a55c617236bf2">
+    <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
+    <rdf:predicate rdf:resource="http://purl.org/ontology/wsf#product_in_inventory" />
+    <rdf:object>9</rdf:object>
+  </rdf:Statement>
+  <rdf:Statement rdf:about="addition-730a35f4cc4179b594619035dc45981d">
+    <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
+    <rdf:predicate rdf:resource="http://purl.org/ontology/iron#prefLabel" />
+    <rdf:object>A Pretty Good Product</rdf:object>
+  </rdf:Statement>
+  <rdf:Statement rdf:about="addition-42d16c0545758cee62615d31720ba49b">
+    <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
+    <rdf:predicate rdf:resource="http://purl.org/ontology/wsf#related_product" />
+    <rdf:object rdf:resource="http://foo.com/datasets/tests/foo_related" />
+  </rdf:Statement>
+  <rdf:Statement rdf:about="addition-04b87f0b65b46f2cee139bcfc984bcb7">
+    <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
+    <rdf:predicate rdf:resource="http://purl.org/ontology/wsf#product_in_inventory" />
+    <rdf:object>10</rdf:object>
+  </rdf:Statement>
+  <cs:ChangeSet rdf:about="http://foo.com/datasets/tests/foo/1372169054.3218/changeset">
+    <cs:subjectOfChange rdf:resource="http://foo.com/datasets/tests/foo" />
+    <cs:createDate>2013-06-25T14:04:14Z</cs:createDate>
+    <cs:removal rdf:resource="removal-3d786ce247f363f57f42602f43a3cb1b" />
+    <cs:removal rdf:resource="removal-c32b66f43c6ea94a54b8f8963ea4e42a" />
+    <cs:removal rdf:resource="removal-7f3ffb4505981304e96a55c617236bf2" />
+    <cs:addition rdf:resource="addition-730a35f4cc4179b594619035dc45981d" />
+    <cs:addition rdf:resource="addition-42d16c0545758cee62615d31720ba49b" />
+    <cs:addition rdf:resource="addition-04b87f0b65b46f2cee139bcfc984bcb7" />
+  </cs:ChangeSet>
+</rdf:RDF>
