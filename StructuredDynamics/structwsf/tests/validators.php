@@ -179,7 +179,7 @@
     $t->assertEquals(isValidRDFXML($wsq->getResultset() . "this is invalid RDFXML", $errors), FALSE, "[Test is invalid RDF+XML] Debugging information: ".var_export($errors, TRUE)." [Returned Resultset] ".$wsq->getResultset());                                       
   }  
   
-  function compareRdf($actual, $expected)
+  function compareRdf($actual, $expected, $removeReification = FALSE)
   {    
     // fix possible blank node references
     $actual = str_replace('bnode:', "_:", $actual);
@@ -207,6 +207,24 @@
     
     $parserActual = $parserActual->getSimpleIndex(0);
     $parserExpected = $parserExpected->getSimpleIndex(0);    
+
+    if($removeReification)
+    {
+      foreach($parserActual as $uri => $description)
+      {
+        if($description['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'][0]['value'] == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement')
+        {
+          unset($parserActual[$uri]);
+        }
+      }
+      foreach($parserExpected as $uri => $description)
+      {
+        if($description['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'][0]['value'] == 'http://www.w3.org/1999/02/22-rdf-syntax-ns#Statement')
+        {
+          unset($parserExpected[$uri]);
+        }
+      }
+    }
     
     // Remove possible is-part-of that may be included by the endpoint
     foreach($parserActual as $uri => $description)

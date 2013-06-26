@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#">
+
+  <owl:DatatypeProperty rdf:about="http://foo.org/test#dpD">
+    <rdfs:label xml:lang="en">datatype property D-modified</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty" />
+  </owl:DatatypeProperty>
+  <rdf:Statement rdf:about="bnode:13f448f9f584223af693e6b00bf519cc">
+    <rdf:subject rdf:resource="http://foo.org/test#dpD" />
+    <rdf:predicate rdf:resource="http://www.w3.org/2000/01/rdf-schema#subPropertyOf" />
+    <rdf:object rdf:resource="http://www.w3.org/2002/07/owl#topDataProperty" />
+    <wsf:objectLabel>top Data Property</wsf:objectLabel>
+  </rdf:Statement>
+
+</rdf:RDF>

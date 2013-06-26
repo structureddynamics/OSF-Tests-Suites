@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#"
+         xmlns:umbel="http://umbel.org/umbel#">
+
+  <owl:ObjectProperty rdf:about="http://foo.org/test#opA">
+    <rdfs:label xml:lang="en">object property A-modified</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty" />
+    <umbel:superPropertyOf rdf:resource="http://foo.org/test#opB" />
+    <rdfs:domain rdf:resource="http://foo.org/test#A" />
+  </owl:ObjectProperty>
+  <rdf:Statement rdf:about="bnode:e5a144cdca525d94476332e8916a838e">
+    <rdf:subject rdf:resource="http://foo.org/test#opA" />
+    <rdf:predicate rdf:resource="http://www.w3.org/2000/01/rdf-schema#subPropertyOf" />
+    <rdf:object rdf:resource="http://www.w3.org/2002/07/owl#topObjectProperty" />
+    <wsf:objectLabel>top Object Property</wsf:objectLabel>
+  </rdf:Statement>
+
+  <rdf:Statement rdf:about="bnode:f78f7f5048eb33fe34886d6d37c864e7">
+    <rdf:subject rdf:resource="http://foo.org/test#opA" />
+    <rdf:predicate rdf:resource="http://umbel.org/umbel#superPropertyOf" />
+    <rdf:object rdf:resource="http://foo.org/test#opB" />
+    <wsf:objectLabel>object property B</wsf:objectLabel>
+  </rdf:Statement>
+
+  <rdf:Statement rdf:about="bnode:a79af333ea9192f9efbe5d723dcd9623">
+    <rdf:subject rdf:resource="http://foo.org/test#opA" />
+    <rdf:predicate rdf:resource="http://www.w3.org/2000/01/rdf-schema#domain" />
+    <rdf:object rdf:resource="http://foo.org/test#A" />
+    <wsf:objectLabel>A</wsf:objectLabel>
+  </rdf:Statement>
+
+</rdf:RDF>

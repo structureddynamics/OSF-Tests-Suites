@@ -145,6 +145,12 @@
     /** Ontology Read web service endpoint's interface */
     public $ontologyReadInterface = "DefaultSourceInterface";   
     
+    /** Ontology Update web service endpoint's interface version */
+    public $ontologyUpdateInterfaceVersion = "";   
+    
+    /** Ontology Update web service endpoint's interface */
+    public $ontologyUpdateInterface = "DefaultSourceInterface";   
+    
     /** CRUD Create web service endpoint's interface version */
     public $crudCreateInterfaceVersion = "";   
     
@@ -198,6 +204,12 @@
     
     /** Revision Diff web service endpoint's interface */
     public $revisionDiffInterface = "DefaultSourceInterface";  
+    
+    /** Search web service endpoint's interface version */
+    public $searchInterfaceVersion = "";   
+    
+    /** Search web service endpoint's interface */
+    public $searchInterface = "DefaultSourceInterface";  
     
     /** Directory where content files used by the tests are located */
     public $contentDir = ''; 
@@ -310,6 +322,9 @@
       /** Ontology Read web service endpoint's interface version */
       $this->ontologyReadInterfaceVersion = "1.0";        
       
+      /** Ontology Update web service endpoint's interface version */
+      $this->ontologyUpdateInterfaceVersion = "1.0";        
+      
       /** CRUD Create web service endpoint's interface version */
       $this->crudCreateInterfaceVersion = "1.0";        
       
@@ -336,6 +351,9 @@
       
       /** Revision Diff web service endpoint's interface version */
       $this->revisionDiffInterfaceVersion = "1.0";        
+      
+      /** Search web service endpoint's interface version */
+      $this->searchInterfaceVersion = "1.0";        
 
       /** Auth Validator web service endpoint's interface */
       $this->authValidatorInterface = "DefaultSourceInterface";   
@@ -367,6 +385,9 @@
       /** Ontology Read web service endpoint's interface */
       $this->ontologyReadInterface = "DefaultSourceInterface";        
       
+      /** Ontology Update web service endpoint's interface */
+      $this->ontologyUpdateInterface = "DefaultSourceInterface";        
+      
       /** CRUD Create web service endpoint's interface */
       $this->crudCreateInterface = "DefaultSourceInterface";        
       
@@ -393,6 +414,9 @@
       
       /** Revision Diff web service endpoint's interface */
       $this->revisionDiffInterface = "DefaultSourceInterface";        
+      
+      /** Search web service endpoint's interface */
+      $this->searchInterface = "DefaultSourceInterface";        
 
             
       $this->datasetWebservices = array($this->endpointUri."auth/validator/",

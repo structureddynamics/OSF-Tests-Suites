@@ -371,7 +371,7 @@
     return(TRUE);       
   }
   
-  function createOntology()
+  function createOntology($enableAdvanvedIndexation = TRUE)
   {
     $settings = new Config();     
         
@@ -379,8 +379,16 @@
                                  
     $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
     
-    $ontologyCreate->enableAdvancedIndexation()
-                   ->enableReasoner()
+    if($enableAdvanvedIndexation)
+    {
+      $ontologyCreate->enableAdvancedIndexation();
+    }
+    else
+    {
+      $ontologyCreate->disableAdvancedIndexation();
+    }
+    
+    $ontologyCreate->enableReasoner()
                    ->uri($settings->testOntologyUri)
                    ->globalPermissions($crudPermissions)
                    ->mime('text/xml')
