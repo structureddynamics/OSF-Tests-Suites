@@ -37,7 +37,7 @@
   class CrudReadTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
-
+    
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          
@@ -227,7 +227,103 @@
       unset($crudCreate);
       unset($settings);       
     }     
+    
+    public function testLanguageNoLanguageSpecified() {
+      
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
+                 
+      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      
+      $crudRead->uri('http://foo.com/datasets/tests/foo')               
+               ->dataset($settings->testDataset)
+               ->excludeLinksback()
+               ->mime('resultset')
+               ->lang('')
+               ->excludeReification()
+               ->sourceInterface($settings->crudReadInterface)
+               ->sourceInterfaceVersion($settings->crudReadInterfaceVersion)
+               ->send();
 
+      $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
+
+      $resultset = $crudRead->getResultset()->getResultset();                                                                                                                                                                                                   
+
+      $this->assertTrue(isset($resultset[$settings->testDataset]['http://foo.com/datasets/tests/foo']['http://purl.org/ontology/iron#description'][0]['lang']) && $resultset[$settings->testDataset]['http://foo.com/datasets/tests/foo']['http://purl.org/ontology/iron#description'][0]['lang'] == 'en');
+      
+      utilities\deleteRevisionedRecord();
+
+      unset($crudCreate);
+      unset($settings);    
+    }      
+    
+    public function testLanguageEnglishSpecified() {
+      
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
+                 
+      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      
+      $crudRead->uri('http://foo.com/datasets/tests/foo')               
+               ->dataset($settings->testDataset)
+               ->excludeLinksback()
+               ->mime('resultset')
+               ->lang('en')
+               ->excludeReification()
+               ->sourceInterface($settings->crudReadInterface)
+               ->sourceInterfaceVersion($settings->crudReadInterfaceVersion)
+               ->send();
+
+      $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
+
+      $resultset = $crudRead->getResultset()->getResultset();                                                                                                                                                                                                   
+
+      $this->assertTrue(isset($resultset[$settings->testDataset]['http://foo.com/datasets/tests/foo']['http://purl.org/ontology/iron#description'][0]['lang']) && $resultset[$settings->testDataset]['http://foo.com/datasets/tests/foo']['http://purl.org/ontology/iron#description'][0]['lang'] == 'en');
+      
+      utilities\deleteRevisionedRecord();
+
+      unset($crudCreate);
+      unset($settings);    
+    }      
+           
+    public function testLanguageFrenchMissingSpecified() {
+      
+      $settings = new Config();  
+      
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
+                 
+      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      
+      $crudRead->uri('http://foo.com/datasets/tests/foo')               
+               ->dataset($settings->testDataset)
+               ->excludeLinksback()
+               ->mime('resultset')
+               ->lang('fr')
+               ->excludeReification()
+               ->sourceInterface($settings->crudReadInterface)
+               ->sourceInterfaceVersion($settings->crudReadInterfaceVersion)
+               ->send();
+
+      $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
+
+      $resultset = $crudRead->getResultset()->getResultset();                                                                                                                                                                                                   
+
+      $this->assertFalse(isset($resultset[$settings->testDataset]['http://foo.com/datasets/tests/foo']['http://purl.org/ontology/iron#description'][0]['lang']));
+      
+      utilities\deleteRevisionedRecord();
+
+      unset($crudCreate);
+      unset($settings);    
+    }        
+           
     public function test_GetOneRecord_Unrevisioned_NoLinksback_NoReification_RDFXML() {
       
       $settings = new Config(); 
@@ -1866,9 +1962,7 @@
 
       unset($crudCreate);
       unset($settings);         
-    }
-
-        
+    }  
   }
 
   
