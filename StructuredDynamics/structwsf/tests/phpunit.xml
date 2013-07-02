@@ -29,5 +29,8 @@
       <file>REPLACEME/tests/ws/revision/delete/RevisionListerTest.php</file>
       <file>REPLACEME/tests/ws/revision/delete/RevisionDiffTest.php</file>
     </testsuite>    
+    <testsuite name="Search Webservice Endpoint">
+      <file>REPLACEME/tests/ws/search/SearchTest.php</file>
+    </testsuite>    
   </testsuites>
 </phpunit>

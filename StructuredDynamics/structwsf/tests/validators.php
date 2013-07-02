@@ -237,7 +237,7 @@
     {
       return(FALSE);
     }
-    
+
     if(count(rdfdiff($parserExpected, $parserActual)) > 0)
     {
       return(FALSE);
@@ -252,7 +252,7 @@
     $expected = json_decode($expected, TRUE);
 
     if($compareValues)
-    {
+    { 
       if(count(arrayRecursiveDiff($actual, $expected)) > 0)
       {
         return(FALSE);
@@ -261,7 +261,7 @@
       return(TRUE);
     }
     else
-    {
+    {          
       if(count(arrayRecursiveStructureDiff($actual, $expected)) > 0)
       {
         return(FALSE);

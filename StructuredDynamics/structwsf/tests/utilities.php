@@ -65,6 +65,7 @@
            
     if(!$crudUpdate->isSuccessful())
     {          
+      var_dump($crudUpdate);
       return(FALSE);
     }       
                   
@@ -88,7 +89,7 @@
                ->send();
            
     if(!$crudCreate->isSuccessful())
-    {   die(var_export($crudCreate, TRUE));
+    {
       return(FALSE);
     }   
                      
@@ -133,6 +134,7 @@
     
     return(TRUE);                                 
   }
+  
   
   function createDatasetGlobalPermissionsNone()
   {
@@ -349,6 +351,31 @@
     return(TRUE);      
   }
   
+  function createSearchRecords()
+  {
+    $settings = new Config();  
+    
+    createDataset();
+               
+    $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+    
+    $crudCreate->dataset($settings->testDataset)
+               ->document(file_get_contents($settings->contentDir.'search_dataset.n3'))
+               ->documentMimeIsRdfN3()
+               ->enableFullIndexationMode()
+               ->sourceInterface($settings->crudCreateInterface)
+               ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+               ->send();
+           
+    if(!$crudCreate->isSuccessful())
+    {            
+      var_dump($crudCreate);
+      return(FALSE);
+    }      
+                     
+    return(TRUE);      
+  }
+  
   function createNoAccess_AccessRecord()
   {
     $settings = new Config();     
@@ -439,7 +466,7 @@
     
     $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
     
-    $crudDelete->dataset("http://ccr.nhccn.com.au/wsf/")
+    $crudDelete->dataset("http://localhost/wsf/")
                ->uri($settings->newWebServiceUri)
                ->sourceInterface(/* TO SET */)
                ->sourceInterfaceVersion(/* TO SET */)               
