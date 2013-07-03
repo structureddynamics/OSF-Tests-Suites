@@ -48,7 +48,7 @@
     
     public static function tearDownAfterClass()
     {
-      //utilities\deleteDataset();
+      utilities\deleteDataset();
     }
     
     public function testWrongEndpointUrl() {
