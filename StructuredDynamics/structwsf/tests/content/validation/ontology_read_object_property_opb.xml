@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#"
+         xmlns:umbel="http://umbel.org/umbel#">
+
+  <owl:ObjectProperty rdf:about="http://foo.org/test#opB">
+    <rdfs:label xml:lang="en">object property B</rdfs:label>
+    <rdfs:subPropertyOf rdf:resource="http://foo.org/test#opA" />
+    <umbel:superPropertyOf rdf:resource="http://foo.org/test#opC" />
+    <rdfs:domain rdf:resource="http://foo.org/test#B" />
+    <rdfs:range rdf:resource="http://foo.org/test#B" />
+  </owl:ObjectProperty>
+</rdf:RDF>

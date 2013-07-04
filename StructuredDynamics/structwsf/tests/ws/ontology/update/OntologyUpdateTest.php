@@ -44,18 +44,7 @@
   class OntologyUpdateTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
-    /*
-    static public function setUpBeforeClass() 
-    {    
-      utilities\createOntology();      
-    }
-    
-    static public function tearDownAfterClass() 
-    {
-      utilities\deleteOntology();      
-    } 
-    */ 
-    
+
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          
@@ -1024,7 +1013,7 @@
       unset($ontologyUpdate);
       unset($settings);        
     }
-   
+
     public function test_Class_B_Update_EnabledAdvancedIndexation_Solr()
     {      
       $settings = new Config();  
@@ -1066,7 +1055,7 @@
       // Fix the expected RDF to fit the specificities of the Search endpoint resultset
       $expected = preg_replace('/xml\:lang=".*"/', '', file_get_contents($settings->contentDir.'validation/ontology_update_class_b_update.xml'));
       $expected = str_replace('rdfs:label', 'iron:prefLabel', $expected);
-    
+
       $this->assertTrue(utilities\compareRdf($search->getResultset(), $expected, TRUE));              
                               
       utilities\deleteDataset();                              

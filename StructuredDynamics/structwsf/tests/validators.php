@@ -154,7 +154,7 @@
   } 
   
   function validateParameterTextXml(&$t, &$wsq)
-  {
+  {                      
     $errors = array();  
     
     $t->assertEquals(isValidXML($wsq->getResultset(), $errors), TRUE, "[Test is valid XML] Debugging information: ".var_export($errors, TRUE));                                       

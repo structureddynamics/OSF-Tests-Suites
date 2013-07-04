@@ -1,0 +1,204 @@
+{
+    "schema": {
+        "version": "0.1",
+        "typeList": {
+            "test_A": {
+                "description": "No description available",
+                "prefLabel": "A",
+                "subTypeOf": [
+                    "owl_Thing"
+                ]
+            },
+            "test_B": {
+                "description": "No description available",
+                "prefLabel": "B",
+                "subTypeOf": [
+                    "test_A"
+                ]
+            },
+            "test_G": {
+                "description": "No description available",
+                "prefLabel": "G",
+                "subTypeOf": [
+                    "owl_Thing"
+                ]
+            },
+            "test_F": {
+                "description": "No description available",
+                "prefLabel": "F",
+                "subTypeOf": [
+                    "owl_Thing"
+                ]
+            },
+            "test_E": {
+                "description": "No description available",
+                "prefLabel": "E",
+                "subTypeOf": [
+                    "owl_Thing"
+                ]
+            },
+            "test_D": {
+                "description": "No description available",
+                "prefLabel": "D",
+                "subTypeOf": [
+                    "owl_Thing"
+                ]
+            },
+            "test_C": {
+                "description": "No description available",
+                "prefLabel": "C",
+                "subTypeOf": [
+                    "test_B"
+                ]
+            }
+        },
+        "attributeList": {
+            "test_dpC": {
+                "description": "No description available",
+                "prefLabel": "datatype property C",
+                "type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+                "subPropertyOf": [
+                    "test_dpB"
+                ]
+            },
+            "test_dpD": {
+                "description": "No description available",
+                "prefLabel": "datatype property D",
+                "type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+                "subPropertyOf": [
+                    "owl_topDataProperty"
+                ]
+            },
+            "test_dpA": {
+                "description": "No description available",
+                "prefLabel": "datatype property A",
+                "type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+                "subPropertyOf": [
+                    "owl_topDataProperty"
+                ]
+            },
+            "test_dpB": {
+                "description": "No description available",
+                "prefLabel": "datatype property B",
+                "type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+                "subPropertyOf": [
+                    "test_dpA"
+                ]
+            },
+            "test_dpG": {
+                "description": "No description available",
+                "prefLabel": "dpG",
+                "type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+                "subPropertyOf": [
+                    "owl_topDataProperty"
+                ]
+            },
+            "test_dpE": {
+                "description": "No description available",
+                "prefLabel": "datatype property E",
+                "type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+                "subPropertyOf": [
+                    "owl_topDataProperty"
+                ]
+            },
+            "test_dpF": {
+                "description": "No description available",
+                "prefLabel": "dpF",
+                "type": "http://www.w3.org/2002/07/owl#DatatypeProperty",
+                "subPropertyOf": [
+                    "owl_topDataProperty"
+                ]
+            },
+            "test_aA": {
+                "description": "No description available",
+                "prefLabel": "aA",
+                "type": "http://www.w3.org/2002/07/owl#AnnotationProperty"
+            },
+            "rdf-schema_label": {
+                "description": "No description available",
+                "prefLabel": "label",
+                "type": "http://www.w3.org/2002/07/owl#AnnotationProperty"
+            },
+            "rdf-schema_comment": {
+                "description": "No description available",
+                "prefLabel": "comment",
+                "type": "http://www.w3.org/2002/07/owl#AnnotationProperty"
+            },
+            "test_opB": {
+                "description": "No description available",
+                "prefLabel": "object property B",
+                "type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+                "subPropertyOf": [
+                    "test_opA"
+                ],
+                "allowedType": [
+                    "test_B"
+                ],
+                "allowedValue": [
+                    {
+                        "type": "test_B"
+                    }
+                ]
+            },
+            "test_opC": {
+                "description": "No description available",
+                "prefLabel": "object property C",
+                "type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+                "subPropertyOf": [
+                    "test_opB"
+                ],
+                "allowedType": [
+                    "test_C"
+                ]
+            },
+            "test_opA": {
+                "description": "No description available",
+                "prefLabel": "object property A",
+                "type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+                "subPropertyOf": [
+                    "owl_topObjectProperty"
+                ],
+                "allowedType": [
+                    "test_A"
+                ]
+            },
+            "test_opF": {
+                "description": "No description available",
+                "prefLabel": "opF",
+                "type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+                "subPropertyOf": [
+                    "owl_topObjectProperty"
+                ]
+            },
+            "test_opG": {
+                "description": "No description available",
+                "prefLabel": "opG",
+                "type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+                "subPropertyOf": [
+                    "owl_topObjectProperty"
+                ]
+            },
+            "test_opD": {
+                "description": "No description available",
+                "prefLabel": "object property D",
+                "type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+                "subPropertyOf": [
+                    "owl_topObjectProperty"
+                ]
+            },
+            "test_opE": {
+                "description": "No description available",
+                "prefLabel": "object property E",
+                "type": "http://www.w3.org/2002/07/owl#ObjectProperty",
+                "subPropertyOf": [
+                    "owl_topObjectProperty"
+                ]
+            }
+        },
+        "prefixList": {
+            "test": "http://foo.org/test#",
+            "owl": "http://www.w3.org/2002/07/owl#",
+            "rdf-schema": "http://www.w3.org/2000/01/rdf-schema#"
+        }
+    }
+}

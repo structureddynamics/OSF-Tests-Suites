@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#"
+         xmlns:ns0="http://foo.org/test#">
+
+  <owl:Thing rdf:about="http://foo.org/test#niA">
+    <rdf:type rdf:resource="http://foo.org/test#A" />
+    <rdfs:comment xml:lang="en">named individual A</rdfs:comment>
+    <ns0:dpD xml:lang="en">test</ns0:dpD>
+    <ns0:opB rdf:resource="http://foo.org/test#niB" />
+    <ns0:opC rdf:resource="http://foo.org/test#niB" />
+  </owl:Thing>
+
+</rdf:RDF>
