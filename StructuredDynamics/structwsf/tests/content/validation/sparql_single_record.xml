@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#"
+         xmlns:ns0="http://purl.org/ontology/now#"
+         xmlns:sco="http://purl.org/ontology/sco#"
+         xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+         xmlns:geoname="http://www.geonames.org/ontology#">
+
+  <ns0:Schools rdf:about="http://now.winnipeg.ca/datasets/Schools/267">
+    <sco:namedEntity>true</sco:namedEntity>
+    <geo:long>-97.1431349999984</geo:long>
+    <geo:alt>0.0</geo:alt>
+    <iron:prefLabel>The Laureate Academy</iron:prefLabel>
+    <geo:lat>49.7703369999951</geo:lat>
+    <geoname:locatedIn rdf:resource="http://now.winnipeg.ca/datasets/neighbourhoods/5.625" />
+    <ns0:streetAddress>100 Villa Maria Pl</ns0:streetAddress>
+    <ns0:phoneNumber>204-831-7107</ns0:phoneNumber>
+    <ns0:schoolDivision>Private</ns0:schoolDivision>
+    <ns0:numberOfStudents>70</ns0:numberOfStudents>
+    <ns0:gradeLevel>K-12</ns0:gradeLevel>
+    <ns0:faxNumber>204-885-3217</ns0:faxNumber>
+    <ns0:numberOfTeachers>10</ns0:numberOfTeachers>
+  </ns0:Schools>
+</rdf:RDF>

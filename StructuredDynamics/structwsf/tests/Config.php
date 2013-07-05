@@ -211,6 +211,12 @@
     /** Search web service endpoint's interface */
     public $searchInterface = "DefaultSourceInterface";  
     
+    /** SPARQL web service endpoint's interface version */
+    public $sparqlInterfaceVersion = "";   
+    
+    /** SPARQL web service endpoint's interface */
+    public $sparqlInterface = "DefaultSourceInterface";  
+    
     /** Directory where content files used by the tests are located */
     public $contentDir = ''; 
     
@@ -354,6 +360,9 @@
       
       /** Search web service endpoint's interface version */
       $this->searchInterfaceVersion = "1.0";        
+      
+      /** SPARQL web service endpoint's interface version */
+      $this->sparqlInterfaceVersion = "1.0";        
 
       /** Auth Validator web service endpoint's interface */
       $this->authValidatorInterface = "DefaultSourceInterface";   
@@ -417,6 +426,9 @@
       
       /** Search web service endpoint's interface */
       $this->searchInterface = "DefaultSourceInterface";        
+      
+      /** SPARQL web service endpoint's interface */
+      $this->sparqlInterface = "DefaultSourceInterface";        
 
             
       $this->datasetWebservices = array($this->endpointUri."auth/validator/",

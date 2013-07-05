@@ -33,5 +33,8 @@
     <testsuite name="Search Webservice Endpoint">
       <file>REPLACEME/tests/ws/search/SearchTest.php</file>
     </testsuite>    
+    <testsuite name="SPARQL Webservice Endpoint">
+      <file>REPLACEME/tests/ws/sparql/SparqlTest.php</file>
+    </testsuite>    
   </testsuites>
 </phpunit>
