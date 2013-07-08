@@ -54,7 +54,7 @@
     {
       utilities\deleteOntology();      
     }      
-    /*
+    
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          
@@ -2190,7 +2190,7 @@
       unset($ontologyUpdate);
       unset($settings);        
     }   
-    */
+    
     public function test_Class_Create_Update_Delete_Create_Revision()
     {
       
