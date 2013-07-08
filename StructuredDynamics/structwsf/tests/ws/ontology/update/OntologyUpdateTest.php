@@ -6,11 +6,16 @@
   use StructuredDynamics\structwsf\php\api\ws\ontology\update\CreateOrUpdateEntityFunction;
   use StructuredDynamics\structwsf\php\api\ws\ontology\update\OntologyUpdateQuery;
   use StructuredDynamics\structwsf\php\api\ws\ontology\update\UpdateEntityUriFunction;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\delete\DeleteClassFunction;
+  use StructuredDynamics\structwsf\php\api\ws\ontology\delete\OntologyDeleteQuery;
   use StructuredDynamics\structwsf\php\api\ws\ontology\read\OntologyReadQuery;
   use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetClassFunction;
   use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetNamedIndividualFunction;
   use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetPropertyFunction;
   use StructuredDynamics\structwsf\php\api\ws\crud\read\CrudReadQuery;
+  use StructuredDynamics\structwsf\php\api\ws\revision\read\RevisionReadQuery;
+  use StructuredDynamics\structwsf\php\api\ws\revision\update\RevisionUpdateQuery;
+  use StructuredDynamics\structwsf\php\api\ws\revision\lister\RevisionListerQuery;
   use StructuredDynamics\structwsf\php\api\ws\search\SearchQuery;
   use StructuredDynamics\structwsf\tests\Config;
   use StructuredDynamics\structwsf\tests as utilities;
@@ -49,7 +54,7 @@
     {
       utilities\deleteOntology();      
     }      
-
+    /*
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          
@@ -2184,7 +2189,201 @@
                                    
       unset($ontologyUpdate);
       unset($settings);        
-    }    
+    }   
+    */
+    public function test_Class_Create_Update_Delete_Create_Revision()
+    {
+      
+      $settings = new Config();  
+      
+      utilities\deleteOntology();
+      
+      $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");      
+      
+      // Create the class                         
+      $createEntity = new CreateOrUpdateEntityFunction();
+      
+      $createEntity->enableAdvancedIndexation()
+                   ->document('@prefix owl: <http://www.w3.org/2002/07/owl#> .
+                               @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+                               @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+                               @prefix wsf: <http://purl.org/ontology/wsf#> .
+                               @prefix aggr: <http://purl.org/ontology/aggregate#> .
+                               @prefix ns0: <http://www.w3.org/2004/02/skos/core#> .
+                               @prefix ns1: <http://umbel.org/umbel#> .
+
+                               <http://test.com#test> a owl:Class ;
+                                 rdfs:label "test" ;
+                                 <http://purl.org/ontology/iron#altLabel> "test" ;
+                                 rdfs:subClassOf <http://www.w3.org/2002/07/owl#Thing> .');
+      
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      
+      $ontologyUpdate->ontology($settings->testOntologyUri)
+                     ->enableReasoner()
+                     ->createOrUpdateEntity($createEntity)
+                     ->sourceInterface($settings->ontologyUpdateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyUpdateInterfaceVersion)
+                     ->send();
+     
+      $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+
+      // Update the class
+      $createEntity = new CreateOrUpdateEntityFunction();
+      
+      $createEntity->enableAdvancedIndexation()
+                   ->document('@prefix owl: <http://www.w3.org/2002/07/owl#> .
+                               @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+                               @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+                               @prefix wsf: <http://purl.org/ontology/wsf#> .
+                               @prefix aggr: <http://purl.org/ontology/aggregate#> .
+                               @prefix ns0: <http://www.w3.org/2004/02/skos/core#> .
+                               @prefix ns1: <http://umbel.org/umbel#> .
+
+                               <http://test.com#test> a owl:Class ;
+                                 rdfs:label "test2" ;
+                                 <http://purl.org/ontology/iron#altLabel> "test2" ;
+                                 rdfs:subClassOf <http://www.w3.org/2002/07/owl#Thing> .');
+      
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      
+      $ontologyUpdate->ontology($settings->testOntologyUri)
+                     ->enableReasoner()
+                     ->createOrUpdateEntity($createEntity)
+                     ->sourceInterface($settings->ontologyUpdateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyUpdateInterfaceVersion)
+                     ->send();
+     
+      $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+      
+      // Ensure that the class is updated and that a revision exists
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      
+      $revisionLister->dataset($settings->testOntologyUri)
+                     ->mime('resultset')
+                     ->shortResults()
+                     ->uri('http://test.com#test')
+                     ->send();
+
+      $this->assertEquals($revisionLister->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+      
+      $resultset = $revisionLister->getResultset()->getResultset();
+      
+      reset($resultset['unspecified']);
+      
+      $revisionUri = key($resultset['unspecified']);
+      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl);
+      
+      $revisionRead->dataset($settings->testOntologyUri)
+                   ->getRecord()
+                   ->revisionUri($revisionUri)
+                   ->mime('resultset')
+                   ->send();
+                   
+      $this->assertEquals($revisionRead->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+                   
+      $resultset = $revisionRead->getResultset()->getResultset();
+      
+      $this->assertTrue($resultset[$settings->testOntologyUri]['http://test.com#test']['http://www.w3.org/2000/01/rdf-schema#label'][0]['value'] == 'test2');
+      
+      // Delete class
+      $deleteClassFunction = new DeleteClassFunction();
+      
+      $deleteClassFunction->uri('http://test.com#test');
+      
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      
+      $ontologyDelete->deleteClass($deleteClassFunction)
+                     ->ontology($settings->testOntologyUri)
+                     ->send();
+                     
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                             
+      
+      // Make sure the class is deleted
+      $getClassFunction = new GetClassFunction();
+      
+      $getClassFunction->uri('http://test.com#test');
+              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      
+      $ontologyRead->enableReasoner()
+                   ->mime('application/rdf+xml')
+                   ->ontology($settings->testOntologyUri)
+                   ->getClass($getClassFunction)
+                   ->sourceInterface($settings->ontologyReadInterface)
+                   ->sourceInterfaceVersion($settings->ontologyReadInterfaceVersion)
+                   ->send();
+
+      $this->assertEquals($ontologyRead->getStatus(), "400", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
+      $this->assertEquals($ontologyRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertEquals($ontologyRead->error->id, "WS-ONTOLOGY-READ-205", "Debugging information: ".var_export($ontologyRead, TRUE));                                                                            
+
+      // Re-create a class with the same URI
+      $createEntity = new CreateOrUpdateEntityFunction();
+      
+      $createEntity->enableAdvancedIndexation()
+                   ->document('@prefix owl: <http://www.w3.org/2002/07/owl#> .
+                               @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+                               @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+                               @prefix wsf: <http://purl.org/ontology/wsf#> .
+                               @prefix aggr: <http://purl.org/ontology/aggregate#> .
+                               @prefix ns0: <http://www.w3.org/2004/02/skos/core#> .
+                               @prefix ns1: <http://umbel.org/umbel#> .
+
+                               <http://test.com#test> a owl:Class ;
+                                 rdfs:label "test3" ;
+                                 <http://purl.org/ontology/iron#altLabel> "test3" ;
+                                 rdfs:subClassOf <http://www.w3.org/2002/07/owl#Thing> .');
+      
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      
+      $ontologyUpdate->ontology($settings->testOntologyUri)
+                     ->enableReasoner()
+                     ->createOrUpdateEntity($createEntity)
+                     ->sourceInterface($settings->ontologyUpdateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyUpdateInterfaceVersion)
+                     ->send();
+     
+      $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+      
+      // Make sure the latest revision is the one we just created
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      
+      $revisionLister->dataset($settings->testOntologyUri)
+                     ->mime('resultset')
+                     ->shortResults()
+                     ->uri('http://test.com#test')
+                     ->send();
+
+      $this->assertEquals($revisionLister->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+      
+      $resultset = $revisionLister->getResultset()->getResultset();
+      
+      reset($resultset['unspecified']);
+      
+      $revisionUri = key($resultset['unspecified']);
+      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl);
+      
+      $revisionRead->dataset($settings->testOntologyUri)
+                   ->getRecord()
+                   ->revisionUri($revisionUri)
+                   ->mime('resultset')
+                   ->send();
+                   
+      $this->assertEquals($revisionRead->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+                   
+      $resultset = $revisionRead->getResultset()->getResultset();
+      
+      $this->assertTrue($resultset[$settings->testOntologyUri]['http://test.com#test']['http://www.w3.org/2000/01/rdf-schema#label'][0]['value'] == 'test3');
+      
+      
+      utilities\deleteDataset();                              
+                                   
+      unset($ontologyUpdate);
+      unset($settings);        
+    }
   }
 
   
