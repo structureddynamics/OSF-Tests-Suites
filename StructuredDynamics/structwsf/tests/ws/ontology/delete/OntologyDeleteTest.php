@@ -43,6 +43,11 @@
     
     static private $outputs = array();
     
+    static public function tearDownAfterClass()    
+    {
+      utilities\deleteOntology();      
+    }      
+    
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          

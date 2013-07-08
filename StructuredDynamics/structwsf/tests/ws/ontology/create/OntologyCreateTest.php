@@ -36,6 +36,11 @@
   
   class OntologyCreateTest extends \PHPUnit_Framework_TestCase {
     
+    static public function tearDownAfterClass()    
+    {
+      utilities\deleteOntology();      
+    }      
+    
     static private $outputs = array();
 
     public function testWrongEndpointUrl() {

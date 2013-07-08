@@ -44,6 +44,11 @@
   class OntologyUpdateTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
+    
+    static public function tearDownAfterClass()    
+    {
+      utilities\deleteOntology();      
+    }      
 
     public function testWrongEndpointUrl() {
       
