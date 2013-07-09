@@ -17,6 +17,7 @@
       <file>REPLACEME/tests/ws/ontology/delete/OntologyDeleteTest.php</file>
       <file>REPLACEME/tests/ws/ontology/read/OntologyReadTest.php</file>
       <file>REPLACEME/tests/ws/ontology/create/OntologyUpdateTest.php</file>
+    </testsuite>
     <testsuite name="CRUD Webservice Endpoints">
       <file>REPLACEME/tests/ws/crud/create/CrudCreateTest.php</file>
       <file>REPLACEME/tests/ws/crud/update/CrudUpdateTest.php</file>
