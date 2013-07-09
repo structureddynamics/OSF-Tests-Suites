@@ -348,9 +348,9 @@
                    ->sourceInterfaceVersion($settings->ontologyReadInterfaceVersion)
                    ->send();             
 
-      $this->assertEquals($ontologyRead->getStatus(), "400", "Debugging information: ".var_export($ontologyRead, TRUE));                                       
-      $this->assertEquals($ontologyRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyRead, TRUE));
-      $this->assertEquals($ontologyRead->error->id, "WS-ONTOLOGY-READ-300", "Debugging information: ".var_export($ontologyRead, TRUE));    
+      $this->assertTrue($ontologyRead->getStatus() == ('400' || '403'), "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertTrue($ontologyRead->getStatusMessage() == ('Bad Request' || 'Forbidden'), "Debugging information: ".var_export($ontologyRead, TRUE));
+      $this->assertTrue($ontologyRead->error->id == ('WS-ONTOLOGY-READ-300' || 'WS-AUTH-VALIDATOR-303'), "Debugging information: ".var_export($ontologyRead, TRUE));    
 
       unset($ontologyRead);      
       unset($settings);
