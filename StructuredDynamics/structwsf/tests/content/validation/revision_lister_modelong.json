@@ -10,19 +10,19 @@
   "resultset": {
     "subject": [
       {
-        "uri": "http://test.com/unittests/revisions/1372166819.302",
+        "uri": "http://test.com/unittests/revisions/1373391806.8647",
         "type": "wsf:Revision",
         "predicate": [
           {
-            "wsf:revisionTime": {
-              "value": "1372166819.302",
-              "type": "xsd:double"
-
+            "wsf:performer": {
+              "uri": "127.0.0.1"
             }
           },
           {
-            "wsf:performer": {
-              "uri": "127.0.0.1"
+            "wsf:revisionTime": {
+              "value": "1373391806.8647",
+              "type": "xsd:double"
+
             }
           },
           {
@@ -33,19 +33,19 @@
         ]
       },
       {
-        "uri": "http://test.com/unittests/revisions/1372166819.272",
+        "uri": "http://test.com/unittests/revisions/1373391806.8348",
         "type": "wsf:Revision",
         "predicate": [
           {
-            "wsf:revisionTime": {
-              "value": "1372166819.272",
-              "type": "xsd:double"
-
+            "wsf:performer": {
+              "uri": "127.0.0.1"
             }
           },
           {
-            "wsf:performer": {
-              "uri": "127.0.0.1"
+            "wsf:revisionTime": {
+              "value": "1373391806.8348",
+              "type": "xsd:double"
+
             }
           },
           {

@@ -15,6 +15,11 @@
         "type": "wsf:Product",
         "predicate": [
           {
+            "dcterms:isPartOf": {
+              "uri": "http://test.com/unittests/"
+            }
+          },
+          {
             "iron:description": {
               "value": "This is really a great product!",
               "lang": "en"
@@ -41,6 +46,13 @@
             }
           },
           {
+            "wsf:product_in_inventory": {
+              "value": "9",
+              "type": "xsd:int"
+
+            }
+          },
+          {
             "wsf:product_unit": {
               "value": "4.570000171661377",
               "type": "xsd:float"
@@ -56,18 +68,6 @@
                   "value": "object property reified triple"
                 }
               ]
-            }
-          },
-          {
-            "wsf:product_in_inventory": {
-              "value": "9",
-              "type": "xsd:int"
-
-            }
-          },
-          {
-            "dcterms:isPartOf": {
-              "uri": "http://test.com/unittests/"
             }
           }
         ]

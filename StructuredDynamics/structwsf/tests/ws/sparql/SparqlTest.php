@@ -290,7 +290,7 @@
       $this->assertEquals($sparql->getStatus(), "200", "Debugging information: ".var_export($sparql, TRUE));                                       
       
       utilities\validateParameterApplicationJson($this, $sparql);
-            
+    
       $this->assertTrue(utilities\compareStructJSON($sparql->getResultset(), file_get_contents($settings->contentDir.'validation/sparql_single_record.json')));
       
       unset($sparql);
@@ -686,10 +686,10 @@
              ->sourceInterface($settings->sparqlInterface)
              ->sourceInterfaceVersion($settings->sparqlInterfaceVersion)
              ->send();
-                           
-      $this->assertEquals($sparql->getStatus(), "400", "Debugging information: ".var_export($sparql, TRUE));                                       
-      $this->assertEquals($sparql->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($sparql, TRUE));
-      $this->assertEquals($sparql->error->id, "WS-SPARQL-301", "Debugging information: ".var_export($sparql, TRUE));                                       
+
+      $this->assertTrue($sparql->getStatus() == ('400' || '403'), "Debugging information: ".var_export($sparql, TRUE));
+      $this->assertTrue($sparql->getStatusMessage() == ('Bad Request' || 'Forbidden'), "Debugging information: ".var_export($sparql, TRUE));
+      $this->assertTrue($sparql->error->id == ('WS-SPARQL-301' || 'WS-AUTH-VALIDATOR-303'), "Debugging information: ".var_export($sparql, TRUE)); 
       
       unset($sparql);
       unset($settings);  

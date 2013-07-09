@@ -8,8 +8,8 @@
     "wsf": "http://purl.org/ontology/wsf#",
     "ns0": "http://purl.org/ontology/now#",
     "sco": "http://purl.org/ontology/sco#",
-    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
-    "geoname": "http://www.geonames.org/ontology#"
+    "geoname": "http://www.geonames.org/ontology#",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#"
   },
   "resultset": {
     "subject": [
@@ -18,27 +18,19 @@
         "type": "ns0:Schools",
         "predicate": [
           {
-            "sco:namedEntity": "true"
-          },
-          {
-            "geo:long": "-97.1431349999984"
-          },
-          {
-            "geo:alt": "0.0"
-          },
-          {
             "iron:prefLabel": "The Laureate Academy"
           },
           {
-            "geo:lat": "49.7703369999951"
+            "ns0:faxNumber": "204-885-3217"
           },
           {
-            "geoname:locatedIn": {
-              "uri": "http://now.winnipeg.ca/datasets/neighbourhoods/5.625"
-            }
+            "ns0:gradeLevel": "K-12"
           },
           {
-            "ns0:streetAddress": "100 Villa Maria Pl"
+            "ns0:numberOfStudents": "70"
+          },
+          {
+            "ns0:numberOfTeachers": "10"
           },
           {
             "ns0:phoneNumber": "204-831-7107"
@@ -47,16 +39,24 @@
             "ns0:schoolDivision": "Private"
           },
           {
-            "ns0:numberOfStudents": "70"
+            "ns0:streetAddress": "100 Villa Maria Pl"
           },
           {
-            "ns0:gradeLevel": "K-12"
+            "sco:namedEntity": "true"
           },
           {
-            "ns0:faxNumber": "204-885-3217"
+            "geoname:locatedIn": {
+              "uri": "http://now.winnipeg.ca/datasets/neighbourhoods/5.625"
+            }
           },
           {
-            "ns0:numberOfTeachers": "10"
+            "geo:alt": "0.0"
+          },
+          {
+            "geo:lat": "49.7703369999951"
+          },
+          {
+            "geo:long": "-97.1431349999984"
           }
         ]
       }

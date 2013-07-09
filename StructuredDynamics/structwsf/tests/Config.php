@@ -536,10 +536,7 @@
                 "type": "void:Dataset",
                 "predicate": [
                   {
-                    "dcterms:title": "This is a testing dataset"
-                  },
-                  {
-                    "dcterms:description": "This is a testing dataset"
+                    "dcterms:created": "2013-7-9"
                   },
                   {
                     "dcterms:creator": {
@@ -548,7 +545,10 @@
                     }
                   },
                   {
-                    "dcterms:created": "'.date("Y-n-j").'"
+                    "dcterms:description": "This is a testing dataset"
+                  },
+                  {
+                    "dcterms:title": "This is a testing dataset"
                   }
                 ]
               }

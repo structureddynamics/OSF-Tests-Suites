@@ -15,6 +15,17 @@
         "type": "owl:DatatypeProperty",
         "predicate": [
           {
+            "umbel:superPropertyOf": {
+              "uri": "http://foo.org/test#dpB",
+              "reify": [
+                {
+                  "type": "wsf:objectLabel",
+                  "value": "datatype property B"
+                }
+              ]
+            }
+          },
+          {
             "rdfs:label": {
               "value": "datatype property A",
               "lang": "en"
@@ -28,17 +39,6 @@
                 {
                   "type": "wsf:objectLabel",
                   "value": "top Data Property"
-                }
-              ]
-            }
-          },
-          {
-            "umbel:superPropertyOf": {
-              "uri": "http://foo.org/test#dpB",
-              "reify": [
-                {
-                  "type": "wsf:objectLabel",
-                  "value": "datatype property B"
                 }
               ]
             }

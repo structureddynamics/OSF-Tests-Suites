@@ -15,6 +15,17 @@
         "type": "owl:Class",
         "predicate": [
           {
+            "umbel:superClassOf": {
+              "uri": "http://foo.org/test#C",
+              "reify": [
+                {
+                  "type": "wsf:objectLabel",
+                  "value": "C"
+                }
+              ]
+            }
+          },
+          {
             "rdfs:label": {
               "value": "B",
               "lang": "en"
@@ -28,17 +39,6 @@
                 {
                   "type": "wsf:objectLabel",
                   "value": "A"
-                }
-              ]
-            }
-          },
-          {
-            "umbel:superClassOf": {
-              "uri": "http://foo.org/test#C",
-              "reify": [
-                {
-                  "type": "wsf:objectLabel",
-                  "value": "C"
                 }
               ]
             }

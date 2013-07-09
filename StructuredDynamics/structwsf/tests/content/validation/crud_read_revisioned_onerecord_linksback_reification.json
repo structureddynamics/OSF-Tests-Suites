@@ -15,6 +15,11 @@
         "type": "wsf:Product",
         "predicate": [
           {
+            "dcterms:isPartOf": {
+              "uri": "http://test.com/unittests/"
+            }
+          },
+          {
             "iron:description": {
               "value": "This is really a great product!",
               "lang": "en"
@@ -23,7 +28,8 @@
           },
           {
             "iron:prefLabel": {
-              "value": "A Pretty Good Product - (modified)",
+              "value": "A Pretty Good Product - (modified)"
+,
               "reify": [
                 {
                   "type": "wsf:value",
@@ -36,6 +42,13 @@
             "wsf:product_available_since": {
               "value": "2013-06-05 18:00:00",
               "type": "xsd:dateTime"
+
+            }
+          },
+          {
+            "wsf:product_in_inventory": {
+              "value": "9",
+              "type": "xsd:int"
 
             }
           },
@@ -55,18 +68,6 @@
                   "value": "object property reified triple"
                 }
               ]
-            }
-          },
-          {
-            "wsf:product_in_inventory": {
-              "value": "9",
-              "type": "xsd:int"
-
-            }
-          },
-          {
-            "dcterms:isPartOf": {
-              "uri": "http://test.com/unittests/"
             }
           }
         ]

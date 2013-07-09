@@ -15,6 +15,11 @@
         "type": "wsf:Product",
         "predicate": [
           {
+            "dcterms:isPartOf": {
+              "uri": "http://test.com/unittests/"
+            }
+          },
+          {
             "wsf:related_product": {
               "uri": "http://foo.com/datasets/tests/foo_related_modified",
               "reify": [
@@ -23,11 +28,6 @@
                   "value": "object property reified triple"
                 }
               ]
-            }
-          },
-          {
-            "dcterms:isPartOf": {
-              "uri": "http://test.com/unittests/"
             }
           }
         ]

@@ -15,24 +15,6 @@
         "type": "owl:ObjectProperty",
         "predicate": [
           {
-            "rdfs:label": {
-              "value": "object property B",
-              "lang": "en"
-
-            }
-          },
-          {
-            "rdfs:subPropertyOf": {
-              "uri": "http://foo.org/test#opA",
-              "reify": [
-                {
-                  "type": "wsf:objectLabel",
-                  "value": "object property A"
-                }
-              ]
-            }
-          },
-          {
             "umbel:superPropertyOf": {
               "uri": "http://foo.org/test#opC",
               "reify": [
@@ -55,12 +37,30 @@
             }
           },
           {
+            "rdfs:label": {
+              "value": "object property B",
+              "lang": "en"
+
+            }
+          },
+          {
             "rdfs:range": {
               "uri": "http://foo.org/test#B",
               "reify": [
                 {
                   "type": "wsf:objectLabel",
                   "value": "B"
+                }
+              ]
+            }
+          },
+          {
+            "rdfs:subPropertyOf": {
+              "uri": "http://foo.org/test#opA",
+              "reify": [
+                {
+                  "type": "wsf:objectLabel",
+                  "value": "object property A"
                 }
               ]
             }

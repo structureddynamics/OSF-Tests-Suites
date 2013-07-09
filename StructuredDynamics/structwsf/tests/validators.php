@@ -246,7 +246,7 @@
     return(TRUE);
   }
   
-  function compareStructJSON($actual, $expected, $compareValues = TRUE)
+  function compareStructJSON($actual, $expected, $compareValues = TRUE, &$diff = NULL)
   {
     $actual = json_decode($actual, TRUE);
     $expected = json_decode($expected, TRUE);
@@ -255,6 +255,10 @@
     { 
       if(count(arrayRecursiveDiff($actual, $expected)) > 0)
       {
+        if($diff !== NULL)
+        {
+          $diff = arrayRecursiveStructureDiff($actual, $expected);
+        }
         return(FALSE);
       }      
       
@@ -264,11 +268,21 @@
     {          
       if(count(arrayRecursiveStructureDiff($actual, $expected)) > 0)
       {
+        if($diff !== NULL)
+        {
+          $diff = arrayRecursiveStructureDiff($actual, $expected);
+        }
+        
         return(FALSE);
       }      
 
       if(count(arrayRecursiveStructureDiff($expected, $actual)) > 0)
       {
+        if($diff !== NULL)
+        {
+          $diff = arrayRecursiveStructureDiff($expected, $actual);
+        }
+
         return(FALSE);
       }      
       
@@ -322,20 +336,33 @@
   {
     $aReturn = array();
 
-    foreach ($aArray1 as $mKey => $mValue) {
-      if (array_key_exists($mKey, $aArray2)) {
-        if (is_array($mValue)) {
+    foreach($aArray1 as $mKey => $mValue) 
+    {
+      if(array_key_exists($mKey, $aArray2)) 
+      {
+        if(is_array($mValue)) 
+        {
           $aRecursiveDiff = arrayRecursiveDiff($mValue, $aArray2[$mKey]);
-          if (count($aRecursiveDiff)) { $aReturn[$mKey] = $aRecursiveDiff; }
-        } else {
-          if ($mValue != $aArray2[$mKey]) {
+          
+          if(count($aRecursiveDiff)) 
+          { 
+            $aReturn[$mKey] = $aRecursiveDiff; 
+          }
+        } 
+        else 
+        {
+          if($mValue != $aArray2[$mKey]) 
+          {
             $aReturn[$mKey] = $mValue;
           }
         }
-      } else {
+      } 
+      else 
+      {
         $aReturn[$mKey] = $mValue;
       }
     }
+    
     return $aReturn;
   }  
 
@@ -354,7 +381,8 @@
       }
     }
     return $aReturn;
-  }  
+  }
+    
 
   
 ?>

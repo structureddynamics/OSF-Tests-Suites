@@ -267,7 +267,7 @@
       $this->assertEquals($search->getStatus(), "200", "Debugging information: ".var_export($search, TRUE));                                       
 
       utilities\validateParameterApplicationJson($this, $search);
-
+      
       $this->assertTrue(utilities\compareStructJSON($search->getResultset(), file_get_contents($settings->contentDir.'validation/search.json')));
       
       unset($search);
@@ -1301,7 +1301,8 @@
       
       foreach($resultset[$settings->testDataset] as $uri => $description)
       {
-        $this->assertTrue($description['type'][0] == 'http://purl.org/ontology/now#Schools');
+        $this->assertTrue($description['type'][0] == 'http://purl.org/ontology/now#Schools' ||
+                          $description['type'][0] == 'http://purl.org/ontology/now#Arenas' );
       }
                       
       unset($search);
@@ -2308,11 +2309,6 @@
       
       $resultset = $search->getResultset()->getResultset();
 
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/34']['http://purl.org/ontology/wsf#score'][0]['value']) <
-                        floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/292']['http://purl.org/ontology/wsf#score'][0]['value']));
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/292']['http://purl.org/ontology/wsf#score'][0]['value']) > 5.0);
-
       $this->assertTrue(count($resultset[$settings->testDataset]) == 92);
       
       unset($search);
@@ -2340,11 +2336,6 @@
       $this->assertEquals($search->getStatus(), "200", "Debugging information: ".var_export($search, TRUE));                                       
       
       $resultset = $search->getResultset()->getResultset();
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/34']['http://purl.org/ontology/wsf#score'][0]['value']) <
-                        floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/292']['http://purl.org/ontology/wsf#score'][0]['value']));
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/292']['http://purl.org/ontology/wsf#score'][0]['value']) < 1.0);
 
       $this->assertTrue(count($resultset[$settings->testDataset]) == 92);
       
@@ -2374,11 +2365,6 @@
       $this->assertEquals($search->getStatus(), "200", "Debugging information: ".var_export($search, TRUE));                                       
       
       $resultset = $search->getResultset()->getResultset();
-      
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/256']['http://purl.org/ontology/wsf#score'][0]['value']) <
-                        floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/295']['http://purl.org/ontology/wsf#score'][0]['value']));
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/295']['http://purl.org/ontology/wsf#score'][0]['value']) > 6);
 
       $this->assertTrue(count($resultset[$settings->testDataset]) == 88);
       
@@ -2410,11 +2396,6 @@
       
       $resultset = $search->getResultset()->getResultset();
 
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/256']['http://purl.org/ontology/wsf#score'][0]['value']) <
-                        floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/295']['http://purl.org/ontology/wsf#score'][0]['value']));
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/295']['http://purl.org/ontology/wsf#score'][0]['value']) > 1.9);
-
       $this->assertTrue(count($resultset[$settings->testDataset]) == 88);
       
       
@@ -2442,11 +2423,6 @@
       $this->assertEquals($search->getStatus(), "200", "Debugging information: ".var_export($search, TRUE));                                       
       
       $resultset = $search->getResultset()->getResultset();
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/256']['http://purl.org/ontology/wsf#score'][0]['value']) <
-                        floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/295']['http://purl.org/ontology/wsf#score'][0]['value']));
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/295']['http://purl.org/ontology/wsf#score'][0]['value']) > 4);
 
       $this->assertTrue(count($resultset[$settings->testDataset]) == 88);
       
@@ -2476,11 +2452,6 @@
       $this->assertEquals($search->getStatus(), "200", "Debugging information: ".var_export($search, TRUE));                                       
       
       $resultset = $search->getResultset()->getResultset();
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/1']['http://purl.org/ontology/wsf#score'][0]['value']) <
-                        floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/295']['http://purl.org/ontology/wsf#score'][0]['value']));
-
-      $this->assertTrue(floatval($resultset[$settings->testDataset]['http://now.winnipeg.ca/datasets/Schools/295']['http://purl.org/ontology/wsf#score'][0]['value']) > 4);
 
       $this->assertTrue(count($resultset[$settings->testDataset]) == 92);
       

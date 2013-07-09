@@ -16,6 +16,11 @@
         "type": "wsf:Product",
         "predicate": [
           {
+            "dcterms:isPartOf": {
+              "uri": "http://test.com/unittests/"
+            }
+          },
+          {
             "iron:description": {
               "value": "This is really a great product!",
               "lang": "en"
@@ -33,6 +38,13 @@
             }
           },
           {
+            "wsf:product_in_inventory": {
+              "value": "10",
+              "type": "xsd:int"
+
+            }
+          },
+          {
             "wsf:product_unit": {
               "value": "4.570000171661377",
               "type": "xsd:float"
@@ -43,18 +55,6 @@
             "wsf:related_product": {
               "uri": "http://foo.com/datasets/tests/foo_related"
             }
-          },
-          {
-            "wsf:product_in_inventory": {
-              "value": "10",
-              "type": "xsd:int"
-
-            }
-          },
-          {
-            "dcterms:isPartOf": {
-              "uri": "http://test.com/unittests/"
-            }
           }
         ]
       },
@@ -63,13 +63,12 @@
         "type": "wsf:Organization",
         "predicate": [
           {
-            "geo:long": "-97.306264999999"
+            "dcterms:isPartOf": {
+              "uri": "http://test.com/unittests/"
+            }
           },
           {
             "iron:prefLabel": "Products Organization Inc."
-          },
-          {
-            "geo:lat": "49.8760799999956"
           },
           {
             "wsf:produce": {
@@ -77,9 +76,10 @@
             }
           },
           {
-            "dcterms:isPartOf": {
-              "uri": "http://test.com/unittests/"
-            }
+            "geo:lat": "49.8760799999956"
+          },
+          {
+            "geo:long": "-97.306264999999"
           }
         ]
       }

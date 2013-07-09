@@ -37,7 +37,7 @@
   class CrudReadTest extends \PHPUnit_Framework_TestCase {
     
     static private $outputs = array();
-    
+
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          
@@ -312,11 +312,21 @@
                ->sourceInterfaceVersion($settings->crudReadInterfaceVersion)
                ->send();
 
-      $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
+      // Check if the endpoint is configured to have the FR language.
+      if($crudRead->isSuccessful())
+      {
+        $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
 
-      $resultset = $crudRead->getResultset()->getResultset();                                                                                                                                                                                                   
+        $resultset = $crudRead->getResultset()->getResultset();                                                                                                                                                                                                   
 
-      $this->assertFalse(isset($resultset[$settings->testDataset]['http://foo.com/datasets/tests/foo']['http://purl.org/ontology/iron#description'][0]['lang']));
+        $this->assertFalse(isset($resultset[$settings->testDataset]['http://foo.com/datasets/tests/foo']['http://purl.org/ontology/iron#description'][0]['lang']));
+      }
+      else
+      {
+        $this->assertEquals($crudRead->getStatus(), "400", "Debugging information: ".var_export($crudRead, TRUE));                                       
+        $this->assertEquals($crudRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($crudRead, TRUE));
+        $this->assertEquals($crudRead->error->id, "WS-CRUD-READ-308", "Debugging information: ".var_export($crudRead, TRUE));                                       
+      }
       
       utilities\deleteRevisionedRecord();
 
@@ -407,8 +417,9 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
       
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
-      $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_unrevisioned_onerecord_nolinksback_noreification.json')));
+
+      $diff = array();      
+      $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_unrevisioned_onerecord_nolinksback_noreification.json'), TRUE, $diff), "Actual:\n\n".$crudRead->getResultset()."\n\nExpected:\n\n".file_get_contents($settings->contentDir.'validation/crud_read_unrevisioned_onerecord_nolinksback_noreification.json')."\n\nDifference:\n\n".var_export($diff, TRUE));
       
       utilities\deleteUnrevisionedRecord();
 
@@ -570,7 +581,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
       
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
+
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_revisioned_onerecord_nolinksback_noreification.json')));
       
       utilities\deleteRevisionedRecord();
@@ -733,7 +744,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
 
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
+
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_revisioned_onerecord_linksback_noreification.json')));
       
       utilities\deleteRevisionedRecord();
@@ -1062,7 +1073,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
 
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
+
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_revisioned_onerecord_linksback_reification_oneattribute.json')));
       
       utilities\deleteRevisionedRecord();
@@ -1227,7 +1238,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
       
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
+
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_unrevisioned_tworecords_nolinksback_noreification.json')));
       
       utilities\deleteUnrevisionedRecord();
@@ -1390,7 +1401,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
       
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
+
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_revisioned_tworecords_nolinksback_noreification.json')));
       
       utilities\deleteRevisionedRecord();
@@ -1553,7 +1564,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
 
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
+
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_revisioned_tworecords_linksback_noreification.json')));
       
       utilities\deleteRevisionedRecord();
@@ -1716,7 +1727,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
 
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
+
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_revisioned_tworecords_linksback_reification.json')));
       
       utilities\deleteRevisionedRecord();
@@ -1882,7 +1893,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
 
       utilities\validateParameterApplicationJson($this, $crudRead);
-            
+
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_revisioned_tworecords_linksback_reification_oneattribute.json')));
       
       utilities\deleteRevisionedRecord();

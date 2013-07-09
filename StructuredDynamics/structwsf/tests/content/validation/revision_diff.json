@@ -15,9 +15,7 @@
         "type": "rdf:Statement",
         "predicate": [
           {
-            "rdf:subject": {
-              "uri": "http://foo.com/datasets/tests/foo"
-            }
+            "rdf:object": "A Pretty Good Product - (modified)"
           },
           {
             "rdf:predicate": {
@@ -25,7 +23,9 @@
             }
           },
           {
-            "rdf:object": "A Pretty Good Product - (modified)"
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
           }
         ]
       },
@@ -34,8 +34,8 @@
         "type": "rdf:Statement",
         "predicate": [
           {
-            "rdf:subject": {
-              "uri": "http://foo.com/datasets/tests/foo"
+            "rdf:object": {
+              "uri": "http://foo.com/datasets/tests/foo_related_modified"
             }
           },
           {
@@ -44,8 +44,8 @@
             }
           },
           {
-            "rdf:object": {
-              "uri": "http://foo.com/datasets/tests/foo_related_modified"
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
             }
           }
         ]
@@ -55,9 +55,7 @@
         "type": "rdf:Statement",
         "predicate": [
           {
-            "rdf:subject": {
-              "uri": "http://foo.com/datasets/tests/foo"
-            }
+            "rdf:object": "9"
           },
           {
             "rdf:predicate": {
@@ -65,7 +63,9 @@
             }
           },
           {
-            "rdf:object": "9"
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
           }
         ]
       },
@@ -74,9 +74,7 @@
         "type": "rdf:Statement",
         "predicate": [
           {
-            "rdf:subject": {
-              "uri": "http://foo.com/datasets/tests/foo"
-            }
+            "rdf:object": "A Pretty Good Product"
           },
           {
             "rdf:predicate": {
@@ -84,7 +82,9 @@
             }
           },
           {
-            "rdf:object": "A Pretty Good Product"
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
           }
         ]
       },
@@ -93,8 +93,8 @@
         "type": "rdf:Statement",
         "predicate": [
           {
-            "rdf:subject": {
-              "uri": "http://foo.com/datasets/tests/foo"
+            "rdf:object": {
+              "uri": "http://foo.com/datasets/tests/foo_related"
             }
           },
           {
@@ -103,8 +103,8 @@
             }
           },
           {
-            "rdf:object": {
-              "uri": "http://foo.com/datasets/tests/foo_related"
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
             }
           }
         ]
@@ -114,9 +114,7 @@
         "type": "rdf:Statement",
         "predicate": [
           {
-            "rdf:subject": {
-              "uri": "http://foo.com/datasets/tests/foo"
-            }
+            "rdf:object": "10"
           },
           {
             "rdf:predicate": {
@@ -124,21 +122,33 @@
             }
           },
           {
-            "rdf:object": "10"
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
           }
         ]
       },
       {
-        "uri": "http://foo.com/datasets/tests/foo/1372169393.3993/changeset",
+        "uri": "http://foo.com/datasets/tests/foo/1373391914.7486/changeset",
         "type": "cs:ChangeSet",
         "predicate": [
           {
-            "cs:subjectOfChange": {
-              "uri": "http://foo.com/datasets/tests/foo"
+            "cs:addition": {
+              "uri": "addition-730a35f4cc4179b594619035dc45981d"
             }
           },
           {
-            "cs:createDate": "2013-06-25T14:09:53Z"
+            "cs:addition": {
+              "uri": "addition-42d16c0545758cee62615d31720ba49b"
+            }
+          },
+          {
+            "cs:addition": {
+              "uri": "addition-04b87f0b65b46f2cee139bcfc984bcb7"
+            }
+          },
+          {
+            "cs:createDate": "2013-07-09T17:45:14Z"
           },
           {
             "cs:removal": {
@@ -156,18 +166,8 @@
             }
           },
           {
-            "cs:addition": {
-              "uri": "addition-730a35f4cc4179b594619035dc45981d"
-            }
-          },
-          {
-            "cs:addition": {
-              "uri": "addition-42d16c0545758cee62615d31720ba49b"
-            }
-          },
-          {
-            "cs:addition": {
-              "uri": "addition-04b87f0b65b46f2cee139bcfc984bcb7"
+            "cs:subjectOfChange": {
+              "uri": "http://foo.com/datasets/tests/foo"
             }
           }
         ]
