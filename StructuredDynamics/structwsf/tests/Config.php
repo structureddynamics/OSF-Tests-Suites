@@ -536,7 +536,7 @@
                 "type": "void:Dataset",
                 "predicate": [
                   {
-                    "dcterms:created": "2013-7-9"
+                    "dcterms:created": "'.date("Y-n-j").'"
                   },
                   {
                     "dcterms:creator": {
