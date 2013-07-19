@@ -17,7 +17,7 @@
   "resultset": {
     "subject": [
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/0d9d538c674ce2590d675e51d2a2a1da",
+        "uri": "--ENDPOINT-URI--search/aggregate/0d9d538c674ce2590d675e51d2a2a1da",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -36,7 +36,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/da3c4fe4dc366cc0f966864caa710e67",
+        "uri": "--ENDPOINT-URI--search/aggregate/da3c4fe4dc366cc0f966864caa710e67",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -55,7 +55,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/2f01bcb652dd0e8d8a72116c7879aab2",
+        "uri": "--ENDPOINT-URI--search/aggregate/2f01bcb652dd0e8d8a72116c7879aab2",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -74,7 +74,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/1efe853385bd7e60ae1be622bcd93e65",
+        "uri": "--ENDPOINT-URI--search/aggregate/1efe853385bd7e60ae1be622bcd93e65",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -93,7 +93,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/82e15185b9b66d0e876360986759c816",
+        "uri": "--ENDPOINT-URI--search/aggregate/82e15185b9b66d0e876360986759c816",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -112,7 +112,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/d7151954c063b65117e3ae9469565e45",
+        "uri": "--ENDPOINT-URI--search/aggregate/d7151954c063b65117e3ae9469565e45",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -131,7 +131,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/6ef1a739df9ad5f5c4e290987afa359d",
+        "uri": "--ENDPOINT-URI--search/aggregate/6ef1a739df9ad5f5c4e290987afa359d",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -150,7 +150,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/4510d0bfcdedfe89b3895fcdaf462c4c",
+        "uri": "--ENDPOINT-URI--search/aggregate/4510d0bfcdedfe89b3895fcdaf462c4c",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -169,7 +169,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/895a1449b42cd2ac906129898d3e236f",
+        "uri": "--ENDPOINT-URI--search/aggregate/895a1449b42cd2ac906129898d3e236f",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -188,7 +188,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/2520f33194ff97c06f1179c3167f2f0f",
+        "uri": "--ENDPOINT-URI--search/aggregate/2520f33194ff97c06f1179c3167f2f0f",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -207,7 +207,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/4bbf165c727b3bd104a0508ffe07bea3",
+        "uri": "--ENDPOINT-URI--search/aggregate/4bbf165c727b3bd104a0508ffe07bea3",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -226,7 +226,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/8b9eb6508617dd9ec1ab17aa01fcd87e",
+        "uri": "--ENDPOINT-URI--search/aggregate/8b9eb6508617dd9ec1ab17aa01fcd87e",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -245,7 +245,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/8c960980cd563f93c6ffdcf29d04f81f",
+        "uri": "--ENDPOINT-URI--search/aggregate/8c960980cd563f93c6ffdcf29d04f81f",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -264,7 +264,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/29868ce417d222097420bd54e7f001c9",
+        "uri": "--ENDPOINT-URI--search/aggregate/29868ce417d222097420bd54e7f001c9",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -283,7 +283,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/d852354fd63e1e9ef9da8800c38f3652",
+        "uri": "--ENDPOINT-URI--search/aggregate/d852354fd63e1e9ef9da8800c38f3652",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -302,7 +302,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/919b35b71165f793d334e0e3f66d6e9d",
+        "uri": "--ENDPOINT-URI--search/aggregate/919b35b71165f793d334e0e3f66d6e9d",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -321,7 +321,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/ce48fc3c7b44eacf74728acd3dbaacd8",
+        "uri": "--ENDPOINT-URI--search/aggregate/ce48fc3c7b44eacf74728acd3dbaacd8",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -340,7 +340,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/a27e1ce969d8b28ef55f96e6121b1f97",
+        "uri": "--ENDPOINT-URI--search/aggregate/a27e1ce969d8b28ef55f96e6121b1f97",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -359,7 +359,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/d19fcc80425c59bbec8112bb331c6e14",
+        "uri": "--ENDPOINT-URI--search/aggregate/d19fcc80425c59bbec8112bb331c6e14",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -378,7 +378,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/299d8ceec944bf1d22a4b868b4770b3d",
+        "uri": "--ENDPOINT-URI--search/aggregate/299d8ceec944bf1d22a4b868b4770b3d",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -397,7 +397,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/ac6ea828114878dbc0d7f04ab2d2663b",
+        "uri": "--ENDPOINT-URI--search/aggregate/ac6ea828114878dbc0d7f04ab2d2663b",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -416,7 +416,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/5961eaad9d450de4cfeded6356d02da2",
+        "uri": "--ENDPOINT-URI--search/aggregate/5961eaad9d450de4cfeded6356d02da2",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -435,7 +435,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/f2dc2c2f54fd5c632b59d0df7fee9db9",
+        "uri": "--ENDPOINT-URI--search/aggregate/f2dc2c2f54fd5c632b59d0df7fee9db9",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -454,7 +454,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/244b6cebcb27ea00c6aa56a49a0b1189",
+        "uri": "--ENDPOINT-URI--search/aggregate/244b6cebcb27ea00c6aa56a49a0b1189",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -473,7 +473,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/53b837bbaddd914ea1af059ce1909347",
+        "uri": "--ENDPOINT-URI--search/aggregate/53b837bbaddd914ea1af059ce1909347",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -492,7 +492,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/88d9fc8022649b9722f8753c547edd93",
+        "uri": "--ENDPOINT-URI--search/aggregate/88d9fc8022649b9722f8753c547edd93",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -511,7 +511,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/8c6bac4fe9192a51727dd36efa15eb61",
+        "uri": "--ENDPOINT-URI--search/aggregate/8c6bac4fe9192a51727dd36efa15eb61",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -530,7 +530,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/18af3231b1c59c1b3d735f992d7b2cd8",
+        "uri": "--ENDPOINT-URI--search/aggregate/18af3231b1c59c1b3d735f992d7b2cd8",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -549,7 +549,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/a2ca8bac65aec3407174ab45a3b35b9b",
+        "uri": "--ENDPOINT-URI--search/aggregate/a2ca8bac65aec3407174ab45a3b35b9b",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -568,7 +568,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/16588aeca26e425673bd3d8e47dc14f7",
+        "uri": "--ENDPOINT-URI--search/aggregate/16588aeca26e425673bd3d8e47dc14f7",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -587,7 +587,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/81ad6934523f74907d33b5ae4e7e2356",
+        "uri": "--ENDPOINT-URI--search/aggregate/81ad6934523f74907d33b5ae4e7e2356",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -606,7 +606,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/7de192287536c8162772db1424813018",
+        "uri": "--ENDPOINT-URI--search/aggregate/7de192287536c8162772db1424813018",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -625,7 +625,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/5d5757da3adf172a2c1d45ed9529fd4f",
+        "uri": "--ENDPOINT-URI--search/aggregate/5d5757da3adf172a2c1d45ed9529fd4f",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -644,7 +644,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/96d988ac2f47db638f6f789645491381",
+        "uri": "--ENDPOINT-URI--search/aggregate/96d988ac2f47db638f6f789645491381",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -663,7 +663,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/afca05f9a9dec28a63cbf8655686d5bb",
+        "uri": "--ENDPOINT-URI--search/aggregate/afca05f9a9dec28a63cbf8655686d5bb",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -682,7 +682,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/b246c006d2cd2f76ed04b768a34aefb1",
+        "uri": "--ENDPOINT-URI--search/aggregate/b246c006d2cd2f76ed04b768a34aefb1",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -701,7 +701,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/db43eb590a57ae4566a41168402a4a28",
+        "uri": "--ENDPOINT-URI--search/aggregate/db43eb590a57ae4566a41168402a4a28",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -720,7 +720,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/9e537f4e1ab7ad1ecb269340478080f7",
+        "uri": "--ENDPOINT-URI--search/aggregate/9e537f4e1ab7ad1ecb269340478080f7",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -739,7 +739,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/73e91f83a0defbd44d195f029dfead29",
+        "uri": "--ENDPOINT-URI--search/aggregate/73e91f83a0defbd44d195f029dfead29",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -758,7 +758,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/955d9efe57585d31ac46e7b1adf86e82",
+        "uri": "--ENDPOINT-URI--search/aggregate/955d9efe57585d31ac46e7b1adf86e82",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -777,7 +777,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/154c70928a9cf73245e4d8473411ad64",
+        "uri": "--ENDPOINT-URI--search/aggregate/154c70928a9cf73245e4d8473411ad64",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -796,7 +796,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/61d009f2303cd570dbef60498a693286",
+        "uri": "--ENDPOINT-URI--search/aggregate/61d009f2303cd570dbef60498a693286",
         "type": "aggr:Aggregate",
         "predicate": [
           {
@@ -815,7 +815,7 @@
         ]
       },
       {
-        "uri": "http://ccr.nhccn.com.au/wsf/ws/search/aggregate/0a6d821371799916f86a784a408c1c76",
+        "uri": "--ENDPOINT-URI--search/aggregate/0a6d821371799916f86a784a408c1c76",
         "type": "aggr:Aggregate",
         "predicate": [
           {
