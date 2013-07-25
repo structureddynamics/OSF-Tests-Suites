@@ -26,10 +26,10 @@
     </testsuite>
     <testsuite name="Revision Webservice Endpoints">
       <file>REPLACEME/tests/ws/revision/delete/RevisionDeleteTest.php</file>
-      <file>REPLACEME/tests/ws/revision/delete/RevisionReadTest.php</file>
-      <file>REPLACEME/tests/ws/revision/delete/RevisionUpdateTest.php</file>
-      <file>REPLACEME/tests/ws/revision/delete/RevisionListerTest.php</file>
-      <file>REPLACEME/tests/ws/revision/delete/RevisionDiffTest.php</file>
+      <file>REPLACEME/tests/ws/revision/read/RevisionReadTest.php</file>
+      <file>REPLACEME/tests/ws/revision/update/RevisionUpdateTest.php</file>
+      <file>REPLACEME/tests/ws/revision/lister/RevisionListerTest.php</file>
+      <file>REPLACEME/tests/ws/revision/diff/RevisionDiffTest.php</file>
     </testsuite>    
     <testsuite name="Search Webservice Endpoint">
       <file>REPLACEME/tests/ws/search/SearchTest.php</file>
