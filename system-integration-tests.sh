@@ -55,7 +55,13 @@ echo -e "\n\n"
 
 # Current location: /usr/share/structwsf/
 
-sudo wget $STRUCTWSFPHPAPIDOWNLOADURL  
+sudo wget $STRUCTWSFPHPAPIDOWNLOADURL
+
+while [ $? -ne 0 ]; do
+  cecho "Connection error while downloading the latest version of the structWSF-PHP-API; retrying...\n" yellow
+  sudo rm -rf master.zip
+  sudo wget $STRUCTWSFPHPAPIDOWNLOADURL
+done
 
 cecho "\n\n9.3) Decompressing structWSF PHP API...\n"
 
@@ -98,6 +104,12 @@ cd tests
 cecho "\n\nDownload the latest system integration tests for structWSF...\n"
 
 sudo wget https://github.com/structureddynamics/structWSF-Tests-Suites/zipball/master
+
+while [ $? -ne 0 ]; do
+  cecho "Connection error while downloading the latest version of the structWSF Tests Suites; retrying...\n" yellow
+  sudo rm -rf master.zip
+  sudo wget https://github.com/structureddynamics/structWSF-Tests-Suites/zipball/master
+done
 
 unzip master
 
