@@ -242,12 +242,23 @@
     }
     
     public function testCreateRecordRDFN3SearchIndexationMode() {
-      
       $settings = new Config();  
       
       utilities\deleteDataset();
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+                 
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableTripleStoreIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                   
                  
       $crudCreate = new CrudCreateQuery($settings->endpointUrl);
       
@@ -264,16 +275,27 @@
       utilities\deleteDataset();
 
       unset($crudCreate);
-      unset($settings);   
+      unset($settings);
     }
 
     public function testCreateRecordRDFXMLSearchIndexationMode() {
-      
       $settings = new Config();  
       
       utilities\deleteDataset();
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableTripleStoreIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));  
                  
       $crudCreate = new CrudCreateQuery($settings->endpointUrl);
       
@@ -290,7 +312,7 @@
       utilities\deleteDataset();
 
       unset($crudCreate);
-      unset($settings);   
+      unset($settings);
     }  
     
     public function testCreateRecordRDFN3TripleStoreIndexationMode() {
@@ -481,7 +503,153 @@
       unset($crudCreate);
       unset($settings);       
     }
-  }
 
+    public function testRecordExistsRDFN3FullIndexationMode() {      
+      $settings = new Config();  
+      
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+                 
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableFullIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+
+      // Create a second time
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableFullIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "400", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      $this->assertEquals($crudCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($crudCreate, TRUE));
+      $this->assertEquals($crudCreate->error->id, "WS-CRUD-CREATE-312", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      
+      utilities\deleteDataset();
+
+      unset($crudCreate);
+      unset($settings);     
+    }
+
+    public function testRecordExistsRDFN3TripleStoreIndexationMode() {      
+      $settings = new Config();  
+      
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+                 
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableTripleStoreIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+
+      // Create a second time
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableTripleStoreIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "400", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      $this->assertEquals($crudCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($crudCreate, TRUE));
+      $this->assertEquals($crudCreate->error->id, "WS-CRUD-CREATE-312", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      
+      utilities\deleteDataset();
+
+      unset($crudCreate);
+      unset($settings);     
+    }
+    
+    public function testRecordExistsRDFN3SearchIndexationMode() {      
+      $settings = new Config();  
+      
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+                 
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableTripleStoreIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+
+      // Create a second time
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableSearchIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      
+      utilities\deleteDataset();
+
+      unset($crudCreate);
+      unset($settings);     
+    }    
+    
+    public function testRecordSearchIndexationModeUnpublishedRecord() {      
+      $settings = new Config();  
+      
+      utilities\deleteDataset();
+      
+      $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+                 
+      // Create a second time
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      
+      $crudCreate->dataset($settings->testDataset)
+                 ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
+                 ->documentMimeIsRdfN3()
+                 ->enableSearchIndexationMode()
+                 ->sourceInterface($settings->crudCreateInterface)
+                 ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
+                 ->send();
+                           
+      $this->assertEquals($crudCreate->getStatus(), "400", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      $this->assertEquals($crudCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($crudCreate, TRUE));
+      $this->assertEquals($crudCreate->error->id, "WS-CRUD-CREATE-313", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      
+      utilities\deleteDataset();
+
+      unset($crudCreate);
+      unset($settings);     
+    }        
+  }
+  
   
 ?>
