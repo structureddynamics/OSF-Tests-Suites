@@ -6542,7 +6542,7 @@
 
       $resultset = $ontologyRead->getResultset()->getResultset();
 
-      $this->assertTrue(count($resultset['unspecified']['http://foo.org/test#http://foo.org/test/0.1#']) == 1);
+      $this->assertTrue(count($resultset['unspecified']['http://foo.org/test#']) == 1);
 
       unset($ontologyRead);
       unset($settings);   
