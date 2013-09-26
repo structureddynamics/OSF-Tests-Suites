@@ -230,7 +230,32 @@
     foreach($parserActual as $uri => $description)
     {
       unset($parserActual[$uri]['http://purl.org/dc/terms/isPartOf']);
+      unset($parserExpected[$uri]['http://purl.org/dc/terms/isPartOf']);                                             
+    }
+    
+    // Remove possible triples that may, or may not appears depending on the settings of the structWSF instance.  
+    foreach($parserActual as $uri => $description)
+    {
+      // Remove possible is-part-of that may be included by the endpoint
+      unset($parserActual[$uri]['http://purl.org/dc/terms/isPartOf']);
       unset($parserExpected[$uri]['http://purl.org/dc/terms/isPartOf']);
+      
+      // Remove possible inferred types (when using the Ontologies Endpoints)
+      foreach($parserActual[$uri]['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'] as $key => $type)
+      {
+        if($type['value'] == 'http://www.w3.org/2002/07/owl#Thing')
+        {
+          unset($parserActual[$uri]['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'][$key]);
+        }
+      }
+      
+      foreach($parserExpected[$uri]['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'] as $key => $type)
+      {
+        if($type['value'] == 'http://www.w3.org/2002/07/owl#Thing')
+        {
+          unset($parserExpected[$uri]['http://www.w3.org/1999/02/22-rdf-syntax-ns#type'][$key]);
+        }
+      }
     }
 
     if(count(rdfdiff($parserActual, $parserExpected)) > 0)
