@@ -2265,7 +2265,7 @@
                      ->uri('http://test.com#test')
                      ->send();
 
-      $this->assertEquals($revisionLister->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+      $this->assertEquals($revisionLister->getStatus(), "200", "Debugging information: ".var_export($revisionLister, TRUE));                                       
       
       $resultset = $revisionLister->getResultset()->getResultset();
       
@@ -2281,7 +2281,7 @@
                    ->mime('resultset')
                    ->send();
                    
-      $this->assertEquals($revisionRead->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
+      $this->assertEquals($revisionRead->getStatus(), "200", "Debugging information: ".var_export($revisionRead, TRUE));                                       
                    
       $resultset = $revisionRead->getResultset()->getResultset();
       
@@ -2298,7 +2298,7 @@
                      ->ontology($settings->testOntologyUri)
                      ->send();
                      
-      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                             
+      $this->assertEquals($ontologyDelete->getStatus(), "200", "Debugging information: ".var_export($ontologyDelete, TRUE));                                             
       
       // Make sure the class is deleted
       $getClassFunction = new GetClassFunction();
