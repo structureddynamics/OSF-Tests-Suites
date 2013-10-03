@@ -52,8 +52,10 @@
                                    "&include_attributes_list=" . urlencode('') .
                                    "&lang=" . urlencode('en') .
                                    "&interface=". urlencode($settings->crudReadInterface) .
-                                   "&version=". urlencode($settings->crudReadInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->crudReadInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -80,8 +82,10 @@
                                    "&include_attributes_list=" . urlencode('') .
                                    "&lang=" . urlencode('en') .
                                    "&interface=". urlencode($settings->crudReadInterface) .
-                                   "&version=". urlencode($settings->crudReadInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));
+                                   "&version=". urlencode($settings->crudReadInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
       
@@ -109,8 +113,10 @@
                                    "&include_attributes_list=" . urlencode('') .
                                    "&lang=" . urlencode('en') .
                                    "&interface=". urlencode($settings->crudReadInterface) .
-                                   "&version=". urlencode($settings->crudReadInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));
+                                   "&version=". urlencode($settings->crudReadInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "200", "Debugging information: ".var_export($wsq, TRUE));                                       
             
@@ -128,7 +134,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->dataset($settings->testDataset)
@@ -154,7 +160,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->dataset($settings->testDataset)
@@ -182,7 +188,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->dataset($settings->testDataset)
@@ -208,7 +214,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->dataset($settings->testDataset)
@@ -236,7 +242,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->dataset($settings->testDataset)
@@ -268,7 +274,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->dataset($settings->testDataset)
@@ -300,7 +306,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->dataset($settings->testDataset)
@@ -342,7 +348,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/rdf+xml')
@@ -372,7 +378,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/rdf+n3')
@@ -403,7 +409,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/json')
@@ -435,7 +441,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('text/xml')
@@ -473,7 +479,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('resultset')
@@ -506,7 +512,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/rdf+xml')
@@ -536,7 +542,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/rdf+n3')
@@ -567,7 +573,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/json')
@@ -598,7 +604,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('text/xml')
@@ -636,7 +642,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('resultset')
@@ -669,7 +675,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/rdf+xml')
@@ -699,7 +705,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/rdf+n3')
@@ -730,7 +736,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/json')
@@ -761,7 +767,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('text/xml')
@@ -799,7 +805,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('resultset')
@@ -832,7 +838,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/rdf+xml')
@@ -862,7 +868,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/rdf+n3')
@@ -893,7 +899,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('application/json')
@@ -924,7 +930,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('text/xml')
@@ -962,7 +968,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->mime('resultset')
@@ -995,7 +1001,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1026,7 +1032,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1058,7 +1064,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1090,7 +1096,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1129,7 +1135,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri('http://foo.com/datasets/tests/foo')               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1163,7 +1169,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/rdf+xml')
@@ -1193,7 +1199,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/rdf+n3')
@@ -1224,7 +1230,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/json')
@@ -1255,7 +1261,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('text/xml')
@@ -1293,7 +1299,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('resultset')
@@ -1326,7 +1332,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/rdf+xml')
@@ -1356,7 +1362,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/rdf+n3')
@@ -1387,7 +1393,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/json')
@@ -1418,7 +1424,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('text/xml')
@@ -1456,7 +1462,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('resultset')
@@ -1489,7 +1495,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/rdf+xml')
@@ -1519,7 +1525,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/rdf+n3')
@@ -1550,7 +1556,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/json')
@@ -1581,7 +1587,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('text/xml')
@@ -1619,7 +1625,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('resultset')
@@ -1652,7 +1658,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/rdf+xml')
@@ -1682,7 +1688,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/rdf+n3')
@@ -1713,7 +1719,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('application/json')
@@ -1744,7 +1750,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('text/xml')
@@ -1782,7 +1788,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->mime('resultset')
@@ -1815,7 +1821,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1846,7 +1852,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1878,7 +1884,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1910,7 +1916,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))
@@ -1949,7 +1955,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");      
                  
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->uri(array('http://foo.com/datasets/tests/foo', 'http://foo.com/datasets/tests/bar'))               
                ->includeAttributes(array('http://purl.org/ontology/wsf#related_product'))

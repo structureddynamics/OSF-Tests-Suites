@@ -28,7 +28,7 @@
     
     createDataset();
                
-    $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+    $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $crudCreate->dataset($settings->testDataset)
                ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -43,7 +43,7 @@
       return(FALSE);
     }   
 
-    $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+    $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $crudUpdate->dataset($settings->testDataset)
                ->document(file_get_contents($settings->contentDir.'crud_update.n3'))
@@ -78,7 +78,7 @@
     
     createDataset();
                
-    $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+    $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $crudCreate->dataset($settings->testDataset)
                ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -112,7 +112,7 @@
 
     $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
                                  
-    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetCreate->uri($settings->testDataset)
                   ->title("This is a testing dataset")
@@ -142,7 +142,7 @@
     
     $crudPermissions = new CRUDPermission(FALSE, FALSE, FALSE, FALSE);
                                  
-    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetCreate->uri($settings->testDataset)
                   ->title("This is a testing dataset")
@@ -169,7 +169,7 @@
     
     $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
                                  
-    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetCreate->uri($settings->testDataset)
                   ->title("This is a testing dataset")
@@ -187,7 +187,7 @@
       return(FALSE);
     }
                                  
-    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetCreate->uri($settings->testDataset.'2/')
                   ->title("This is a testing dataset")
@@ -215,7 +215,7 @@
     
     $crudPermissions = new CRUDPermission(FALSE, FALSE, FALSE, FALSE);
                                  
-    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl);
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetCreate->uri($settings->testDataset)
                   ->title("This is a testing dataset")
@@ -256,7 +256,7 @@
   {
     $settings = new Config(); 
 
-    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetDelete->uri($settings->testDataset)
                   ->mime('text/xml')
@@ -278,7 +278,7 @@
   {
     $settings = new Config(); 
     
-    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetDelete->uri($settings->testDataset)
                   ->mime('text/xml')
@@ -291,7 +291,7 @@
       return(FALSE);
     }
     
-    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+    $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetDelete->uri($settings->testDataset.'2/')
                   ->mime('text/xml')
@@ -311,7 +311,7 @@
   {
     $settings = new Config(); 
                                  
-    $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+    $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetRead->uri($settings->testDataset)
                 ->mime('text/xml')
@@ -333,7 +333,7 @@
     
     createDataset();
                
-    $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+    $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $crudCreate->dataset($settings->testDataset)
                ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -357,7 +357,7 @@
     
     createDataset();
                
-    $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+    $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $crudCreate->dataset($settings->testDataset)
                ->document(file_get_contents($settings->contentDir.'search_dataset.n3'))
@@ -382,7 +382,7 @@
     
     $crudPermissions = new CRUDPermission(FALSE, FALSE, FALSE, FALSE);                                 
                                  
-    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl);
+    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $authRegistrarAccess->create('', $settings->testDataset, $crudPermissions, $settings->datasetWebservices)
                         ->mime('text/xml')
@@ -404,7 +404,7 @@
         
     $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);         
                                  
-    $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl);
+    $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     if($enableAdvanvedIndexation)
     {
@@ -435,7 +435,7 @@
   {
     $settings = new Config();     
     
-    $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+    $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $ontologyDelete->ontology($settings->testOntologyUri)
                    ->deleteOntology()
@@ -464,7 +464,7 @@
     
     $settings = new Config(); 
     
-    $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+    $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $crudDelete->dataset("http://localhost/wsf/")
                ->uri($settings->newWebServiceUri)
@@ -484,7 +484,7 @@
   {
     $settings = new Config();
     
-    $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+    $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $revisionLister->dataset($settings->testDataset)
                    ->mime('resultset')
@@ -511,7 +511,7 @@
   {
     $settings = new Config();
     
-    $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+    $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $revisionLister->dataset($settings->testDataset)
                    ->mime('resultset')

@@ -59,8 +59,10 @@
                                    "&function=" . urlencode("deleteOntology") .
                                    "&parameters=" . urlencode("") .
                                    "&interface=". urlencode($settings->ontologyDeleteInterface) .
-                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("self"));
+                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -80,8 +82,10 @@
                                    "&function=" . urlencode("deleteOntology") .
                                    "&parameters=" . urlencode("") .
                                    "&interface=". urlencode($settings->ontologyDeleteInterface) .
-                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("self"));
+                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -102,8 +106,10 @@
                                    "&function=" . urlencode("deleteOntology" . "unknown") .
                                    "&parameters=" . urlencode("") .
                                    "&interface=". urlencode($settings->ontologyDeleteInterface) .
-                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("self"));
+                                   "&version=". urlencode($settings->ontologyDeleteInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
@@ -121,7 +127,7 @@
       
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri)
                      ->deleteOntology()
@@ -147,7 +153,7 @@
       
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri)
                      ->deleteOntology()
@@ -177,7 +183,7 @@
       
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri)
                      ->deleteOntology()
@@ -205,7 +211,7 @@
       
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri)
                      ->deleteOntology()
@@ -227,7 +233,7 @@
       
       $settings = new Config();  
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology("")
                      ->deleteOntology()
@@ -247,7 +253,7 @@
       
       $settings = new Config();  
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri);
       
@@ -272,7 +278,7 @@
       
       $settings = new Config();  
 
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri);
       
@@ -297,7 +303,7 @@
       
       $settings = new Config();  
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri);
       
@@ -326,7 +332,7 @@
       
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri)
                      ->deleteOntology()
@@ -338,7 +344,7 @@
                                     
       unset($wsq);
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyRead->mime("application/rdf+xml")
                    ->ontology($settings->testOntologyUri)
@@ -367,7 +373,7 @@
 
       
       // Delete Ontology
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri);
       
@@ -384,7 +390,7 @@
                                     
       unset($ontologyDelete);
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyRead->mime("application/rdf+xml")
                    ->ontology($settings->testOntologyUri);
@@ -421,7 +427,7 @@
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
       // Delete Ontology
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri);
       
@@ -439,7 +445,7 @@
       unset($ontologyDelete);
       
       // Make sure it is deleted      
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyRead->mime("application/rdf+xml")
                    ->ontology($settings->testOntologyUri);
@@ -476,7 +482,7 @@
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
       // Delete Ontology
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri);
       
@@ -494,7 +500,7 @@
       unset($ontologyDelete);
       
       // Make sure it is deleted     
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyRead->mime("application/rdf+xml")
                    ->ontology($settings->testOntologyUri);
@@ -531,7 +537,7 @@
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
       // Delete Ontology
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri);
       
@@ -553,7 +559,7 @@
       // why this happens, and by getOWLClass() is not returning null.      
       
       // Make sure it is deleted      
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyRead->mime("application/rdf+xml")
                    ->ontology($settings->testOntologyUri);
@@ -590,7 +596,7 @@
       $this->assertTrue(utilities\createOntology(), "Can't create the ontology, check the /ontology/create/ endpoint first...");
       
       // Delete Ontology
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->ontology($settings->testOntologyUri);
       
@@ -612,7 +618,7 @@
       // why this happens, and by getOWLNamedIndividal() is not returning null.
       
       // Make sure it is deleted      
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyRead->mime("application/rdf+xml")
                    ->ontology($settings->testOntologyUri);

@@ -49,7 +49,10 @@
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
                                    "&interface=". urlencode($settings->datasetUpdateInterface) .
                                    "&version=". urlencode($settings->datasetUpdateInterfaceVersion) .
-                                   "&modified=" . urlencode(date("Y-n-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -71,7 +74,10 @@
                                    "&contributors=" . urlencode("http://test.com/user/bob".$settings->datasetUpdateString."/") .
                                    "&interface=". urlencode($settings->datasetUpdateInterface) .
                                    "&version=". urlencode($settings->datasetUpdateInterfaceVersion) .
-                                   "&modified=" . urlencode(date("Y-n-j")));
+                                   "&modified=" . urlencode(date("Y-n-j")),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -88,7 +94,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset)
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -116,7 +122,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset)
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -149,7 +155,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset)
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -180,7 +186,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset)
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -209,7 +215,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset)
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -237,7 +243,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset)
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -274,7 +280,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri("")
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -303,7 +309,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset . "<>")
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -332,7 +338,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");      
       
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset . "missing/")
                     ->title("This is a testing dataset".$settings->datasetUpdateString)
@@ -361,7 +367,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl);
+      $datasetUpdate = new DatasetUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetUpdate->uri($settings->testDataset)
                     ->title("This is a testing dataset".$settings->datasetUpdateString)

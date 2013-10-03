@@ -50,8 +50,10 @@
                                    "&lifecycle=" . urlencode("published") .
                                    "&revision=" . urlencode("true") .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
-                                   "&version=". urlencode($settings->crudCreateInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->crudCreateInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -73,8 +75,10 @@
                                    "&lifecycle=" . urlencode("published") .
                                    "&revision=" . urlencode("true") .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
-                                   "&version=". urlencode($settings->crudCreateInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->crudCreateInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -100,8 +104,10 @@
                                    "&lifecycle=" . urlencode("unknown-lifecycle-stage") .
                                    "&revision=" . urlencode("true") .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
-                                   "&version=". urlencode($settings->crudCreateInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->crudCreateInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
    
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
@@ -121,7 +127,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the revisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -149,7 +155,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the revisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -178,7 +184,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the revisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -206,7 +212,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the revisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -235,7 +241,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -264,7 +270,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -292,7 +298,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -320,7 +326,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -349,7 +355,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(FALSE), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -378,7 +384,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(FALSE), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->ignoreRevision()
                  ->isPublished()
@@ -391,7 +397,7 @@
                            
       $this->assertEquals($crudUpdate->getStatus(), "200", "Debugging information: ".var_export($crudUpdate, TRUE));        
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->shortResults()
@@ -419,7 +425,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -446,7 +452,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -474,7 +480,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -501,7 +507,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPublished()
@@ -528,7 +534,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isArchive()
@@ -555,7 +561,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isArchive()
@@ -583,7 +589,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isArchive()
@@ -610,7 +616,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isArchive()
@@ -637,7 +643,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isExperimental()
@@ -664,7 +670,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isExperimental()
@@ -692,7 +698,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isExperimental()
@@ -719,7 +725,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isExperimental()
@@ -746,7 +752,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isHarvesting()
@@ -773,7 +779,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isHarvesting()
@@ -801,7 +807,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isHarvesting()
@@ -828,7 +834,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isHarvesting()
@@ -855,7 +861,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPreRelease()
@@ -882,7 +888,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPreRelease()
@@ -910,7 +916,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPreRelease()
@@ -937,7 +943,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isPreRelease()
@@ -964,7 +970,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isStaging()
@@ -991,7 +997,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isStaging()
@@ -1019,7 +1025,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isStaging()
@@ -1046,7 +1052,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isStaging()
@@ -1073,7 +1079,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isUnspecified()
@@ -1100,7 +1106,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isUnspecified()
@@ -1128,7 +1134,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevisioned records...");
                  
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isUnspecified()
@@ -1155,7 +1161,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revisioned records...");
 
-      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl);
+      $crudUpdate = new CrudUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudUpdate->createRevision()
                  ->isUnspecified()

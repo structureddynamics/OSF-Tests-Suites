@@ -65,8 +65,10 @@
                                    "ontology=" . urlencode($settings->testOntologyUri) .
                                    "&function=" .
                                    "&parameters=" .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");
+                                   "&reasoner=",
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -85,8 +87,10 @@
                                    "ontology=" . urlencode($settings->testOntologyUri) .
                                    "&function=" .
                                    "&parameters=" .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");
+                                   "&reasoner=",
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -108,7 +112,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -138,7 +142,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -170,7 +174,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -200,7 +204,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -232,7 +236,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology('')
                      ->enableReasoner()
@@ -264,7 +268,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri.'test')
                      ->enableReasoner()
@@ -293,8 +297,10 @@
                                    "ontology=" . urlencode($settings->testOntologyUri) .
                                    "&function=unknown" .
                                    "&parameters=" .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");
+                                   "&reasoner=",
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
@@ -323,7 +329,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -361,7 +367,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -393,7 +399,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl').'cant-parse');
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -426,7 +432,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -441,7 +447,7 @@
       
       $getClassFunction->uri('http://foo.org/test#B');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml')
@@ -478,7 +484,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -493,7 +499,7 @@
       
       $getClassFunction->uri('http://foo.org/test#C');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml')
@@ -530,7 +536,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -547,7 +553,7 @@
       
       $getPropertyFunction->uri('http://foo.org/test#aA');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml')
@@ -584,7 +590,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -599,7 +605,7 @@
       
       $getPropertyFunction->uri('http://foo.org/test#dpD');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml')
@@ -636,7 +642,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -651,7 +657,7 @@
       
       $getPropertyFunction->uri('http://foo.org/test#opA');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml')
@@ -688,7 +694,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -703,7 +709,7 @@
               
       $getNamedIndidivualFunction->uri('http://foo.org/test#niE');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml')
@@ -740,7 +746,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -751,7 +757,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('application/rdf+xml')
@@ -788,7 +794,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -799,7 +805,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
                             
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('application/rdf+xml')
@@ -838,7 +844,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -849,7 +855,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('application/rdf+xml')
@@ -886,7 +892,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -897,7 +903,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('application/rdf+xml')
@@ -935,7 +941,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -946,7 +952,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('application/rdf+xml')
@@ -986,7 +992,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -998,7 +1004,7 @@
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('application/rdf+xml')
@@ -1037,7 +1043,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1048,7 +1054,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
        
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -1089,7 +1095,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1100,7 +1106,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -1140,7 +1146,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1151,7 +1157,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -1191,7 +1197,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1202,7 +1208,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -1242,7 +1248,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1253,7 +1259,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -1293,7 +1299,7 @@
       $createEntity->enableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1304,7 +1310,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -1344,7 +1350,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1359,7 +1365,7 @@
       
       $getClassFunction->uri('http://foo.org/test#B');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml') 
@@ -1396,7 +1402,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1411,7 +1417,7 @@
       
       $getClassFunction->uri('http://foo.org/test#C');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml') 
@@ -1448,7 +1454,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1465,7 +1471,7 @@
       
       $getPropertyFunction->uri('http://foo.org/test#aA');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml') 
@@ -1502,7 +1508,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1517,7 +1523,7 @@
       
       $getPropertyFunction->uri('http://foo.org/test#dpD');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml') 
@@ -1554,7 +1560,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1569,7 +1575,7 @@
       
       $getPropertyFunction->uri('http://foo.org/test#opA');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml') 
@@ -1606,7 +1612,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1621,7 +1627,7 @@
               
       $getNamedIndidivualFunction->uri('http://foo.org/test#niE');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml') 
@@ -1658,7 +1664,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1669,7 +1675,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('resultset')
@@ -1704,7 +1710,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1715,7 +1721,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('resultset')
@@ -1750,7 +1756,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1761,7 +1767,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
                               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('resultset')
@@ -1796,7 +1802,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1807,7 +1813,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
                     
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('resultset')
@@ -1842,7 +1848,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1854,7 +1860,7 @@
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('resultset')
@@ -1889,7 +1895,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1900,7 +1906,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testOntologyUri)
                ->mime('resultset')
@@ -1934,7 +1940,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1945,7 +1951,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
        
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -1980,7 +1986,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -1991,7 +1997,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -2025,7 +2031,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -2036,7 +2042,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -2070,7 +2076,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -2081,7 +2087,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -2115,7 +2121,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -2126,7 +2132,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -2160,7 +2166,7 @@
       $createEntity->disableAdvancedIndexation()
                    ->document(file_get_contents($settings->contentDir.'fooModified.owl'));
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -2171,7 +2177,7 @@
      
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
               
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->attributeValuesFilters('uri', 'http://foo.org/test#B')
              ->excludeAggregates()
@@ -2217,7 +2223,7 @@
                                  <http://purl.org/ontology/iron#altLabel> "test" ;
                                  rdfs:subClassOf <http://www.w3.org/2002/07/owl#Thing> .');
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -2245,7 +2251,7 @@
                                  <http://purl.org/ontology/iron#altLabel> "test2" ;
                                  rdfs:subClassOf <http://www.w3.org/2002/07/owl#Thing> .');
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -2257,7 +2263,7 @@
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
       
       // Ensure that the class is updated and that a revision exists
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testOntologyUri)
                      ->mime('resultset')
@@ -2273,7 +2279,7 @@
       
       $revisionUri = key($resultset['unspecified']);
       
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionRead->dataset($settings->testOntologyUri)
                    ->getRecord()
@@ -2292,7 +2298,7 @@
       
       $deleteClassFunction->uri('http://test.com#test');
       
-      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl);
+      $ontologyDelete = new OntologyDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyDelete->deleteClass($deleteClassFunction)
                      ->ontology($settings->testOntologyUri)
@@ -2305,7 +2311,7 @@
       
       $getClassFunction->uri('http://test.com#test');
               
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);              
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);              
       
       $ontologyRead->enableReasoner()
                    ->mime('application/rdf+xml')
@@ -2336,7 +2342,7 @@
                                  <http://purl.org/ontology/iron#altLabel> "test3" ;
                                  rdfs:subClassOf <http://www.w3.org/2002/07/owl#Thing> .');
       
-      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl);
+      $ontologyUpdate = new OntologyUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyUpdate->ontology($settings->testOntologyUri)
                      ->enableReasoner()
@@ -2348,7 +2354,7 @@
       $this->assertEquals($ontologyUpdate->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
       
       // Make sure the latest revision is the one we just created
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testOntologyUri)
                      ->mime('resultset')
@@ -2364,7 +2370,7 @@
       
       $revisionUri = key($resultset['unspecified']);
       
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionRead->dataset($settings->testOntologyUri)
                    ->getRecord()

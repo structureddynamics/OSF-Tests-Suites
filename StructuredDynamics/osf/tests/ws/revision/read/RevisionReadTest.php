@@ -49,8 +49,10 @@
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('revision') .
                                    "&interface=". urlencode($settings->revisionReadInterface) .
-                                   "&version=". urlencode($settings->revisionReadInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->revisionReadInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -70,8 +72,10 @@
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('revision') .
                                    "&interface=". urlencode($settings->revisionReadInterface) .
-                                   "&version=". urlencode($settings->revisionReadInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->revisionReadInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
    
 
                                    
@@ -94,7 +98,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->revisionUri($revuri)
@@ -124,7 +128,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->revisionUri($revuri)
@@ -154,7 +158,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->revisionUri($revuri)
@@ -182,7 +186,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->revisionUri($revuri)
@@ -219,8 +223,10 @@
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('non-existing') .
                                    "&interface=". urlencode($settings->revisionReadInterface) .
-                                   "&version=". urlencode($settings->revisionReadInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->revisionReadInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
    
                            
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -244,7 +250,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->revisionUri($revuri.'unexisting')
@@ -274,7 +280,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('application/rdf+xml')  
@@ -306,7 +312,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('application/rdf+xml')  
@@ -338,7 +344,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('application/rdf+n3')  
@@ -371,7 +377,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('application/rdf+n3')  
@@ -404,7 +410,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('application/json')  
@@ -437,7 +443,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('application/json')  
@@ -470,7 +476,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('text/xml')  
@@ -509,7 +515,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('text/xml')  
@@ -548,7 +554,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('resultset')  
@@ -583,7 +589,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('resultset')  
@@ -618,7 +624,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('resultset')  
@@ -657,7 +663,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionRead = new RevisionReadQuery($settings->endpointUrl);      
+      $revisionRead = new RevisionReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);      
       
       $revisionRead->dataset($settings->testDataset)
                    ->mime('resultset')  

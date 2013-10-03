@@ -47,8 +47,10 @@
                                        "&dataset=" . urlencode($settings->testDataset) .
                                        "&target_webservice=" . urlencode("all") .
                                        "&interface=". urlencode($settings->authListerInterface) .
-                                       "&version=". urlencode($settings->authListerInterfaceVersion) .
-                                       "&registered_ip=" . urlencode("self"));
+                                       "&version=". urlencode($settings->authListerInterfaceVersion),
+                                       $settings->applicationID,
+                                       $settings->apiKey,
+                                       $settings->userID);
                                        
           $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
           $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -74,8 +76,10 @@
                                        "&dataset=" . urlencode($settings->testDataset) .
                                        "&target_webservice=" . urlencode("all") .
                                        "&interface=". urlencode($settings->authListerInterface) .
-                                       "&version=". urlencode($settings->authListerInterfaceVersion) .
-                                       "&registered_ip=" . urlencode("self"));
+                                       "&version=". urlencode($settings->authListerInterfaceVersion),
+                                       $settings->applicationID,
+                                       $settings->apiKey,
+                                       $settings->userID);
                                        
           $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
           $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -101,8 +105,10 @@
                                        "&dataset=" . urlencode($settings->testDataset) .
                                        "&target_webservice=" . urlencode("all") .
                                        "&interface=". urlencode($settings->authListerInterface) .
-                                       "&version=". urlencode($settings->authListerInterfaceVersion) .
-                                       "&registered_ip=" . urlencode("self"));
+                                       "&version=". urlencode($settings->authListerInterfaceVersion),
+                                       $settings->applicationID,
+                                       $settings->apiKey,
+                                       $settings->userID);
                                        
           $this->assertEquals($wsq->getStatus(), "406", "Debugging information: ".var_export($wsq, TRUE));                                       
           $this->assertEquals($wsq->getStatusMessage(), "Not Acceptable", "Debugging information: ".var_export($wsq, TRUE));          
@@ -121,12 +127,11 @@
         
         $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
         
-        $authLister = new AuthListerQuery($settings->endpointUrl);
+        $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
         
         $authLister->mime("text/xml")
                    ->getDatasetsUri($settings->testDataset)
                    ->includeAllWebServiceUris()
-                   ->registeredIp("self")
                    ->sourceInterface($settings->authListerInterface)
                    ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                    ->send();
@@ -148,12 +153,11 @@
         
         $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
         
-        $authLister = new AuthListerQuery($settings->endpointUrl);
+        $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
         
         $authLister->mime("text/xml")
                    ->getDatasetsUri($settings->testDataset)
                    ->includeAllWebServiceUris()
-                   ->registeredIp("self")
                    ->sourceInterface($settings->authListerInterface)
                    ->sourceInterfaceVersion("667.4")
                    ->send();
@@ -180,12 +184,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
                      ->getDatasetsUri($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -210,12 +213,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
                      ->getDatasetsUri($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface("default-not-existing")
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -242,12 +244,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
                      ->getDatasetsUri($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -268,12 +269,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
                      ->getDatasetsUri($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -294,12 +294,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
                      ->getDatasetsUri($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -320,12 +319,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
                      ->getDatasetsUri($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -350,12 +348,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
                      ->getRegisteredWebServiceEndpointsUri()
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -376,12 +373,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
                      ->getRegisteredWebServiceEndpointsUri()
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -402,12 +398,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
                      ->getRegisteredWebServiceEndpointsUri()
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -426,12 +421,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
                      ->getRegisteredWebServiceEndpointsUri()
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -456,12 +450,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -482,12 +475,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -508,12 +500,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -534,12 +525,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -560,14 +550,13 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->send();
           
           utilities\validateParameterTextXml($this, $authLister);
@@ -586,12 +575,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -612,14 +600,13 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeNoWebServiceUris()
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
-                     ->registeredIp("self")
                      ->send();
                                 
           utilities\validateParameterApplicationRdfXml($this, $authLister);
@@ -638,12 +625,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -664,12 +650,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
@@ -690,12 +675,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");          
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();          
@@ -716,12 +700,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();          
@@ -742,12 +725,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
                      ->getDatasetUsersAccesses($settings->testDataset)
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();          
@@ -772,12 +754,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();          
@@ -798,12 +779,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();            
@@ -824,12 +804,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();            
@@ -850,12 +829,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeAllWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();            
@@ -876,12 +854,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();            
@@ -902,12 +879,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();               
@@ -928,12 +904,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();     
@@ -954,12 +929,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();               
@@ -980,12 +954,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();               
@@ -1006,12 +979,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();               
@@ -1032,12 +1004,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();               
@@ -1058,12 +1029,11 @@
           
           $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
           
-          $authLister = new AuthListerQuery($settings->endpointUrl);
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
-                     ->getUserAccesses("self")
+                     ->getUserAccesses()
                      ->includeNoWebServiceUris()
-                     ->registeredIp("self")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();               

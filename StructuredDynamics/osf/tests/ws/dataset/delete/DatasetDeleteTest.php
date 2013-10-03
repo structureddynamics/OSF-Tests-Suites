@@ -45,7 +45,10 @@
                                    "text/xml",
                                    "&interface=". urlencode($settings->datasetDeleteInterface) .
                                    "&version=". urlencode($settings->datasetDeleteInterfaceVersion) .
-                                   "uri=" . urlencode($settings->testDataset));
+                                   "uri=" . urlencode($settings->testDataset),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -63,7 +66,10 @@
                                    "text/xml",
                                    "&interface=". urlencode($settings->datasetDeleteInterface) .
                                    "&version=". urlencode($settings->datasetDeleteInterfaceVersion) .
-                                   "uri=" . urlencode($settings->testDataset));
+                                   "uri=" . urlencode($settings->testDataset),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -80,7 +86,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetDelete->uri($settings->testDataset)
                     ->sourceInterface("default")
@@ -105,7 +111,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetDelete->uri($settings->testDataset)
                     ->sourceInterface($settings->datasetDeleteInterface)
@@ -134,7 +140,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetDelete->uri($settings->testDataset)
                     ->sourceInterface($settings->datasetDeleteInterface)
@@ -161,7 +167,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetDelete->uri($settings->testDataset)
                     ->sourceInterface("default-not-existing")
@@ -186,7 +192,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetDelete->uri($settings->testDataset)
                     ->sourceInterface($settings->datasetDeleteInterface)
@@ -209,7 +215,7 @@
             
       $this->assertTrue((utilities\readDataset() !== FALSE ? TRUE : FALSE), "Can't read the dataset, check the /dataset/read/ endpoint first...");
       
-      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetDelete->uri($settings->testDataset)
                     ->sourceInterface($settings->datasetDeleteInterface)
@@ -228,7 +234,7 @@
       
       $settings = new Config();  
       
-      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetDelete->uri("")
                     ->sourceInterface($settings->datasetDeleteInterface)
@@ -247,7 +253,7 @@
       
       $settings = new Config();  
                                    
-      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl);
+      $datasetDelete = new DatasetDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $datasetDelete->uri($settings->testDataset."<>")
                     ->sourceInterface($settings->datasetDeleteInterface)

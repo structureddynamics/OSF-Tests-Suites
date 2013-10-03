@@ -48,8 +48,10 @@
                                    "&revuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->revisionDeleteInterface) .
-                                   "&version=". urlencode($settings->revisionDeleteInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->revisionDeleteInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -68,8 +70,10 @@
                                    "&revuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->revisionDeleteInterface) .
-                                   "&version=". urlencode($settings->revisionDeleteInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->revisionDeleteInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
    
 
                                    
@@ -93,7 +97,7 @@
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
       
       // unpublish the revision
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isArchive()
@@ -102,7 +106,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -131,7 +135,7 @@
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
       
       // unpublish the revision
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isArchive()
@@ -140,7 +144,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -171,7 +175,7 @@
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
       
       // unpublish the revision
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isArchive()
@@ -180,7 +184,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -209,7 +213,7 @@
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
       
       // unpublish the revision
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isArchive()
@@ -218,7 +222,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -248,7 +252,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -280,7 +284,7 @@
 
       
       // unpublish the revision           
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isArchive()
@@ -289,7 +293,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -299,7 +303,7 @@
                            
       $this->assertEquals($revisionDelete->getStatus(), "200", "Debugging information: ".var_export($revisionDelete, TRUE));                                       
       
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $revisionLister->dataset($settings->testDataset)
                      ->mime('resultset')
@@ -346,7 +350,7 @@
 
       
       // unpublish the revision           
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isExperimental()
@@ -355,7 +359,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -365,7 +369,7 @@
                            
       $this->assertEquals($revisionDelete->getStatus(), "200", "Debugging information: ".var_export($revisionDelete, TRUE));                                       
       
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $revisionLister->dataset($settings->testDataset)
                      ->mime('resultset')
@@ -412,7 +416,7 @@
 
       
       // unpublish the revision           
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isHarvesting()
@@ -421,7 +425,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -431,7 +435,7 @@
                            
       $this->assertEquals($revisionDelete->getStatus(), "200", "Debugging information: ".var_export($revisionDelete, TRUE));                                       
       
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $revisionLister->dataset($settings->testDataset)
                      ->mime('resultset')
@@ -478,7 +482,7 @@
 
       
       // unpublish the revision           
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isPreRelease()
@@ -487,7 +491,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -497,7 +501,7 @@
                            
       $this->assertEquals($revisionDelete->getStatus(), "200", "Debugging information: ".var_export($revisionDelete, TRUE));                                       
       
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $revisionLister->dataset($settings->testDataset)
                      ->mime('resultset')
@@ -544,7 +548,7 @@
 
       
       // unpublish the revision           
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isStaging()
@@ -553,7 +557,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -563,7 +567,7 @@
                            
       $this->assertEquals($revisionDelete->getStatus(), "200", "Debugging information: ".var_export($revisionDelete, TRUE));                                       
       
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $revisionLister->dataset($settings->testDataset)
                      ->mime('resultset')
@@ -610,7 +614,7 @@
 
       
       // unpublish the revision           
-      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl);
+      $revisionUpdate = new RevisionUpdateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionUpdate->dataset($settings->testDataset)
                      ->isUnspecified()
@@ -619,7 +623,7 @@
 
       $this->assertEquals($revisionUpdate->getStatus(), "200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       
-      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl);
+      $revisionDelete = new RevisionDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDelete->dataset($settings->testDataset)
                      ->revisionUri($revuri)
@@ -629,7 +633,7 @@
                            
       $this->assertEquals($revisionDelete->getStatus(), "200", "Debugging information: ".var_export($revisionDelete, TRUE));                                       
       
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $revisionLister->dataset($settings->testDataset)
                      ->mime('resultset')

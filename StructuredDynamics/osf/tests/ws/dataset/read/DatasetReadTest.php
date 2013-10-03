@@ -49,7 +49,10 @@
                                    "uri=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->datasetReadInterface) .
                                    "&version=". urlencode($settings->datasetReadInterfaceVersion) .
-                                   "&meta=" . urlencode("True"));
+                                   "&meta=" . urlencode("True"),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -68,7 +71,10 @@
                                    "uri=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->datasetReadInterface) .
                                    "&version=". urlencode($settings->datasetReadInterfaceVersion) .
-                                   "&meta=" . urlencode("True"));
+                                   "&meta=" . urlencode("True"),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -85,7 +91,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
@@ -111,7 +117,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
@@ -142,7 +148,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
@@ -171,7 +177,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
@@ -198,7 +204,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
@@ -225,7 +231,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("application/json")
                   ->uri($settings->testDataset)
@@ -255,7 +261,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("application/rdf+xml")
                   ->uri($settings->testDataset)
@@ -283,7 +289,7 @@
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
             
       // Create the new dataset
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("application/rdf+n3")
                   ->uri($settings->testDataset)
@@ -317,7 +323,7 @@
       
       $this->assertTrue(utilities\createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");
             
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("text/xml")
                   ->uri("all")
@@ -359,7 +365,7 @@
       
       $this->assertTrue(utilities\createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");
       
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("application/json")
                   ->uri("all")
@@ -383,7 +389,7 @@
       
       $this->assertTrue(utilities\createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");              
       
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("application/rdf+xml")
                   ->uri("all")
@@ -407,7 +413,7 @@
       
       $this->assertTrue(utilities\createTwoDatasets(), "Can't create the datasets, check the /dataset/create/ endpoint first...");      
       
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("application/rdf+n3")
                   ->uri("all")
@@ -433,7 +439,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");      
       
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("text/xml")
                   ->uri("")
@@ -460,7 +466,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
       
-      $datasetRead = new DatasetReadQuery($settings->endpointUrl);
+      $datasetRead = new DatasetReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset . "<>")

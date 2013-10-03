@@ -47,8 +47,10 @@
                                    "&mime=" . urlencode("application/rdf+n3") .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
-                                   "&version=". urlencode($settings->crudCreateInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->crudCreateInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);        
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -68,9 +70,10 @@
                                    "&mime=" . urlencode("application/rdf+n3") .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
-                                   "&version=". urlencode($settings->crudCreateInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
-   
+                                   "&version=". urlencode($settings->crudCreateInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
 
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -88,7 +91,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -115,7 +118,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -143,7 +146,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -169,7 +172,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -197,7 +200,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -223,7 +226,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.xml'))
@@ -248,7 +251,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -260,7 +263,7 @@
                            
       $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                   
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -285,7 +288,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
 
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -297,7 +300,7 @@
                            
       $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));  
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.xml'))
@@ -323,7 +326,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -349,7 +352,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.xml'))
@@ -375,7 +378,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document('')
@@ -403,7 +406,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset('')
                  ->document(file_get_contents($settings->contentDir.'crud_create.xml'))
@@ -430,7 +433,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3').'unparsable')
@@ -457,7 +460,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.xml').'unparsable')
@@ -484,7 +487,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create the revision record");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
 
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -511,7 +514,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -524,7 +527,7 @@
       $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                                       
 
       // Create a second time
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -551,7 +554,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -564,7 +567,7 @@
       $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                                       
 
       // Create a second time
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -591,7 +594,7 @@
       
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -604,7 +607,7 @@
       $this->assertEquals($crudCreate->getStatus(), "200", "Debugging information: ".var_export($crudCreate, TRUE));                                       
 
       // Create a second time
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
@@ -630,7 +633,7 @@
       $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
                  
       // Create a second time
-      $crudCreate = new CrudCreateQuery($settings->endpointUrl);
+      $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudCreate->dataset($settings->testDataset)
                  ->document(file_get_contents($settings->contentDir.'crud_create.n3'))

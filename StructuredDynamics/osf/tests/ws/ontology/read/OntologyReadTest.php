@@ -79,8 +79,10 @@
                                    "ontology=" . urlencode($settings->testOntologyUri) .
                                    "&function=" .
                                    "&parameters=" .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");
+                                   "&reasoner=",
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                    
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -99,8 +101,10 @@
                                    "ontology=" . urlencode($settings->testOntologyUri) .
                                    "&function=" .
                                    "&parameters=" .
-                                   "&reasoner=" .
-                                   "&registered_ip=self");
+                                   "&reasoner=",
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -113,7 +117,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -137,7 +141,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -161,7 +165,7 @@
     public function testInterfaceExists() {
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -184,7 +188,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -209,7 +213,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -237,7 +241,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -265,7 +269,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -293,7 +297,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -329,7 +333,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClass = new GetClassFunction();
       
@@ -359,7 +363,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClasses = new GetClassesFunction();
       
@@ -391,7 +395,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClasses = new GetClassesFunction();
       
@@ -425,7 +429,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClasses = new GetClassesFunction();
       
@@ -457,7 +461,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClasses = new GetClassesFunction();
       
@@ -491,7 +495,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -523,7 +527,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -555,7 +559,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -588,7 +592,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -624,7 +628,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -661,7 +665,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -694,7 +698,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClasses = new GetClassesFunction();
       
@@ -726,7 +730,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClasses = new GetClassesFunction();
       
@@ -760,7 +764,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClasses = new GetClassesFunction();
       
@@ -792,7 +796,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getClasses = new GetClassesFunction();
       
@@ -826,7 +830,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -858,7 +862,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -890,7 +894,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -923,7 +927,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -955,7 +959,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -987,7 +991,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubClasses = new GetSubClassesFunction();
       
@@ -1020,7 +1024,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperClasses = new GetSuperClassesFunction();
       
@@ -1052,7 +1056,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperClasses = new GetSuperClassesFunction();
       
@@ -1084,7 +1088,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperClasses = new GetSuperClassesFunction();
       
@@ -1120,7 +1124,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperClasses = new GetSuperClassesFunction();
       
@@ -1157,7 +1161,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperClasses = new GetSuperClassesFunction();
       
@@ -1189,7 +1193,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperClasses = new GetSuperClassesFunction();
       
@@ -1221,7 +1225,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperClasses = new GetSuperClassesFunction();
       
@@ -1253,7 +1257,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperClasses = new GetSuperClassesFunction();
       
@@ -1285,7 +1289,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentClasses = new GetEquivalentClassesFunction();
       
@@ -1316,7 +1320,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentClasses = new GetEquivalentClassesFunction();
       
@@ -1347,7 +1351,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentClasses = new GetEquivalentClassesFunction();
       
@@ -1378,7 +1382,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentClasses = new GetEquivalentClassesFunction();
       
@@ -1409,7 +1413,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointClasses = new GetDisjointClassesFunction();
       
@@ -1440,7 +1444,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointClasses = new GetDisjointClassesFunction();
       
@@ -1471,7 +1475,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointClasses = new GetDisjointClassesFunction();
       
@@ -1502,7 +1506,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointClasses = new GetDisjointClassesFunction();
       
@@ -1533,7 +1537,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1561,7 +1565,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1589,7 +1593,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1617,7 +1621,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1653,7 +1657,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1683,7 +1687,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1711,7 +1715,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1739,7 +1743,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1767,7 +1771,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1803,7 +1807,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1833,7 +1837,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1861,7 +1865,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1889,7 +1893,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1917,7 +1921,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1953,7 +1957,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperty = new GetPropertyFunction();
       
@@ -1983,7 +1987,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2016,7 +2020,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2051,7 +2055,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2084,7 +2088,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2119,7 +2123,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2152,7 +2156,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2187,7 +2191,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2220,7 +2224,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2255,7 +2259,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2288,7 +2292,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2323,7 +2327,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2356,7 +2360,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2392,7 +2396,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2425,7 +2429,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2460,7 +2464,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2493,7 +2497,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2528,7 +2532,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2561,7 +2565,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2596,7 +2600,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2629,7 +2633,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2665,7 +2669,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2698,7 +2702,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2733,7 +2737,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2766,7 +2770,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2801,7 +2805,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2834,7 +2838,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2869,7 +2873,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2902,7 +2906,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2938,7 +2942,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -2971,7 +2975,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -3006,7 +3010,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -3039,7 +3043,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getProperties = new GetPropertiesFunction();
       
@@ -3074,7 +3078,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3107,7 +3111,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3142,7 +3146,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3175,7 +3179,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3210,7 +3214,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3243,7 +3247,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3276,7 +3280,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3309,7 +3313,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3342,7 +3346,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3375,7 +3379,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3410,7 +3414,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3443,7 +3447,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3478,7 +3482,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3511,7 +3515,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3544,7 +3548,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3577,7 +3581,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSubProperties = new GetSubPropertiesFunction();
       
@@ -3610,7 +3614,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3643,7 +3647,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3680,7 +3684,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3713,7 +3717,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3750,7 +3754,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3783,7 +3787,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3816,7 +3820,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3849,7 +3853,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3882,7 +3886,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3915,7 +3919,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3952,7 +3956,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -3985,7 +3989,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -4022,7 +4026,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -4055,7 +4059,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -4088,7 +4092,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -4121,7 +4125,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getSuperProperties = new getSuperPropertiesFunction();
       
@@ -4154,7 +4158,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointProperties = new getDisjointPropertiesFunction();
       
@@ -4188,7 +4192,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointProperties = new getDisjointPropertiesFunction();
       
@@ -4222,7 +4226,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointProperties = new getDisjointPropertiesFunction();
       
@@ -4254,7 +4258,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointProperties = new getDisjointPropertiesFunction();
       
@@ -4286,7 +4290,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointProperties = new getDisjointPropertiesFunction();
       
@@ -4320,7 +4324,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointProperties = new getDisjointPropertiesFunction();
       
@@ -4354,7 +4358,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointProperties = new getDisjointPropertiesFunction();
       
@@ -4386,7 +4390,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getDisjointProperties = new GetDisjointPropertiesFunction();
       
@@ -4418,7 +4422,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentProperties = new getEquivalentPropertiesFunction();
       
@@ -4450,7 +4454,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentProperties = new getEquivalentPropertiesFunction();
       
@@ -4482,7 +4486,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentProperties = new getEquivalentPropertiesFunction();
       
@@ -4514,7 +4518,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentProperties = new getEquivalentPropertiesFunction();
       
@@ -4546,7 +4550,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentProperties = new getEquivalentPropertiesFunction();
       
@@ -4578,7 +4582,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentProperties = new getEquivalentPropertiesFunction();
       
@@ -4610,7 +4614,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentProperties = new getEquivalentPropertiesFunction();
       
@@ -4642,7 +4646,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getEquivalentProperties = new getEquivalentPropertiesFunction();
       
@@ -4674,7 +4678,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividual = new GetNamedIndividualFunction();
       
@@ -4702,7 +4706,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividual = new GetNamedIndividualFunction();
       
@@ -4730,7 +4734,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividual = new GetNamedIndividualFunction();
       
@@ -4758,7 +4762,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividual = new GetNamedIndividualFunction();
       
@@ -4794,7 +4798,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividual = new GetNamedIndividualFunction();
       
@@ -4824,7 +4828,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -4858,7 +4862,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -4894,7 +4898,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -4928,7 +4932,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -4962,7 +4966,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -4998,7 +5002,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5032,7 +5036,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5066,7 +5070,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5102,7 +5106,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5136,7 +5140,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5170,7 +5174,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5206,7 +5210,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5240,7 +5244,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5274,7 +5278,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5310,7 +5314,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5344,7 +5348,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5378,7 +5382,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5414,7 +5418,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5448,7 +5452,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5482,7 +5486,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5518,7 +5522,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5552,7 +5556,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5586,7 +5590,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5622,7 +5626,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5656,7 +5660,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5690,7 +5694,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5724,7 +5728,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5756,7 +5760,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5790,7 +5794,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5824,7 +5828,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5856,7 +5860,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5890,7 +5894,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5924,7 +5928,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5956,7 +5960,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -5990,7 +5994,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6024,7 +6028,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6056,7 +6060,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6090,7 +6094,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6126,7 +6130,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6160,7 +6164,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6194,7 +6198,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6230,7 +6234,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6264,7 +6268,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6298,7 +6302,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6334,7 +6338,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6368,7 +6372,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6402,7 +6406,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6438,7 +6442,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getNamedIndividuals = new GetNamedIndividualsFunction();
       
@@ -6472,7 +6476,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getLoadedOntologies = new  GetLoadedOntologiesFunction();
       
@@ -6500,7 +6504,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $getLoadedOntologies = new  GetLoadedOntologiesFunction();
       
@@ -6528,7 +6532,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
                   
       $ontologyRead->enableReasoner()
                    ->getOntologies()
@@ -6552,7 +6556,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
                   
       $ontologyRead->enableReasoner()
                    ->getSerialized()
@@ -6577,7 +6581,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
                   
       $ontologyRead->enableReasoner()
                    ->getIronXMLSchema()
@@ -6613,7 +6617,7 @@
       
       $settings = new Config();  
       
-      $ontologyRead = new OntologyReadQuery($settings->endpointUrl);
+      $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
                   
       $ontologyRead->enableReasoner()
                    ->getIronJSONSchema()

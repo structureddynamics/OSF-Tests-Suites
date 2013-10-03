@@ -49,8 +49,10 @@
                                    "&mode=" . urlencode('hard') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
-                                   "&version=". urlencode($settings->crudCreateInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->crudCreateInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -70,8 +72,10 @@
                                    "&mode=" . urlencode('hard') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
-                                   "&version=". urlencode($settings->crudCreateInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->crudCreateInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
    
 
                                    
@@ -90,7 +94,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create unrevisioned records...");
 
-      $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+      $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudDelete->dataset($settings->testDataset)
                  ->uri('http://foo.com/datasets/tests/bar')
@@ -116,7 +120,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create unrevisioned records...");
 
-      $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+      $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudDelete->dataset($settings->testDataset)
                  ->uri('http://foo.com/datasets/tests/bar')
@@ -143,7 +147,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create unrevisioned records...");
 
-      $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+      $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudDelete->dataset($settings->testDataset)
                  ->uri('http://foo.com/datasets/tests/bar')
@@ -168,7 +172,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create unrevisioned records...");
 
-      $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+      $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudDelete->dataset($settings->testDataset)
                  ->uri('http://foo.com/datasets/tests/bar')
@@ -195,7 +199,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create unrevisioned records...");
 
-      $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+      $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudDelete->dataset('')
                  ->uri('http://foo.com/datasets/tests/bar')
@@ -222,7 +226,7 @@
       
       $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create unrevisioned records...");
 
-      $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+      $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudDelete->dataset($settings->testDataset)
                  ->uri('')
@@ -252,8 +256,10 @@
                                    "&mode=" . urlencode('unknown') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
-                                   "&version=". urlencode($settings->crudCreateInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->crudCreateInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
        
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
@@ -271,7 +277,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
 
-      $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+      $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudDelete->dataset($settings->testDataset)
                  ->uri('http://foo.com/datasets/tests/bar')
@@ -282,7 +288,7 @@
                            
       $this->assertEquals($crudDelete->getStatus(), "200", "Debugging information: ".var_export($crudDelete, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->shortResults()
@@ -296,7 +302,7 @@
 
       $this->assertTrue(empty($resultset), "Debugging information: ".var_export($resultset, TRUE));        
 
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testDataset)
                ->uri('http://foo.com/datasets/tests/bar')
@@ -321,7 +327,7 @@
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");
 
-      $crudDelete = new CrudDeleteQuery($settings->endpointUrl);
+      $crudDelete = new CrudDeleteQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudDelete->dataset($settings->testDataset)
                  ->uri('http://foo.com/datasets/tests/bar')
@@ -332,7 +338,7 @@
                            
       $this->assertEquals($crudDelete->getStatus(), "200", "Debugging information: ".var_export($crudDelete, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->shortResults()
@@ -346,7 +352,7 @@
 
       $this->assertTrue((count($resultset['unspecified']) == 2), "Debugging information: ".var_export($resultset, TRUE));        
 
-      $crudRead = new CrudReadQuery($settings->endpointUrl);
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $crudRead->dataset($settings->testDataset)
                ->uri('http://foo.com/datasets/tests/bar')

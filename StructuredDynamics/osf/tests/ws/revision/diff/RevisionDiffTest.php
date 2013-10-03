@@ -49,8 +49,10 @@
                                    "&rrevuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->revisionDiffInterface) .
-                                   "&version=". urlencode($settings->revisionDiffInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->revisionDiffInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -70,8 +72,10 @@
                                    "&rrevuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->revisionDiffInterface) .
-                                   "&version=". urlencode($settings->revisionDiffInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));       
+                                   "&version=". urlencode($settings->revisionDiffInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -94,7 +98,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -124,7 +128,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -156,7 +160,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -187,7 +191,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -219,7 +223,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset('')
                    ->leftRevisionUri($lrevuri)
@@ -251,7 +255,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri('')
@@ -283,7 +287,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -315,7 +319,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -347,7 +351,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -387,7 +391,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -436,7 +440,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -472,7 +476,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)
@@ -519,7 +523,7 @@
       $this->assertFalse($lrevuri === FALSE, "Debugging information: ".var_export($lrevuri, TRUE));                                       
       $this->assertFalse($rrevuri === FALSE, "Debugging information: ".var_export($rrevuri, TRUE));                                       
 
-      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl);
+      $revisionDiff = new RevisionDiffQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionDiff->dataset($settings->testDataset)
                    ->leftRevisionUri($lrevuri)

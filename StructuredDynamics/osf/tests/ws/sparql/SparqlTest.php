@@ -63,8 +63,10 @@
                                    "&default-graph-uri=".
                                    "&named-graph-uri=".
                                    "&interface=". urlencode($settings->sparqlInterface) .
-                                   "&version=". urlencode($settings->sparqlInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->sparqlInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -90,8 +92,10 @@
                                    "&interface=". urlencode($settings->sparqlInterface) .
                                    "&version=". urlencode($settings->sparqlInterfaceVersion) .
                                    "&interface=". urlencode($settings->crudReadInterface) .
-                                   "&version=". urlencode($settings->crudReadInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));
+                                   "&version=". urlencode($settings->crudReadInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -104,7 +108,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -129,7 +133,7 @@
       
       $settings = new Config();  
       
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -156,7 +160,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -181,7 +185,7 @@
     public function testInterfaceNotExisting() {
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -208,7 +212,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -239,7 +243,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -270,7 +274,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -301,7 +305,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -336,7 +340,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -368,7 +372,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -403,7 +407,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -435,7 +439,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -467,7 +471,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 modify <http://now.winnipeg.ca/datasets/Schools/267>
@@ -492,7 +496,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 delete {?s ?p ?o}';
@@ -516,7 +520,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 insert {<a> <b> <c>}';
@@ -540,7 +544,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 load <a> into <b>';
@@ -564,7 +568,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 clear graph <'.$settings->testDataset.'>';
@@ -588,7 +592,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 create graph <'.$settings->testDataset.'>';
@@ -612,7 +616,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 drop graph <'.$settings->testDataset.'>';
@@ -636,7 +640,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -667,7 +671,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 select *
@@ -699,7 +703,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 construct
@@ -729,7 +733,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 construct
@@ -759,7 +763,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 construct
@@ -789,7 +793,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'sparql
                 construct
@@ -819,7 +823,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'describe  ?s
                 where
@@ -844,7 +848,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'describe  ?s
                 where
@@ -869,7 +873,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'describe  ?s
                 where
@@ -894,7 +898,7 @@
       
       $settings = new Config();  
 
-      $sparql = new SparqlQuery($settings->endpointUrl);
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $query = 'describe  ?s
                 where

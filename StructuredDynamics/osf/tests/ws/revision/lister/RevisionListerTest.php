@@ -49,8 +49,10 @@
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('short') .
                                    "&interface=". urlencode($settings->revisionListerInterface) .
-                                   "&version=". urlencode($settings->revisionListerInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->revisionListerInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -70,8 +72,10 @@
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('short') .
                                    "&interface=". urlencode($settings->revisionListerInterface) .
-                                   "&version=". urlencode($settings->revisionListerInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));       
+                                   "&version=". urlencode($settings->revisionListerInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -92,7 +96,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -121,7 +125,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -152,7 +156,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -181,7 +185,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -218,8 +222,10 @@
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('unexisting-mode') .
                                    "&interface=". urlencode($settings->revisionListerInterface) .
-                                   "&version=". urlencode($settings->revisionListerInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->revisionListerInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
    
                            
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
@@ -244,7 +250,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -283,7 +289,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -331,7 +337,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -365,7 +371,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -411,7 +417,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -449,7 +455,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -488,7 +494,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -536,7 +542,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -570,7 +576,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')
@@ -616,7 +622,7 @@
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
 
-      $revisionLister = new RevisionListerQuery($settings->endpointUrl);
+      $revisionLister = new RevisionListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $revisionLister->dataset($settings->testDataset)
                      ->uri('http://foo.com/datasets/tests/foo')

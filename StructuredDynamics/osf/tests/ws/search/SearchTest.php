@@ -81,8 +81,10 @@
                                    "&attributes_boost=".
                                    "&spellcheck=".
                                    "&interface=". urlencode($settings->searchInterface) .
-                                   "&version=". urlencode($settings->searchInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));        
+                                   "&version=". urlencode($settings->searchInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                          
       $this->assertEquals($wsq->getStatus(), "404", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Not Found", "Debugging information: ".var_export($wsq, TRUE));
@@ -122,8 +124,10 @@
                                    "&attributes_boost=".
                                    "&spellcheck=".
                                    "&interface=". urlencode($settings->crudReadInterface) .
-                                   "&version=". urlencode($settings->crudReadInterfaceVersion) .
-                                   "&registered_ip=" . urlencode("Self"));
+                                   "&version=". urlencode($settings->crudReadInterfaceVersion),
+                                   $settings->applicationID,
+                                   $settings->apiKey,
+                                   $settings->userID);
                                    
       $this->assertEquals($wsq->getStatus(), "405", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Method Not Allowed", "Debugging information: ".var_export($wsq, TRUE));          
@@ -136,7 +140,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->sourceInterface($settings->searchInterface)
              ->sourceInterfaceVersion($settings->searchInterfaceVersion)
@@ -152,7 +156,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->sourceInterface($settings->searchInterface)
              ->sourceInterfaceVersion('667.7')
@@ -170,7 +174,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)
              ->sourceInterface($settings->searchInterface)
@@ -188,7 +192,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->sourceInterface('interface-not-existing')
              ->sourceInterfaceVersion($settings->searchInterfaceVersion)
@@ -206,7 +210,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -230,7 +234,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -254,7 +258,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -278,7 +282,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -308,7 +312,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -332,7 +336,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -356,7 +360,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -380,7 +384,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -404,7 +408,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -434,7 +438,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(2)
@@ -458,7 +462,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->query('Crescent')
              ->datasetFilter($settings->testDataset)    
@@ -487,7 +491,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->query('Crescent*')
              ->datasetFilter($settings->testDataset)    
@@ -519,7 +523,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->query('Crescent Park')
              ->datasetFilter($settings->testDataset)    
@@ -551,7 +555,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->query('Crescent NOT Park')
              ->datasetFilter($settings->testDataset)    
@@ -580,7 +584,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(30)
@@ -604,7 +608,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(0)
@@ -628,7 +632,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->query('Crescent')
              ->datasetFilter($settings->testDataset)    
@@ -658,7 +662,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->query('Crescent')
              ->datasetFilter($settings->testDataset)    
@@ -695,7 +699,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->query('Crescent')
              ->datasetFilter($settings->testDataset)    
@@ -719,7 +723,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(1)
@@ -744,7 +748,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(1)
@@ -770,7 +774,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(1)
@@ -795,7 +799,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(1)
@@ -820,7 +824,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(1)
@@ -843,7 +847,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(1)
@@ -866,7 +870,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(10)
@@ -892,7 +896,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(10)
@@ -918,7 +922,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(4)
@@ -946,7 +950,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(4)
@@ -974,7 +978,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(4)
@@ -1001,7 +1005,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(4)
@@ -1026,7 +1030,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(4)
@@ -1056,7 +1060,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(4)
@@ -1086,7 +1090,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->query('private winnipeg')
@@ -1118,7 +1122,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(4)
@@ -1148,7 +1152,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Schools')
@@ -1176,7 +1180,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeBoost('http://purl.org/ontology/now#Arenas', 30)
@@ -1205,7 +1209,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->items(4)
@@ -1228,7 +1232,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Unexisting')
@@ -1253,7 +1257,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeBoost('http://purl.org/ontology/now#Arenas', 30)
@@ -1282,7 +1286,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeBoost('http://purl.org/ontology/now#Schools', 60)
@@ -1313,7 +1317,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeBoost('http://purl.org/ontology/now#Unexisting', 60)
@@ -1342,7 +1346,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetBoost($settings->testDataset, 30)    
              ->includeScores()
@@ -1370,7 +1374,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetBoost($settings->testDataset.'Unexisting', 30)    
              ->includeScores()
@@ -1401,7 +1405,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/now#phoneNumber')
@@ -1429,7 +1433,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/now#phoneNumber', '204-786-5631')
@@ -1457,7 +1461,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/now#Unexisting')
@@ -1480,7 +1484,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/now#Unexisting', '204-786-5631')
@@ -1503,7 +1507,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/now#phoneNumber', 'unexisting')
@@ -1528,7 +1532,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/sco#namedEntity')
@@ -1558,7 +1562,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/sco#namedEntity', 'true')
@@ -1588,7 +1592,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/sco#namedEntity')
@@ -1612,7 +1616,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/sco#namedEntity', 'true')
@@ -1643,7 +1647,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->attributeValuesFilters('http://purl.org/ontology/now#neighbourhoodNumber', '3.17')
@@ -1684,7 +1688,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->includeAttribute('uri')
@@ -1714,7 +1718,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->includeAttribute('prefLabel')
@@ -1746,7 +1750,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)
              ->typeFilter('http://purl.org/ontology/now#Arenas')    
@@ -1780,7 +1784,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->includeAttribute('unexisting')
@@ -1810,7 +1814,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -1839,7 +1843,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -1871,7 +1875,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -1899,7 +1903,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -1927,7 +1931,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -1955,7 +1959,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -1993,7 +1997,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -2031,7 +2035,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -2069,7 +2073,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -2107,7 +2111,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -2135,7 +2139,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -2162,7 +2166,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Arenas')
@@ -2192,7 +2196,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://purl.org/ontology/now#Schools')
@@ -2239,7 +2243,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://www.w3.org/2002/07/owl#Thing')
@@ -2265,7 +2269,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->typeFilter('http://www.w3.org/2002/07/owl#Thing')
@@ -2291,7 +2295,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->query('school winnipeg')
@@ -2319,7 +2323,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->query('school winnipeg')
@@ -2347,7 +2351,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->query('school winnipeg')
@@ -2377,7 +2381,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->query('school winnipeg')
@@ -2407,7 +2411,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->query('winnipeg')
@@ -2435,7 +2439,7 @@
       
       $settings = new Config();  
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
              ->query('winnipeg')
@@ -2469,7 +2473,7 @@
       $extendedFiltersBuilder->startGrouping()
                              ->attributeValueFilter("http://purl.org/ontology/now#schoolDivision", "winnipeg");
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
               ->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
@@ -2497,7 +2501,7 @@
       $extendedFiltersBuilder->attributeValueFilter("http://purl.org/ontology/now#schoolDivision", "winnipeg")
                              ->endGrouping();
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
               ->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
@@ -2524,7 +2528,7 @@
 
       $extendedFiltersBuilder->attributeValueFilter("http://purl.org/ontology/now#schoolDivision", "winnipeg");
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
               ->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
@@ -2553,7 +2557,7 @@
 
       $extendedFiltersBuilder->attributeValueFilter("http://purl.org/ontology/now#unexisting", "winnipeg");
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
               ->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
@@ -2580,7 +2584,7 @@
 
       $extendedFiltersBuilder->attributeValueFilter("http://www.geonames.org/ontology#unexisting", "http://now.winnipeg.ca/datasets/neighbourhoods/1.666", TRUE);
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
               ->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
@@ -2607,7 +2611,7 @@
 
       $extendedFiltersBuilder->attributeValueFilter("http://purl.org/ontology/now#schoolDivision", "winnipeg");
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
               ->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
@@ -2641,7 +2645,7 @@
 
       $extendedFiltersBuilder->attributeValueFilter("http://www.geonames.org/ontology#locatedIn", "http://now.winnipeg.ca/datasets/neighbourhoods/1.666", TRUE);
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->datasetFilter($settings->testDataset)    
               ->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
@@ -2677,7 +2681,7 @@
                              ->and_()
                              ->typeFilter('http://purl.org/ontology/now#Schools', FALSE);
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
              ->items(0)
@@ -2707,7 +2711,7 @@
                              ->and_()
                              ->typeFilter('http://www.w3.org/2002/07/owl#Thing', TRUE);
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
              ->items(0)
@@ -2739,7 +2743,7 @@
                              ->and_()
                              ->attributeValueFilter("http://purl.org/ontology/now#schoolDivision", "winnipeg");
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
              ->items(0)
@@ -2774,7 +2778,7 @@
                              ->not_()
                              ->attributeValueFilter("http://purl.org/ontology/now#schoolDivision", "winnipeg");
       
-      $search = new SearchQuery($settings->endpointUrl);
+      $search = new SearchQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $search->extendedFilters($extendedFiltersBuilder->getExtendedFilters())
              ->items(0)

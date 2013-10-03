@@ -18,6 +18,15 @@
     /** Base URI of the web services in the OSF network */
     public $endpointUri = "";
     
+    /** Application ID where to make the requests */
+    public $applicationID = "";
+    
+    /** API key to use to make the requests, based on the Application Key */
+    public $apiKey = "";
+    
+    /** User ID to use to perform the requests */
+    public $userID = "";
+    
     /** URI of the test dataset to use for the test suite */
     public $testDataset = "";
     
@@ -246,6 +255,15 @@
       /** Base URI of the web services in the OSF network */
       $this->endpointUri = "http://localhost/wsf/ws/";
       
+      /** Application ID where to make the requests */
+      $this->applicationID = 'tests-suites';
+      
+      /** API key to use to make the requests, based on the Application Key */
+      $this->apiKey = 'some-key';
+      
+      /** User ID to use to perform the requests */
+      $this->userID = 'tests-suites';
+      
       /** URI of the test dataset to use for the test suite */
       $this->testDataset = "http://test.com/unittests/";
       
@@ -286,70 +304,70 @@
       $this->datasetUpdateString = "-update";
       
       /** Auth Validator web service endpoint's interface version */
-      $this->authValidatorInterfaceVersion = "1.0";   
+      $this->authValidatorInterfaceVersion = "30";   
       
       /** Auth Registrar Access web service endpoint's interface version */
-      $this->authRegistrarInterfaceVersion = "1.0";         
+      $this->authRegistrarInterfaceVersion = "30";         
       
       /** Auth Lister web service endpoint's interface version */
-      $this->authListerInterfaceVersion = "1.0";   
+      $this->authListerInterfaceVersion = "30";   
       
       /** Dataset Create web service endpoint's interface version */
-      $this->datasetCreateInterfaceVersion = "1.0";   
+      $this->datasetCreateInterfaceVersion = "30";   
       
       /** Dataset Read web service endpoint's interface version */
-      $this->datasetReadInterfaceVersion = "1.0";   
+      $this->datasetReadInterfaceVersion = "30";   
       
       /** Dataset Update web service endpoint's interface version */
-      $this->datasetUpdateInterfaceVersion = "1.0";   
+      $this->datasetUpdateInterfaceVersion = "30";   
       
       /** Dataset Delete web service endpoint's interface version */
-      $this->datasetDeleteInterfaceVersion = "1.0";   
+      $this->datasetDeleteInterfaceVersion = "30";   
       
       /** Ontology Create web service endpoint's interface version */
-      $this->ontologyCreateInterfaceVersion = "1.0";   
+      $this->ontologyCreateInterfaceVersion = "30";   
       
       /** Ontology Delete web service endpoint's interface version */
-      $this->ontologyDeleteInterfaceVersion = "1.0";   
+      $this->ontologyDeleteInterfaceVersion = "30";   
       
       /** Ontology Read web service endpoint's interface version */
-      $this->ontologyReadInterfaceVersion = "1.0";        
+      $this->ontologyReadInterfaceVersion = "3.0";        
       
       /** Ontology Update web service endpoint's interface version */
-      $this->ontologyUpdateInterfaceVersion = "1.0";        
+      $this->ontologyUpdateInterfaceVersion = "3.0";        
       
       /** CRUD Create web service endpoint's interface version */
-      $this->crudCreateInterfaceVersion = "1.0";        
+      $this->crudCreateInterfaceVersion = "3.0";        
       
       /** CRUD Update web service endpoint's interface version */
-      $this->crudUpdateInterfaceVersion = "1.0";        
+      $this->crudUpdateInterfaceVersion = "3.0";        
       
       /** CRUD Read web service endpoint's interface version */
-      $this->crudReadInterfaceVersion = "1.0";        
+      $this->crudReadInterfaceVersion = "3.0";        
       
       /** CRUD Delete web service endpoint's interface version */
-      $this->crudDeleteInterfaceVersion = "1.0";        
+      $this->crudDeleteInterfaceVersion = "3.0";        
       
       /** Revision Delete web service endpoint's interface version */
-      $this->revisionDeleteInterfaceVersion = "1.0";        
+      $this->revisionDeleteInterfaceVersion = "3.0";        
       
       /** Revision Read web service endpoint's interface version */
-      $this->revisionReadInterfaceVersion = "1.0";        
+      $this->revisionReadInterfaceVersion = "3.0";        
       
       /** Revision Update web service endpoint's interface version */
-      $this->revisionUpdateInterfaceVersion = "1.0";        
+      $this->revisionUpdateInterfaceVersion = "3.0";        
       
       /** Revision Lister web service endpoint's interface version */
-      $this->revisionListerInterfaceVersion = "1.0";        
+      $this->revisionListerInterfaceVersion = "3.0";        
       
       /** Revision Diff web service endpoint's interface version */
-      $this->revisionDiffInterfaceVersion = "1.0";        
+      $this->revisionDiffInterfaceVersion = "3.0";        
       
       /** Search web service endpoint's interface version */
-      $this->searchInterfaceVersion = "1.0";        
+      $this->searchInterfaceVersion = "3.0";        
       
       /** SPARQL web service endpoint's interface version */
-      $this->sparqlInterfaceVersion = "1.0";        
+      $this->sparqlInterfaceVersion = "3.0";        
 
       /** Auth Validator web service endpoint's interface */
       $this->authValidatorInterface = "DefaultSourceInterface";   
