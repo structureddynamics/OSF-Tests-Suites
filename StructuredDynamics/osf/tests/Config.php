@@ -256,7 +256,7 @@
       $this->endpointUri = "http://localhost/wsf/ws/";
       
       /** Application ID where to make the requests */
-      $this->applicationID = 'tests-suites';
+      $this->applicationID = 'administer';
       
       /** API key to use to make the requests, based on the Application Key */
       $this->apiKey = 'some-key';
