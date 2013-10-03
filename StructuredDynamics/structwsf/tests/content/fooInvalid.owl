@@ -17,7 +17,7 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
     <owl:Ontology rdf:about="http://foo.org/test#">
         <rdfs:label xml:lang="en">Foo Ontology</rdfs:label>
-        <rdfs:comment xml:lang="en">Ontology used for the structWSF system integration tests suites.</rdfs:comment>
+        <rdfs:comment xml:lang="en">Ontology used for the OSF system integration tests suites.</rdfs:comment>
         <owl:versionIRI rdf:resource="http://foo.org/test/0.1#"/>
     </owl:Ontology>
     

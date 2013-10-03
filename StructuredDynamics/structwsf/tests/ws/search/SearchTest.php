@@ -1,33 +1,33 @@
 <?php
 
-  namespace StructuredDynamics\structwsf\tests\ws\search;
+  namespace StructuredDynamics\osf\tests\ws\search;
   
-  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
-  use StructuredDynamics\structwsf\php\api\ws\search\SearchQuery;
-  use StructuredDynamics\structwsf\php\api\ws\search\ExtendedFiltersBuilder;
-  use StructuredDynamics\structwsf\tests\Config;
-  use StructuredDynamics\structwsf\tests\content\validation\CrudReadContentValidation;
-  use StructuredDynamics\structwsf\framework\Resultset;
-  use StructuredDynamics\structwsf\tests as utilities;
+  use StructuredDynamics\osf\framework\WebServiceQuerier;
+  use StructuredDynamics\osf\php\api\ws\search\SearchQuery;
+  use StructuredDynamics\osf\php\api\ws\search\ExtendedFiltersBuilder;
+  use StructuredDynamics\osf\tests\Config;
+  use StructuredDynamics\osf\tests\content\validation\CrudReadContentValidation;
+  use StructuredDynamics\osf\framework\Resultset;
+  use StructuredDynamics\osf\tests as utilities;
    
   include_once("SplClassLoader.php");
   include_once("validators.php");
   include_once("utilities.php");  
   
   // Load the \tests namespace where all the test code is located 
-  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests = new \SplClassLoader('StructuredDynamics\osf\tests', realpath("../../../"));
   $loader_tests->register();
     
   // Load the \ws namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws = new \SplClassLoader('StructuredDynamics\osf\php\api\ws', realpath("../../../"));
   $loader_ws->register();  
   
   // Load the \php\api\framework namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws = new \SplClassLoader('StructuredDynamics\osf\php\api\framework', realpath("../../../"));
   $loader_ws->register();  
  
   // Load the \framework namespace where all the supporting (utility) code is located
-  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework = new \SplClassLoader('StructuredDynamics\osf\framework', realpath("../../../"));
   $loader_framework->register(); 
   
   ini_set("memory_limit","256M");
@@ -681,7 +681,7 @@
       else
       {
         // If we endup here it means that the French language is not supported which may
-        // be the case depending on the configuration of structWSF
+        // be the case depending on the configuration of OSF
         $this->assertEquals($search->getStatus(), "400", "Debugging information: ".var_export($search, TRUE));                                       
         $this->assertEquals($search->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($search, TRUE));
         $this->assertEquals($search->error->id, "WS-SEARCH-307", "Debugging information: ".var_export($search, TRUE));                                       

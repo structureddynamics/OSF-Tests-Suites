@@ -1,18 +1,18 @@
 <?php
   
-  namespace StructuredDynamics\structwsf\tests;
+  namespace StructuredDynamics\osf\tests;
   
-  use \StructuredDynamics\structwsf\php\api\ws\auth\registrar\access\AuthRegistrarAccessQuery;
-  use \StructuredDynamics\structwsf\php\api\ws\crud\delete\CrudDeleteQuery;
-  use \StructuredDynamics\structwsf\php\api\ws\crud\create\CrudCreateQuery;
-  use \StructuredDynamics\structwsf\php\api\ws\crud\update\CrudUpdateQuery;
-  use \StructuredDynamics\structwsf\php\api\ws\dataset\create\DatasetCreateQuery;
-  use \StructuredDynamics\structwsf\php\api\ws\dataset\delete\DatasetDeleteQuery;
-  use \StructuredDynamics\structwsf\php\api\ws\dataset\read\DatasetReadQuery;
-  use \StructuredDynamics\structwsf\php\api\framework\CRUDPermission;
-  use \StructuredDynamics\structwsf\php\api\ws\revision\lister\RevisionListerQuery;
-  use \StructuredDynamics\structwsf\php\api\ws\ontology\create\OntologyCreateQuery;
-  use \StructuredDynamics\structwsf\php\api\ws\ontology\delete\OntologyDeleteQuery;
+  use \StructuredDynamics\osf\php\api\ws\auth\registrar\access\AuthRegistrarAccessQuery;
+  use \StructuredDynamics\osf\php\api\ws\crud\delete\CrudDeleteQuery;
+  use \StructuredDynamics\osf\php\api\ws\crud\create\CrudCreateQuery;
+  use \StructuredDynamics\osf\php\api\ws\crud\update\CrudUpdateQuery;
+  use \StructuredDynamics\osf\php\api\ws\dataset\create\DatasetCreateQuery;
+  use \StructuredDynamics\osf\php\api\ws\dataset\delete\DatasetDeleteQuery;
+  use \StructuredDynamics\osf\php\api\ws\dataset\read\DatasetReadQuery;
+  use \StructuredDynamics\osf\php\api\framework\CRUDPermission;
+  use \StructuredDynamics\osf\php\api\ws\revision\lister\RevisionListerQuery;
+  use \StructuredDynamics\osf\php\api\ws\ontology\create\OntologyCreateQuery;
+  use \StructuredDynamics\osf\php\api\ws\ontology\delete\OntologyDeleteQuery;
   
   /*
   

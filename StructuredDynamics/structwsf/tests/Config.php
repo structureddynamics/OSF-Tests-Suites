@@ -1,6 +1,6 @@
 <?php
 
-  namespace StructuredDynamics\structwsf\tests;
+  namespace StructuredDynamics\osf\tests;
 
   class Config
   {
@@ -9,13 +9,13 @@
     /** Folder where PHPUnit is installed on the server */
     public $phpUnitInstallFolder = "";
     
-    /** Folder where the structWSF instance is located on the server */
-    public $structwsfInstanceFolder = "";
+    /** Folder where the OSF instance is located on the server */
+    public $osfInstanceFolder = "";
     
     /** Base URL of the endpoint to test */
     public $endpointUrl = "";
     
-    /** Base URI of the web services in the structWSF network */
+    /** Base URI of the web services in the OSF network */
     public $endpointUri = "";
     
     /** URI of the test dataset to use for the test suite */
@@ -228,14 +228,14 @@
       */
       if(!isset($_SERVER['REMOTE_ADDR']))
       {
-        $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
+        $_SERVER['REMOTE_ADDR'] = "192.168.0.1";
       }
       
       /** Directory where content files used by the tests are located */
       $this->contentDir = __DIR__ . '/content/';
       
       /** 
-        structWSF web service interface to use for all endpoints 
+        OSF web service interface to use for all endpoints 
         Note: if you specify "default", then the default interfaces defined in the
               network.ini file will be used for the calls
       */
@@ -244,14 +244,14 @@
       /** Folder where PHPUnit is installed on the server */
       $this->phpUnitInstallFolder = "/usr/share/php/PHPUnit/";
       
-      /** Folder where the structWSF instance is located on the server */
-      $this->structwsfInstanceFolder = "/usr/share/structwsf/StructuredDynamics/structwsf/ws/";
+      /** Folder where the OSF instance is located on the server */
+      $this->osfInstanceFolder = "/usr/share/osf/StructuredDynamics/osf/ws/";
       
       /** Base URL of the endpoint to test */
-      $this->endpointUrl = "http://localhost/ws/";
+      $this->endpointUrl = "http://ccr.nhccn.com.au/ws/";
       
-      /** Base URI of the web services in the structWSF network */
-      $this->endpointUri = "http://localhost/wsf/ws/";
+      /** Base URI of the web services in the OSF network */
+      $this->endpointUri = "http://ccr.nhccn.com.au/wsf/ws/";
       
       /** URI of the test dataset to use for the test suite */
       $this->testDataset = "http://test.com/unittests/";

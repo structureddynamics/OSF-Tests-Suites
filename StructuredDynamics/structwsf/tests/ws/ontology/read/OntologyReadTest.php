@@ -1,48 +1,48 @@
 <?php
 
-  namespace StructuredDynamics\structwsf\tests\ws\ontology\read;
+  namespace StructuredDynamics\osf\tests\ws\ontology\read;
   
-  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\OntologyReadQuery;  
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetClassesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetClassFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetDisjointClassesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetDisjointPropertiesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetEquivalentClassesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetEquivalentPropertiesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetLoadedOntologiesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetNamedIndividualFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetNamedIndividualsFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetPropertiesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetPropertyFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetSubClassesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetSubPropertiesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetSuperClassesFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetSuperPropertiesFunction;
-  use StructuredDynamics\structwsf\tests\Config;
-  use \StructuredDynamics\structwsf\framework\Resultset;
-  use \StructuredDynamics\structwsf\framework\Namespaces;
-  use \StructuredDynamics\structwsf\framework\Subject;
-  use StructuredDynamics\structwsf\tests as utilities;
+  use StructuredDynamics\osf\framework\WebServiceQuerier;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\OntologyReadQuery;  
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetClassesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetClassFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetDisjointClassesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetDisjointPropertiesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetEquivalentClassesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetEquivalentPropertiesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetLoadedOntologiesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetNamedIndividualFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetNamedIndividualsFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetPropertiesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetPropertyFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetSubClassesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetSubPropertiesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetSuperClassesFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetSuperPropertiesFunction;
+  use StructuredDynamics\osf\tests\Config;
+  use \StructuredDynamics\osf\framework\Resultset;
+  use \StructuredDynamics\osf\framework\Namespaces;
+  use \StructuredDynamics\osf\framework\Subject;
+  use StructuredDynamics\osf\tests as utilities;
    
   include_once("SplClassLoader.php");
   include_once("validators.php");
   include_once("utilities.php");  
   
   // Load the \tests namespace where all the test code is located 
-  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests = new \SplClassLoader('StructuredDynamics\osf\tests', realpath("../../../"));
   $loader_tests->register();
     
   // Load the \ws namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws = new \SplClassLoader('StructuredDynamics\osf\php\api\ws', realpath("../../../"));
   $loader_ws->register();  
   
   // Load the \php\api\framework namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws = new \SplClassLoader('StructuredDynamics\osf\php\api\framework', realpath("../../../"));
   $loader_ws->register();  
  
   // Load the \framework namespace where all the supporting (utility) code is located
-  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework = new \SplClassLoader('StructuredDynamics\osf\framework', realpath("../../../"));
   $loader_framework->register(); 
 
   
@@ -52,8 +52,8 @@
   $settings = new Config(); 
   
   // Database connectivity procedures
-  include_once($settings->structwsfInstanceFolder . "framework/ProcessorXML.php");
-  include_once($settings->structwsfInstanceFolder . "framework/arc2/ARC2.php");
+  include_once($settings->osfInstanceFolder . "framework/ProcessorXML.php");
+  include_once($settings->osfInstanceFolder . "framework/arc2/ARC2.php");
   
   class OntologyReadTest extends \PHPUnit_Framework_TestCase {
     
@@ -6591,7 +6591,7 @@
 
       $resultset = $ontologyRead->getResultset()->getResultset();
       
-      $schema = $resultset['unspecified']['file://localhost/usr/share/structwsf/StructuredDynamics/structwsf/tests/content/foo.owl']['http://purl.org/ontology/wsf#serializedIronXMLSchema'][0]['value'];
+      $schema = $resultset['unspecified']['file://localhost/usr/share/osf/StructuredDynamics/osf/tests/content/foo.owl']['http://purl.org/ontology/wsf#serializedIronXMLSchema'][0]['value'];
 
       $errors = array();
       $this->assertEquals(utilities\isValidXML($schema, $errors), TRUE, "[Test is valid XML] Debugging information: ".var_export($errors, TRUE));                                       
@@ -6627,7 +6627,7 @@
 
       $resultset = $ontologyRead->getResultset()->getResultset();
       
-      $schema = $resultset['unspecified']['file://localhost/usr/share/structwsf/StructuredDynamics/structwsf/tests/content/foo.owl']['http://purl.org/ontology/wsf#serializedIronJSONSchema'][0]['value'];
+      $schema = $resultset['unspecified']['file://localhost/usr/share/osf/StructuredDynamics/osf/tests/content/foo.owl']['http://purl.org/ontology/wsf#serializedIronJSONSchema'][0]['value'];
 
       $errors = array();
       

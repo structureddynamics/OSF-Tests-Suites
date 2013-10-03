@@ -2,21 +2,21 @@
 == Notice of Attribution for the Apache License, Version 2.0 ==
 ===============================================================
 
-structWSF Tests Suites, are system integration tests for structWSF.
+OSF Tests Suites, are system integration tests for OSF.
 Copyright 2008-2012. Structured Dynamics LLC.
 
-The are structWSF Tests Suites one of the contributing components to the
+The are OSF Tests Suites one of the contributing components to the
 Open Semantic Framework (OSF); see http://openstructs.org.
 
 This product includes software developed by
 Structured Dynamics LLC (http://structureddynamics.com/).
 
 Specifically, this product is based on the 
-structWSF Tests Suites provided under 
+OSF Tests Suites provided under 
 Apache 2 License by Structured Dynamics.
 The original software is available from
 
-As presently distributed, the structWSF Tests Suites also provides hooks 
+As presently distributed, the OSF Tests Suites also provides hooks 
 to these required software packages:
 
 -- OpenLink Software Virtuoso open source (VOS) server, provided under

@@ -1,41 +1,41 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<phpunit stopOnFailure="false">
+<phpunit stopOnFailure="true">
   <testsuites>
     <testsuite name="Authentication Webservice Endpoints">
-      <file>REPLACEME/tests/ws/auth/validator/AuthValidatorTest.php</file>
-      <file>REPLACEME/tests/ws/auth/lister/AuthListerTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/auth/validator/AuthValidatorTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/auth/lister/AuthListerTest.php</file>
     </testsuite>
     <testsuite name="Datasets Webservice Endpoints">
-      <file>REPLACEME/tests/ws/dataset/create/DatasetCreateTest.php</file>
-      <file>REPLACEME/tests/ws/dataset/delete/DatasetDeleteTest.php</file>
-      <file>REPLACEME/tests/ws/dataset/update/DatasetUpdateTest.php</file>
-      <file>REPLACEME/tests/ws/dataset/read/DatasetReadTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/dataset/create/DatasetCreateTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/dataset/delete/DatasetDeleteTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/dataset/update/DatasetUpdateTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/dataset/read/DatasetReadTest.php</file>
     </testsuite>
     <testsuite name="Ontologies Webservice Endpoints">
-      <file>REPLACEME/tests/ws/ontology/create/OntologyCreateTest.php</file>
-      <file>REPLACEME/tests/ws/ontology/delete/OntologyDeleteTest.php</file>
-      <file>REPLACEME/tests/ws/ontology/read/OntologyReadTest.php</file>
-      <file>REPLACEME/tests/ws/ontology/update/OntologyUpdateTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/ontology/create/OntologyCreateTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/ontology/delete/OntologyDeleteTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/ontology/update/OntologyUpdateTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/ontology/read/OntologyReadTest.php</file>
     </testsuite>
     <testsuite name="CRUD Webservice Endpoints">
-      <file>REPLACEME/tests/ws/crud/create/CrudCreateTest.php</file>
-      <file>REPLACEME/tests/ws/crud/update/CrudUpdateTest.php</file>
-      <file>REPLACEME/tests/ws/crud/delete/CrudDeleteTest.php</file>
-      <file>REPLACEME/tests/ws/crud/read/CrudReadTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/crud/create/CrudCreateTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/crud/update/CrudUpdateTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/crud/delete/CrudDeleteTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/crud/read/CrudReadTest.php</file>
     </testsuite>
     <testsuite name="Revision Webservice Endpoints">
-      <file>REPLACEME/tests/ws/revision/delete/RevisionDeleteTest.php</file>
-      <file>REPLACEME/tests/ws/revision/read/RevisionReadTest.php</file>
-      <file>REPLACEME/tests/ws/revision/update/RevisionUpdateTest.php</file>
-      <file>REPLACEME/tests/ws/revision/lister/RevisionListerTest.php</file>
-      <file>REPLACEME/tests/ws/revision/diff/RevisionDiffTest.php</file>
-    </testsuite>    
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/revision/read/RevisionReadTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/revision/delete/RevisionDeleteTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/revision/update/RevisionUpdateTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/revision/lister/RevisionListerTest.php</file>
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/revision/diff/RevisionDiffTest.php</file>
+    </testsuite>
     <testsuite name="Search Webservice Endpoint">
-      <file>REPLACEME/tests/ws/search/SearchTest.php</file>
-    </testsuite>    
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/search/SearchTest.php</file>
+    </testsuite>
     <testsuite name="SPARQL Webservice Endpoint">
-      <file>REPLACEME/tests/ws/sparql/SparqlTest.php</file>
-    </testsuite>    
+      <file>/usr/share/osf/StructuredDynamics/osf/tests/ws/sparql/SparqlTest.php</file>
+    </testsuite>
   </testsuites>
 </phpunit>

@@ -32,46 +32,46 @@ cecho ()                     # Color-echo.
   return
 }
 
-# Check where is installed structwsf
-STRUCTWSFFOLDER="/usr/share/structwsf/"
+# Check where is installed OSF
+OSFFOLDER="/usr/share/osf/"
 
-cecho "Where is structWSF installed on your server (default: $STRUCTWSFFOLDER):" $magenta
+cecho "Where is OSF installed on your server (default: $OSFFOLDER):" $magenta
 
-read NEWSTRUCTWSFFOLDER
+read NEWOSFFOLDER
 
-[ -n "$NEWSTRUCTWSFFOLDER" ] && STRUCTWSFFOLDER=$NEWSTRUCTWSFFOLDER
+[ -n "$NEWOSFFOLDER" ] && OSFFOLDER=$NEWOSFFOLDER
 
 # Make sure there is no trailing slashes
-STRUCTWSFFOLDER=$(echo "${STRUCTWSFFOLDER}" | sed -e "s/\/*$//")
+OSFFOLDER=$(echo "${OSFFOLDER}" | sed -e "s/\/*$//")
 
 
-STRUCTWSFPHPAPIDOWNLOADURL="https://github.com/structureddynamics/structWSF-PHP-API/zipball/master"
+OSFPHPAPIDOWNLOADURL="https://github.com/StructuredDynamics/osf-PHP-API/zipball/master"
 
 echo -e "\n\n"
 cecho "----------------------------------"
-cecho " Installing the structWSF PHP API "
+cecho " Installing the OSF PHP API "
 cecho "----------------------------------"
 echo -e "\n\n"
 
-# Current location: /usr/share/structwsf/
+# Current location: /usr/share/osf/
 
-sudo wget $STRUCTWSFPHPAPIDOWNLOADURL
+sudo wget $OSFPHPAPIDOWNLOADURL
 
 while [ $? -ne 0 ]; do
-  cecho "Connection error while downloading the latest version of the structWSF-PHP-API; retrying...\n" yellow
+  cecho "Connection error while downloading the latest version of the OSF-PHP-API; retrying...\n" yellow
   sudo rm -rf master.zip
-  sudo wget $STRUCTWSFPHPAPIDOWNLOADURL
+  sudo wget $OSFPHPAPIDOWNLOADURL
 done
 
-cecho "\n\n9.3) Decompressing structWSF PHP API...\n"
+cecho "\n\n9.3) Decompressing OSF PHP API...\n"
 
 sudo unzip "master"  
 
 cd `ls -d structureddynamics*/`
 
-cd "StructuredDynamics/structwsf/"
+cd "StructuredDynamics/osf/"
 
-sudo cp -a php $STRUCTWSFFOLDER"/StructuredDynamics/structwsf/"
+sudo cp -a php $OSFFOLDER"/StructuredDynamics/osf/"
 
 cd ../../
 
@@ -96,40 +96,40 @@ pear upgrade-all
 sudo pear install --force --alldeps phpunit/PHPUnit
 
 
-# Download the tests suites, and move them into the structwsf folder.
+# Download the tests suites, and move them into the OSF folder.
 sudo mkdir tests
 
 cd tests
 
-cecho "\n\nDownload the latest system integration tests for structWSF...\n"
+cecho "\n\nDownload the latest system integration tests for OSF...\n"
 
-sudo wget https://github.com/structureddynamics/structWSF-Tests-Suites/zipball/master
+sudo wget https://github.com/StructuredDynamics/osf-Tests-Suites/zipball/master
 
 while [ $? -ne 0 ]; do
-  cecho "Connection error while downloading the latest version of the structWSF Tests Suites; retrying...\n" yellow
+  cecho "Connection error while downloading the latest version of the OSF Tests Suites; retrying...\n" yellow
   sudo rm -rf master.zip
-  sudo wget https://github.com/structureddynamics/structWSF-Tests-Suites/zipball/master
+  sudo wget https://github.com/StructuredDynamics/osf-Tests-Suites/zipball/master
 done
 
 unzip master
 
 cd `ls -d structureddynamics*/`
 
-cd StructuredDynamics/structwsf/
+cd StructuredDynamics/osf/
 
-# Move the tests suites to structWSF's folder structure
-sudo mv * $STRUCTWSFFOLDER"/StructuredDynamics/structwsf/"
+# Move the tests suites to OSF's folder structure
+sudo mv * $OSFFOLDER"/StructuredDynamics/osf/"
 
 cd ../../../
 
 sudo rm -rf `ls -d structureddynamics*/`
 
 # Go to the tests' folder, and change the configuration files
-cd $STRUCTWSFFOLDER"/StructuredDynamics/structwsf/tests/"
+cd $OSFFOLDER"/StructuredDynamics/osf/tests/"
 
 DOMAINNAME="localhost"
 
-cecho "What is the domain name where the structWSF instance is accessible (default: $DOMAINNAME):" $magenta
+cecho "What is the domain name where the OSF instance is accessible (default: $DOMAINNAME):" $magenta
 
 read NEWDOMAINNAME
 
@@ -137,9 +137,9 @@ read NEWDOMAINNAME
 
 cecho "\n\nConfigure tests...\n"
 
-sudo sed -i "s>REPLACEME>"$STRUCTWSFFOLDER"/StructuredDynamics/structwsf>" phpunit.xml
+sudo sed -i "s>REPLACEME>"$OSFFOLDER"/StructuredDynamics/osf>" phpunit.xml
 
-sudo sed -i "s>$this-\>structwsfInstanceFolder = \"/usr/share/structwsf/\";>$this-\>structwsfInstanceFolder = \""$STRUCTWSFFOLDER"/\";>" Config.php
+sudo sed -i "s>$this-\>osfInstanceFolder = \"/usr/share/osf/\";>$this-\>osfInstanceFolder = \""$OSFFOLDER"/\";>" Config.php
 
 sudo sed -i "s>$this-\>endpointUrl = \"http://localhost/ws/\";>$this-\>endpointUrl = \"http://"$DOMAINNAME"/ws/\";>" Config.php
 

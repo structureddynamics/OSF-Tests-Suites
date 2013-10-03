@@ -1,23 +1,23 @@
 == Introduction ==
 
-This is the system integration tests suites for structWSF. This is an exaustive set of tests that we are performing on each structWSF endpoint. These tests have three main purposes:
+This is the system integration tests suites for OSF. This is an exaustive set of tests that we are performing on each OSF endpoint. These tests have three main purposes:
 
-# Testing a new structWSF instance to make sure that all endpoints are operating normally. If they are not, flags will be raised.
-# Testing an existing structWSF instance when the server, or any server components (such as Virtuoso, Solr or MySQL) get upgraded. The tests will help uncovering any possible incompability issues.
-# Testing an existing structWSF instance when structWSF get modified or upgraded.
+# Testing a new OSF instance to make sure that all endpoints are operating normally. If they are not, flags will be raised.
+# Testing an existing OSF instance when the server, or any server components (such as Virtuoso, Solr or MySQL) get upgraded. The tests will help uncovering any possible incompability issues.
+# Testing an existing OSF instance when OSF get modified or upgraded.
 
 These tests suites are using the PHPUnit unit testing framework. However, these are not unit tests, but really system integration tests that uses the framework to run the tests and report issues.
 
 == Notice ==
 
-Note that these tests suites are under development and they are not covering all the functionalities of structWSF. This will gives a good indication of the working status of the system, but the coverage of functionalities is not yet complete.
+Note that these tests suites are under development and they are not covering all the functionalities of OSF. This will gives a good indication of the working status of the system, but the coverage of functionalities is not yet complete.
 
 == Installation & Configuration ==
 
 You can install and configure the system integration tests using a simple shell script. You only have to perform these four four steps by copying and pasting these few commands in your shell terminal:
 
 # <code>cd /mnt/</code>
-# <code>sudo wget https://raw.github.com/structureddynamics/structWSF-Tests-Suites/master/system-integration-tests.sh</code>
+# <code>sudo wget https://raw.github.com/StructuredDynamics/osf-Tests-Suites/master/system-integration-tests.sh</code>
 # <code>sudo chmod 755 system-integration-tests.sh</code>
 # <code>sudo ./system-integration-tests.sh</code>
 

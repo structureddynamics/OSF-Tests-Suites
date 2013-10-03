@@ -1,50 +1,50 @@
 <?php
 
-  namespace StructuredDynamics\structwsf\tests\ws\ontology\update;
+  namespace StructuredDynamics\osf\tests\ws\ontology\update;
   
-  use StructuredDynamics\structwsf\framework\WebServiceQuerier;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\update\CreateOrUpdateEntityFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\update\OntologyUpdateQuery;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\update\UpdateEntityUriFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\delete\DeleteClassFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\delete\OntologyDeleteQuery;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\OntologyReadQuery;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetClassFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetNamedIndividualFunction;
-  use StructuredDynamics\structwsf\php\api\ws\ontology\read\GetPropertyFunction;
-  use StructuredDynamics\structwsf\php\api\ws\crud\read\CrudReadQuery;
-  use StructuredDynamics\structwsf\php\api\ws\revision\read\RevisionReadQuery;
-  use StructuredDynamics\structwsf\php\api\ws\revision\update\RevisionUpdateQuery;
-  use StructuredDynamics\structwsf\php\api\ws\revision\lister\RevisionListerQuery;
-  use StructuredDynamics\structwsf\php\api\ws\search\SearchQuery;
-  use StructuredDynamics\structwsf\tests\Config;
-  use StructuredDynamics\structwsf\tests as utilities;
+  use StructuredDynamics\osf\framework\WebServiceQuerier;
+  use StructuredDynamics\osf\php\api\ws\ontology\update\CreateOrUpdateEntityFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\update\OntologyUpdateQuery;
+  use StructuredDynamics\osf\php\api\ws\ontology\update\UpdateEntityUriFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\delete\DeleteClassFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\delete\OntologyDeleteQuery;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\OntologyReadQuery;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetClassFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetNamedIndividualFunction;
+  use StructuredDynamics\osf\php\api\ws\ontology\read\GetPropertyFunction;
+  use StructuredDynamics\osf\php\api\ws\crud\read\CrudReadQuery;
+  use StructuredDynamics\osf\php\api\ws\revision\read\RevisionReadQuery;
+  use StructuredDynamics\osf\php\api\ws\revision\update\RevisionUpdateQuery;
+  use StructuredDynamics\osf\php\api\ws\revision\lister\RevisionListerQuery;
+  use StructuredDynamics\osf\php\api\ws\search\SearchQuery;
+  use StructuredDynamics\osf\tests\Config;
+  use StructuredDynamics\osf\tests as utilities;
    
   include_once("SplClassLoader.php");
   include_once("validators.php");
   include_once("utilities.php");   
   
   // Load the \tests namespace where all the test code is located 
-  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests = new \SplClassLoader('StructuredDynamics\osf\tests', realpath("../../../"));
   $loader_tests->register();
  
   // Load the \ws namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws = new \SplClassLoader('StructuredDynamics\osf\php\api\ws', realpath("../../../"));
   $loader_ws->register();  
   
   // Load the \php\api\framework namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws = new \SplClassLoader('StructuredDynamics\osf\php\api\framework', realpath("../../../"));
   $loader_ws->register();  
  
   // Load the \framework namespace where all the supporting (utility) code is located
-  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework = new \SplClassLoader('StructuredDynamics\osf\framework', realpath("../../../"));
   $loader_framework->register(); 
 
   $settings = new Config(); 
   
   // Database connectivity procedures
-  include_once($settings->structwsfInstanceFolder . "framework/ProcessorXML.php");
-  include_once($settings->structwsfInstanceFolder . "framework/arc2/ARC2.php");
+  include_once($settings->osfInstanceFolder . "framework/ProcessorXML.php");
+  include_once($settings->osfInstanceFolder . "framework/arc2/ARC2.php");
   
   class OntologyUpdateTest extends \PHPUnit_Framework_TestCase {
     

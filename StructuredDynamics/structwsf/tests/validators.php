@@ -1,6 +1,6 @@
 <?php
   
-  namespace StructuredDynamics\structwsf\tests;
+  namespace StructuredDynamics\osf\tests;
          
   function isValidXML($xml, &$errors = array())
   {
@@ -115,7 +115,7 @@
   { 
     $settings = new Config(); 
     
-    include_once($settings->structwsfInstanceFolder."framework/arc2/ARC2.php");
+    include_once($settings->osfInstanceFolder."framework/arc2/ARC2.php");
     
     $parser = \ARC2::getRDFXMLParser();
     $parser->parse($settings->testDataset, $rdfxml);
@@ -136,7 +136,7 @@
   {    
     $settings = new Config(); 
     
-    include_once($settings->structwsfInstanceFolder."framework/arc2/ARC2.php");
+    include_once($settings->osfInstanceFolder."framework/arc2/ARC2.php");
     
     $parser = \ARC2::getTurtleParser();
     $parser->parse($settings->testDataset, $rdfn3);
@@ -187,7 +187,7 @@
     
     $settings = new Config(); 
     
-    include_once($settings->structwsfInstanceFolder."framework/arc2/ARC2.php");
+    include_once($settings->osfInstanceFolder."framework/arc2/ARC2.php");
     
     $parserActual = \ARC2::getRDFParser();
     $parserActual->parse($settings->testDataset, $actual);
@@ -233,7 +233,7 @@
       unset($parserExpected[$uri]['http://purl.org/dc/terms/isPartOf']);                                             
     }
     
-    // Remove possible triples that may, or may not appears depending on the settings of the structWSF instance.  
+    // Remove possible triples that may, or may not appears depending on the settings of the OSF instance.  
     foreach($parserActual as $uri => $description)
     {
       // Remove possible is-part-of that may be included by the endpoint

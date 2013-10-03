@@ -1,11 +1,11 @@
 <?php
 
-  namespace StructuredDynamics\structwsf\tests\ws\auth\validator;
+  namespace StructuredDynamics\osf\tests\ws\auth\validator;
   
-  use \StructuredDynamics\structwsf\framework\WebServiceQuerier;
-  use \StructuredDynamics\structwsf\php\api\ws\auth\validator\AuthValidatorQuery;
-  use \StructuredDynamics\structwsf\tests\Config;
-  use \StructuredDynamics\structwsf\tests as utilities;
+  use \StructuredDynamics\osf\framework\WebServiceQuerier;
+  use \StructuredDynamics\osf\php\api\ws\auth\validator\AuthValidatorQuery;
+  use \StructuredDynamics\osf\tests\Config;
+  use \StructuredDynamics\osf\tests as utilities;
    
   include_once("SplClassLoader.php");
   include_once("validators.php");
@@ -13,19 +13,19 @@
 
   
   // Load the \tests namespace where all the test code is located 
-  $loader_tests = new \SplClassLoader('StructuredDynamics\structwsf\tests', realpath("../../../"));
+  $loader_tests = new \SplClassLoader('StructuredDynamics\osf\tests', realpath("../../../"));
   $loader_tests->register();
   
   // Load the \ws namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\ws', realpath("../../../"));
+  $loader_ws = new \SplClassLoader('StructuredDynamics\osf\php\api\ws', realpath("../../../"));
   $loader_ws->register();  
   
   // Load the \php\api\framework namespace where all the web service code is located 
-  $loader_ws = new \SplClassLoader('StructuredDynamics\structwsf\php\api\framework', realpath("../../../"));
+  $loader_ws = new \SplClassLoader('StructuredDynamics\osf\php\api\framework', realpath("../../../"));
   $loader_ws->register();  
  
   // Load the \framework namespace where all the supporting (utility) code is located
-  $loader_framework = new \SplClassLoader('StructuredDynamics\structwsf\framework', realpath("../../../"));
+  $loader_framework = new \SplClassLoader('StructuredDynamics\osf\framework', realpath("../../../"));
   $loader_framework->register();       
    
   ini_set("memory_limit","256M");
