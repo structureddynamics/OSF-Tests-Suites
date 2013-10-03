@@ -3,7 +3,6 @@
 <phpunit stopOnFailure="false">
   <testsuites>
     <testsuite name="Authentication Webservice Endpoints">
-      <file>REPLACEME/tests/ws/auth/validator/AuthValidatorTest.php</file>
       <file>REPLACEME/tests/ws/auth/lister/AuthListerTest.php</file>
     </testsuite>
     <testsuite name="Datasets Webservice Endpoints">

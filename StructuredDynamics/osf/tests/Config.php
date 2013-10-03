@@ -23,13 +23,6 @@
     
     /** List of web services endpoint URI that are used on all testing datasets */
     public $datasetWebservices = array();
-    
-    /** The IP of the server that runs the tests. */
-    public $requesterIP = "";
-    
-    /** Random IP for a dummy requester */
-    public $randomRequester = "";
-
 
     // Additional configs used to validate resultsets
     
@@ -255,12 +248,6 @@
       
       /** URI of the test dataset to use for the test suite */
       $this->testDataset = "http://test.com/unittests/";
-      
-      /** The IP of the server that runs the tests. */
-      $this->requesterIP = "184.73.189.112";
-
-      /** Random IP for a dummy requester */
-      $this->randomRequester = "192.168.0.1";
       
       /** URI of the ontology to use for the ontologies related endpoints */
       $this->testOntologyUri = "file://localhost" . __DIR__ . "/content/foo.owl";
