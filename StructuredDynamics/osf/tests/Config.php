@@ -228,7 +228,7 @@
       */
       if(!isset($_SERVER['REMOTE_ADDR']))
       {
-        $_SERVER['REMOTE_ADDR'] = "192.168.0.1";
+        $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
       }
       
       /** Directory where content files used by the tests are located */
@@ -248,10 +248,10 @@
       $this->osfInstanceFolder = "/usr/share/osf/StructuredDynamics/osf/ws/";
       
       /** Base URL of the endpoint to test */
-      $this->endpointUrl = "http://ccr.nhccn.com.au/ws/";
+      $this->endpointUrl = "http://localhost/ws/";
       
       /** Base URI of the web services in the OSF network */
-      $this->endpointUri = "http://ccr.nhccn.com.au/wsf/ws/";
+      $this->endpointUri = "http://localhost/wsf/ws/";
       
       /** URI of the test dataset to use for the test suite */
       $this->testDataset = "http://test.com/unittests/";
@@ -431,8 +431,7 @@
       $this->sparqlInterface = "DefaultSourceInterface";        
 
             
-      $this->datasetWebservices = array($this->endpointUri."auth/validator/",
-                                        $this->endpointUri."auth/lister/",
+      $this->datasetWebservices = array($this->endpointUri."auth/lister/",
                                         $this->endpointUri."sparql/",
                                         $this->endpointUri."converter/bibtex/",
                                         $this->endpointUri."converter/tsv/",
@@ -441,6 +440,8 @@
                                         $this->endpointUri."browse/",
                                         $this->endpointUri."auth/registrar/ws/",
                                         $this->endpointUri."auth/registrar/access/",
+                                        $this->endpointUri."auth/registrar/group/",
+                                        $this->endpointUri."auth/registrar/user/",
                                         $this->endpointUri."dataset/create/",
                                         $this->endpointUri."dataset/read/",
                                         $this->endpointUri."dataset/update/",
