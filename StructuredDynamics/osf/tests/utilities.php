@@ -3,6 +3,7 @@
   namespace StructuredDynamics\osf\tests;
   
   use \StructuredDynamics\osf\php\api\ws\auth\registrar\access\AuthRegistrarAccessQuery;
+  use \StructuredDynamics\osf\php\api\ws\auth\registrar\user\AuthRegistrarUserQuery;
   use \StructuredDynamics\osf\php\api\ws\crud\delete\CrudDeleteQuery;
   use \StructuredDynamics\osf\php\api\ws\crud\create\CrudCreateQuery;
   use \StructuredDynamics\osf\php\api\ws\crud\update\CrudUpdateQuery;
@@ -13,6 +14,7 @@
   use \StructuredDynamics\osf\php\api\ws\revision\lister\RevisionListerQuery;
   use \StructuredDynamics\osf\php\api\ws\ontology\create\OntologyCreateQuery;
   use \StructuredDynamics\osf\php\api\ws\ontology\delete\OntologyDeleteQuery;
+  use \StructuredDynamics\osf\php\api\ws\auth\registrar\group\AuthRegistrarGroupQuery;
   
   /*
   
@@ -110,8 +112,6 @@
   {
     $settings = new Config();     
 
-    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-                                 
     $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetCreate->uri($settings->testDataset)
@@ -119,56 +119,39 @@
                   ->description("This is a testing dataset")
                   ->creator("http://test.com/user/bob/")
                   ->targetWebservices($settings->datasetWebservices)
-                  ->globalPermissions($crudPermissions)
                   ->mime('text/xml')
                   ->sourceInterface($settings->datasetCreateInterface)
                   ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
                   ->send();
-    
-    
     
     if(!$datasetCreate->isSuccessful())
     {            
       return(FALSE);
     }
+
+    // Create the permissions for the "administrators" group    
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+    
+    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarAccess->create($settings->adminGroup, $settings->testDataset, $crudPermissions, $settings->datasetWebservices)
+                        ->mime('text/xml')
+                        ->sourceInterface($settings->authRegistrarAccessInterface)
+                        ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                        ->send();
+                         
+    if(!$authRegistrarAccess->isSuccessful())
+    {
+      return(FALSE);
+    }    
     
     return(TRUE);                                 
   }
-  
-  
-  function createDatasetGlobalPermissionsNone()
-  {
-    $settings = new Config();     
-    
-    $crudPermissions = new CRUDPermission(FALSE, FALSE, FALSE, FALSE);
-                                 
-    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
-    
-    $datasetCreate->uri($settings->testDataset)
-                  ->title("This is a testing dataset")
-                  ->description("This is a testing dataset")
-                  ->creator("http://test.com/user/bob/")
-                  ->targetWebservices($settings->datasetWebservices)
-                  ->globalPermissions($crudPermissions)
-                  ->mime('text/xml')
-                  ->sourceInterface($settings->datasetCreateInterface)
-                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
-                  ->send();
-                         
-    if(!$datasetCreate->isSuccessful())
-    {
-      return(FALSE);
-    }
-    
-    return(TRUE);                                 
-  }  
   
   function createTwoDatasets()
   {
     $settings = new Config();     
     
-    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-                                 
     $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
     $datasetCreate->uri($settings->testDataset)
@@ -176,53 +159,6 @@
                   ->description("This is a testing dataset")
                   ->creator("http://test.com/user/bob/")
                   ->targetWebservices($settings->datasetWebservices)
-                  ->globalPermissions($crudPermissions)
-                  ->mime('text/xml')
-                  ->sourceInterface($settings->datasetCreateInterface)
-                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
-                  ->send();
-                         
-    if(!$datasetCreate->isSuccessful())    
-    {
-      return(FALSE);
-    }
-                                 
-    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
-    
-    $datasetCreate->uri($settings->testDataset.'2/')
-                  ->title("This is a testing dataset")
-                  ->description("This is a testing dataset")
-                  ->creator("http://test.com/user/bob/")
-                  ->targetWebservices($settings->datasetWebservices)
-                  ->globalPermissions($crudPermissions)
-                  ->mime('text/xml')
-                  ->sourceInterface($settings->datasetCreateInterface)
-                  ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
-                  ->send();
-                         
-    if(!$datasetCreate->isSuccessful())    
-    {
-      return(FALSE);
-    }
-    
-    return(TRUE);                                 
-  }  
-  
-  
-  function createTwoDatasetsGlobalPermissionsNone()
-  {
-    $settings = new Config();     
-    
-    $crudPermissions = new CRUDPermission(FALSE, FALSE, FALSE, FALSE);
-                                 
-    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
-    
-    $datasetCreate->uri($settings->testDataset)
-                  ->title("This is a testing dataset")
-                  ->description("This is a testing dataset")
-                  ->creator("http://test.com/user/bob/")
-                  ->targetWebservices($settings->datasetWebservices)
-                  ->globalPermissions($crudPermissions)
                   ->mime('text/xml')
                   ->sourceInterface($settings->datasetCreateInterface)
                   ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
@@ -233,12 +169,29 @@
       return(FALSE);
     }
 
+    // Create the permissions for the "administrators" group    
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+    
+    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarAccess->create($settings->adminGroup, $settings->testDataset, $crudPermissions, $settings->datasetWebservices)
+                        ->mime('text/xml')
+                        ->sourceInterface($settings->authRegistrarAccessInterface)
+                        ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                        ->send();
+                         
+    if(!$authRegistrarAccess->isSuccessful())
+    {
+      return(FALSE);
+    }  
+                                 
+    $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
     $datasetCreate->uri($settings->testDataset.'2/')
                   ->title("This is a testing dataset")
                   ->description("This is a testing dataset")
                   ->creator("http://test.com/user/bob/")
                   ->targetWebservices($settings->datasetWebservices)
-                  ->globalPermissions($crudPermissions)
                   ->mime('text/xml')
                   ->sourceInterface($settings->datasetCreateInterface)
                   ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
@@ -249,8 +202,24 @@
       return(FALSE);
     }
     
+    // Create the permissions for the "administrators" group    
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+    
+    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarAccess->create($settings->adminGroup, $settings->testDataset.'2/', $crudPermissions, $settings->datasetWebservices)
+                        ->mime('text/xml')
+                        ->sourceInterface($settings->authRegistrarAccessInterface)
+                        ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                        ->send();
+                         
+    if(!$authRegistrarAccess->isSuccessful())
+    {
+      return(FALSE);
+    }      
+    
     return(TRUE);                                 
-  }    
+  }  
   
   function deleteDataset()
   {
@@ -417,7 +386,6 @@
     
     $ontologyCreate->enableReasoner()
                    ->uri($settings->testOntologyUri)
-                   ->globalPermissions($crudPermissions)
                    ->mime('text/xml')
                    ->sourceInterface($settings->ontologyCreateInterface)
                    ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
@@ -427,6 +395,22 @@
     {            
       return(FALSE);
     }
+    
+    // Create the permissions for the "administrators" group    
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+    
+    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarAccess->create($settings->adminGroup, $settings->testOntologyUri, $crudPermissions, $settings->datasetWebservices)
+                        ->mime('text/xml')
+                        ->sourceInterface($settings->authRegistrarAccessInterface)
+                        ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                        ->send();
+                         
+    if(!$authRegistrarAccess->isSuccessful())
+    {
+      return(FALSE);
+    }      
     
     return(TRUE);                                 
   }  
@@ -533,5 +517,92 @@
     
     return(key(array_slice($resultset['unspecified'], -1, 1, TRUE)));
   }
+  
+  function deleteGroup()
+  {
+    $settings = new Config();
+    
+    $authRegistrarGroup = new AuthRegistrarGroupQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarGroup->deleteGroup()
+                       ->application($settings->applicationID)
+                       ->group($settings->testGroup)
+                       ->send();
+                   
+    if(!$authRegistrarGroup->isSuccessful())
+    {
+      return(FALSE);
+    } 
+    else
+    {
+      return(TRUE);
+    }                       
+  }  
+  
+  function createGroup()
+  {
+    $settings = new Config();
+    
+    $authRegistrarGroup = new AuthRegistrarGroupQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarGroup->createGroup()
+                       ->application($settings->applicationID)
+                       ->group($settings->testGroup)
+                       ->sourceInterface($settings->authRegistrarGroupInterface)
+                       ->sourceInterfaceVersion($settings->authRegistrarGroupInterfaceVersion)                     
+                       ->send();   
+                   
+    if(!$authRegistrarGroup->isSuccessful())
+    {
+      return(FALSE);
+    } 
+    else
+    {
+      return(TRUE);
+    }                       
+  }
+  
+  function joinGroup()
+  {
+    $settings = new Config();
+    
+    $authRegistrarUser = new AuthRegistrarUserQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarUser->joinGroup()
+                      ->group($settings->testGroup)
+                      ->user($settings->testUser)
+                      ->send();
+                   
+    if(!$authRegistrarUser->isSuccessful())
+    {
+      return(FALSE);
+    } 
+    else
+    {
+      return(TRUE);
+    }                       
+  }    
+
+  function leaveGroup()
+  {
+    $settings = new Config();
+    
+    $authRegistrarUser = new AuthRegistrarUserQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarUser->leaveGroup()
+                      ->group($settings->testGroup)
+                      ->user($settings->testUser)
+                      ->send();
+               
+    if(!$authRegistrarUser->isSuccessful())
+    {
+      return(FALSE);
+    } 
+    else
+    {
+      return(TRUE);
+    }                       
+  }    
+
   
 ?>

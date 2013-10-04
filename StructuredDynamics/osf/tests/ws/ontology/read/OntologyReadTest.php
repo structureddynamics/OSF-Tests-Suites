@@ -68,7 +68,7 @@
     {
       utilities\deleteOntology();      
     }  
-
+    
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          
@@ -3205,11 +3205,13 @@
       $this->assertTrue(count($resultset['unspecified']['http://foo.org/test#dpB']) == 5);
       $this->assertTrue(isset($resultset['unspecified']['http://foo.org/test#dpC']));
       $this->assertTrue(count($resultset['unspecified']['http://foo.org/test#dpC']) == 4);
-
+      
+      unset($resultset);
+      unset($getSubProperties);
       unset($ontologyRead);
       unset($settings);   
     }    
-  
+    
     public function test_getSubProperties_Datatype_Mode_Uris_Direct_Reasoner_Disabled() {
       
       $settings = new Config();  
@@ -3310,7 +3312,6 @@
     }  
     
     public function test_getSubProperties_Datatype_Mode_Descriptions_All_Reasoner_Disabled() {
-      
       $settings = new Config();  
       
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);

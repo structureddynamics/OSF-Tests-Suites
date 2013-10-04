@@ -45,7 +45,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/delete/" . "wrong", 
                                    "get", 
                                    "text/xml",
-                                   "&uri=" . urlencode('') .
+                                   "uri=" . urlencode('') .
                                    "&mode=" . urlencode('hard') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
@@ -68,7 +68,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/delete/", 
                                    "post", 
                                    "text/xml",
-                                   "&uri=" . urlencode('') .
+                                   "uri=" . urlencode('') .
                                    "&mode=" . urlencode('hard') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
@@ -208,9 +208,9 @@
                  ->sourceInterfaceVersion($settings->crudDeleteInterfaceVersion)
                  ->send();
                            
-      $this->assertEquals($crudDelete->getStatus(), "400", "Debugging information: ".var_export($crudDelete, TRUE));                                       
-      $this->assertEquals($crudDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($crudDelete, TRUE));
-      $this->assertEquals($crudDelete->error->id, "WS-CRUD-DELETE-201", "Debugging information: ".var_export($crudDelete, TRUE));                                       
+      $this->assertEquals($crudDelete->getStatus(), "403", "Debugging information: ".var_export($crudDelete, TRUE));                                       
+      $this->assertEquals($crudDelete->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($crudDelete, TRUE));
+      $this->assertEquals($crudDelete->error->id, "WS-AUTH-VALIDATION-103", "Debugging information: ".var_export($crudDelete, TRUE));                                       
 
       utilities\deleteUnrevisionedRecord();
 
@@ -249,10 +249,14 @@
       
       $settings = new Config();  
       
+      utilities\deleteRevisionedRecord();
+      
+      $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");      
+      
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/delete/", 
                                    "get", 
                                    "text/xml",
-                                   "&uri=" . urlencode('http://foo.com/datasets/tests/bar') .
+                                   "uri=" . urlencode('http://foo.com/datasets/tests/bar') .
                                    "&mode=" . urlencode('unknown') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->crudCreateInterface) .
@@ -264,6 +268,8 @@
       $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
       $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
       $this->assertEquals($wsq->error->id, "WS-CRUD-DELETE-307", "Debugging information: ".var_export($wsq, TRUE));                                       
+
+      utilities\deleteRevisionedRecord();
       
       unset($wsq);
       unset($settings);      

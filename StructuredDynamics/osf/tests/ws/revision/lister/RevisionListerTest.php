@@ -45,7 +45,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/lister/" . "wrong", 
                                    "get", 
                                    "text/xml",
-                                   "&uri=" . urlencode('') .
+                                   "uri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('short') .
                                    "&interface=". urlencode($settings->revisionListerInterface) .
@@ -68,7 +68,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/lister/", 
                                    "post", 
                                    "text/xml",
-                                   "&uri=" . urlencode('') .
+                                   "uri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('short') .
                                    "&interface=". urlencode($settings->revisionListerInterface) .
@@ -218,7 +218,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/lister/", 
                                    "get", 
                                    "text/xml",
-                                   "&uri=" . urlencode('http://foo.com/datasets/tests/foo') .
+                                   "uri=" . urlencode('http://foo.com/datasets/tests/foo') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('unexisting-mode') .
                                    "&interface=". urlencode($settings->revisionListerInterface) .

@@ -45,7 +45,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/read/" . "wrong", 
                                    "post", 
                                    "text/xml",
-                                   "&uri=" . urlencode('http://foo.com/datasets/tests/foo') .
+                                   "uri=" . urlencode('http://foo.com/datasets/tests/foo') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&include_linksback=" . urlencode('False') .
                                    "&include_reification=" . urlencode('False') .
@@ -75,7 +75,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/read/", 
                                    "get", 
                                    "text/xml",
-                                   "&uri=" . urlencode('http://foo.com/datasets/tests/foo') .
+                                   "uri=" . urlencode('http://foo.com/datasets/tests/foo') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&include_linksback=" . urlencode('False') .
                                    "&include_reification=" . urlencode('False') .
@@ -106,7 +106,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/read/", 
                                    "get", 
                                    "text/xml",
-                                   "&uri=" . urlencode('http://foo.com/datasets/tests/foo') .
+                                   "uri=" . urlencode('http://foo.com/datasets/tests/foo') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&include_linksback=" . urlencode('False') .
                                    "&include_reification=" . urlencode('False') .

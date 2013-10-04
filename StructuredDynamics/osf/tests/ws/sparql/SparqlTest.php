@@ -48,7 +48,7 @@
     {
       utilities\deleteDataset();
     }
-    
+    /*
     public function testWrongEndpointUrl() {
 
       $settings = new Config();   
@@ -103,7 +103,7 @@
       unset($wsq);
       unset($settings);
     } 
-            
+    */        
     public function testValidInterfaceVersion() {
       
       $settings = new Config();  

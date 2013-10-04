@@ -48,8 +48,7 @@
                                    "text/xml",
                                    "uri=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->datasetReadInterface) .
-                                   "&version=". urlencode($settings->datasetReadInterfaceVersion) .
-                                   "&meta=" . urlencode("True"),
+                                   "&version=". urlencode($settings->datasetReadInterfaceVersion),
                                    $settings->applicationID,
                                    $settings->apiKey,
                                    $settings->userID);
@@ -70,8 +69,7 @@
                                    "text/xml",
                                    "uri=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->datasetReadInterface) .
-                                   "&version=". urlencode($settings->datasetReadInterfaceVersion) .
-                                   "&meta=" . urlencode("True"),
+                                   "&version=". urlencode($settings->datasetReadInterfaceVersion),
                                    $settings->applicationID,
                                    $settings->apiKey,
                                    $settings->userID);
@@ -95,7 +93,6 @@
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();
@@ -121,7 +118,6 @@
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion("667.4")
                   ->send();
@@ -152,7 +148,6 @@
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();
@@ -181,7 +176,6 @@
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
-                  ->includeMeta()
                   ->sourceInterface("default-not-existing")
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();
@@ -208,7 +202,6 @@
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset)
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();
@@ -235,7 +228,6 @@
 
       $datasetRead->mime("application/json")
                   ->uri($settings->testDataset)
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();
@@ -265,7 +257,6 @@
 
       $datasetRead->mime("application/rdf+xml")
                   ->uri($settings->testDataset)
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();            
@@ -293,7 +284,6 @@
 
       $datasetRead->mime("application/rdf+n3")
                   ->uri($settings->testDataset)
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();      
@@ -327,7 +317,6 @@
 
       $datasetRead->mime("text/xml")
                   ->uri("all")
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();            
@@ -369,7 +358,6 @@
 
       $datasetRead->mime("application/json")
                   ->uri("all")
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();            
@@ -393,7 +381,6 @@
 
       $datasetRead->mime("application/rdf+xml")
                   ->uri("all")
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();            
@@ -417,7 +404,6 @@
 
       $datasetRead->mime("application/rdf+n3")
                   ->uri("all")
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();            
@@ -443,7 +429,6 @@
 
       $datasetRead->mime("text/xml")
                   ->uri("")
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();            
@@ -470,7 +455,6 @@
 
       $datasetRead->mime("text/xml")
                   ->uri($settings->testDataset . "<>")
-                  ->includeMeta()
                   ->sourceInterface($settings->datasetReadInterface)
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();            

@@ -416,9 +416,9 @@
                  ->sourceInterfaceVersion($settings->crudCreateInterfaceVersion)
                  ->send();
                            
-      $this->assertEquals($crudCreate->getStatus(), "400", "Debugging information: ".var_export($crudCreate, TRUE));                                       
-      $this->assertEquals($crudCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($crudCreate, TRUE));
-      $this->assertEquals($crudCreate->error->id, "WS-CRUD-CREATE-202", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      $this->assertEquals($crudCreate->getStatus(), "403", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      $this->assertEquals($crudCreate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($crudCreate, TRUE));
+      $this->assertEquals($crudCreate->error->id, "WS-AUTH-VALIDATION-103", "Debugging information: ".var_export($crudCreate, TRUE));                                       
 
       utilities\deleteDataset();
 

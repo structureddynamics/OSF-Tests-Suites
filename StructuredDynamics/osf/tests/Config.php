@@ -1,4 +1,4 @@
-<?php
+<?php                                                  
 
   namespace StructuredDynamics\osf\tests;
 
@@ -26,6 +26,15 @@
     
     /** User ID to use to perform the requests */
     public $userID = "";
+
+    /** ID of the administrators group */
+    public $adminGroup = "";
+    
+    /** ID of a new group to create */
+    public $testGroup = "";
+    
+    /** ID of a new user to create */
+    public $testUser = "";
     
     /** URI of the test dataset to use for the test suite */
     public $testDataset = "";
@@ -87,17 +96,23 @@
     /** URI of the resource representing a new web service endpoint to register in the network */
     public $newWebServiceUri = "";     
     
-    /** Auth Validator web service endpoint's interface */
-    public $authValidatorInterface = "DefaultSourceInterface";   
+    /** Auth Registrar User web service endpoint's interface */
+    public $authRegistrarUserInterface = "DefaultSourceInterface";   
     
-    /** Auth Validator web service endpoint's interface version */
-    public $authValidatorInterfaceVersion = ""; 
-      
+    /** Auth Registrar User web service endpoint's interface version */
+    public $authRegistrarUserInterfaceVersion = "";   
+    
     /** Auth Registrar Access web service endpoint's interface */
     public $authRegistrarAccessInterface = "DefaultSourceInterface";   
     
-    /** Auth Validator web service endpoint's interface version */
+    /** Auth Registrar Access web service endpoint's interface version */
     public $authRegistrarAccessInterfaceVersion = "";   
+    
+    /** Auth Registrar Group web service endpoint's interface */
+    public $authRegistrarGroupInterface = "DefaultSourceInterface";   
+    
+    /** Auth Registrar Group web service endpoint's interface version */
+    public $authRegistrarGroupInterfaceVersion = "";   
     
     /** Auth Lister web service endpoint's interface version */
     public $authListerInterfaceVersion = "";   
@@ -262,7 +277,16 @@
       $this->apiKey = 'some-key';
       
       /** User ID to use to perform the requests */
-      $this->userID = 'tests-suites';
+      $this->userID = 'http://localhost/wsf/users/tests-suites';
+      
+      /** ID of the administrators group */
+      $this->adminGroup = 'http://localhost/wsf/groups/administrators';
+
+      /** ID of a new group to create */
+      $this->testGroup = "http://localhost/wsf/groups/unittests";
+
+      /** ID of a new user to create */
+      $this->testUser = "http://localhost/wsf/users/unittests";
       
       /** URI of the test dataset to use for the test suite */
       $this->testDataset = "http://test.com/unittests/";
@@ -303,32 +327,35 @@
       /** String to use to update (change) values of the triples of a dataset description */
       $this->datasetUpdateString = "-update";
       
-      /** Auth Validator web service endpoint's interface version */
-      $this->authValidatorInterfaceVersion = "30";   
+      /** Auth Registrar Group web service endpoint's interface version */
+      $this->authRegistrarGroupInterfaceVersion = "3.0";         
       
-      /** Auth Registrar Access web service endpoint's interface version */
-      $this->authRegistrarInterfaceVersion = "30";         
+      /** Auth Registrar User web service endpoint's interface version */
+      $this->authRegistrarAccessInterfaceVersion = "3.0";         
+      
+      /** Auth Registrar User web service endpoint's interface version */
+      $this->authRegistrarAccessInterfaceVersion = "3.0";         
       
       /** Auth Lister web service endpoint's interface version */
-      $this->authListerInterfaceVersion = "30";   
+      $this->authListerInterfaceVersion = "3.0";   
       
       /** Dataset Create web service endpoint's interface version */
-      $this->datasetCreateInterfaceVersion = "30";   
+      $this->datasetCreateInterfaceVersion = "3.0";   
       
       /** Dataset Read web service endpoint's interface version */
-      $this->datasetReadInterfaceVersion = "30";   
+      $this->datasetReadInterfaceVersion = "3.0";   
       
       /** Dataset Update web service endpoint's interface version */
-      $this->datasetUpdateInterfaceVersion = "30";   
+      $this->datasetUpdateInterfaceVersion = "3.0";   
       
       /** Dataset Delete web service endpoint's interface version */
-      $this->datasetDeleteInterfaceVersion = "30";   
+      $this->datasetDeleteInterfaceVersion = "3.0";   
       
       /** Ontology Create web service endpoint's interface version */
-      $this->ontologyCreateInterfaceVersion = "30";   
+      $this->ontologyCreateInterfaceVersion = "3.0";   
       
       /** Ontology Delete web service endpoint's interface version */
-      $this->ontologyDeleteInterfaceVersion = "30";   
+      $this->ontologyDeleteInterfaceVersion = "3.0";   
       
       /** Ontology Read web service endpoint's interface version */
       $this->ontologyReadInterfaceVersion = "3.0";        
@@ -369,11 +396,14 @@
       /** SPARQL web service endpoint's interface version */
       $this->sparqlInterfaceVersion = "3.0";        
 
-      /** Auth Validator web service endpoint's interface */
-      $this->authValidatorInterface = "DefaultSourceInterface";   
+      /** Auth Registrar Group web service endpoint's interface */
+      $this->authRegistrarGroupInterface = "DefaultSourceInterface";   
+      
+      /** Auth Registrar User web service endpoint's interface */
+      $this->authRegistrarUserInterface = "DefaultSourceInterface";   
       
       /** Auth Registrar Access web service endpoint's interface */
-      $this->authRegistrarInterface = "DefaultSourceInterface";   
+      $this->authRegistrarAccessInterface = "DefaultSourceInterface";   
       
       /** Auth Lister web service endpoint's interface version */
       $this->authListerInterface = "DefaultSourceInterface";   

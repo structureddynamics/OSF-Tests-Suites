@@ -43,7 +43,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/" . "wrong", 
                                    "get", 
                                    "text/xml",
-                                   "&interface=". urlencode($settings->datasetDeleteInterface) .
+                                   "interface=". urlencode($settings->datasetDeleteInterface) .
                                    "&version=". urlencode($settings->datasetDeleteInterfaceVersion) .
                                    "uri=" . urlencode($settings->testDataset),
                                    $settings->applicationID,
@@ -64,7 +64,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "dataset/delete/", 
                                    "post", 
                                    "text/xml",
-                                   "&interface=". urlencode($settings->datasetDeleteInterface) .
+                                   "interface=". urlencode($settings->datasetDeleteInterface) .
                                    "&version=". urlencode($settings->datasetDeleteInterfaceVersion) .
                                    "uri=" . urlencode($settings->testDataset),
                                    $settings->applicationID,

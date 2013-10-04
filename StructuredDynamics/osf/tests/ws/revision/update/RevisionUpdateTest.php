@@ -46,7 +46,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/update/" . "wrong", 
                                    "get", 
                                    "text/xml",
-                                   "&revuri=" . urlencode('') .
+                                   "revuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&lifecycle=" . urlencode('published') .
                                    "&interface=". urlencode($settings->revisionUpdateInterface) .
@@ -69,7 +69,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/update/", 
                                    "post", 
                                    "text/xml",
-                                   "&revuri=" . urlencode('') .
+                                   "revuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&lifecycle=" . urlencode('published') .
                                    "&interface=". urlencode($settings->revisionUpdateInterface) .
@@ -227,9 +227,9 @@
                      ->sourceInterfaceVersion($settings->revisionReadInterfaceVersion)                   
                      ->send();
                            
-      $this->assertEquals($revisionUpdate->getStatus(), "400", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
-      $this->assertEquals($revisionUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($revisionUpdate, TRUE));
-      $this->assertEquals($revisionUpdate->error->id, "WS-REVISION-UPDATE-200", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
+      $this->assertEquals($revisionUpdate->getStatus(), "403", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
+      $this->assertEquals($revisionUpdate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($revisionUpdate, TRUE));
+      $this->assertEquals($revisionUpdate->error->id, "WS-AUTH-VALIDATION-103", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
           
       utilities\deleteRevisionedRecord();
 
@@ -254,7 +254,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/update/", 
                                    "get", 
                                    "text/xml",
-                                   "&revuri=" . urlencode($revuri) .
+                                   "revuri=" . urlencode($revuri) .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&lifecycle=" . urlencode('unknown-stage') .
                                    "&interface=". urlencode($settings->revisionUpdateInterface) .

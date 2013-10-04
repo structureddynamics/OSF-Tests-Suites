@@ -118,59 +118,141 @@
           unset($wsq);
           unset($settings);
         }  
-        
-    public function testValidInterfaceVersion() {
-      
-        $settings = new Config();  
+                
+        public function testUnknownMode() {
+          
+          $settings = new Config();  
+          
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/lister/", 
+                                       "get", 
+                                       "text/xml",
+                                       "mode=" . urlencode("unknown") .
+                                       "&dataset=" . urlencode($settings->testDataset) .
+                                       "&target_webservice=" . urlencode("all") .
+                                       "&interface=". urlencode($settings->authListerInterface) .
+                                       "&version=". urlencode($settings->authListerInterfaceVersion),
+                                       $settings->applicationID,
+                                       $settings->apiKey,
+                                       $settings->userID);
+                                       
+          $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
+          $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
+          $this->assertEquals($wsq->error->id, "WS-AUTH-LISTER-200", "Debugging information: ".var_export($wsq, TRUE));                                       
 
-        utilities\deleteDataset();
-        
-        $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-        
-        $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
-        
-        $authLister->mime("text/xml")
-                   ->getDatasetsUri($settings->testDataset)
-                   ->includeAllWebServiceUris()
-                   ->sourceInterface($settings->authListerInterface)
-                   ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
-                   ->send();
-                             
-        $this->assertEquals($authLister->getStatus(), "200", "Debugging information: ".var_export($authLister, TRUE));                                       
+          utilities\deleteDataset();
+          
+          unset($wsq);
+          unset($settings);
+        }        
+            
+        public function testMissingDatasetUri() {
+          
+            $settings = new Config();  
 
-        utilities\deleteDataset();
+            utilities\deleteDataset();
+            
+            $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+            $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+            
+            $authLister->getDatasetUsersAccesses("")
+                       ->mime("text/xml")
+                       ->sourceInterface($settings->authListerInterface)
+                       ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                       ->send();
+                                 
+            $this->assertEquals($authLister->getStatus(), "400", "Debugging information: ".var_export($authLister, TRUE));                                       
+            $this->assertEquals($authLister->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authLister, TRUE));
+            $this->assertEquals($authLister->error->id, "WS-AUTH-LISTER-201", "Debugging information: ".var_export($authLister, TRUE));                                       
 
-        unset($authLister);
-        unset($settings);  
-    }
-    
-    
-    public function testInvalidInterfaceVersion() {
-      
-        $settings = new Config();  
+            utilities\deleteDataset();
 
-        utilities\deleteDataset();
+            unset($authLister);
+            unset($settings);  
+        }    
         
-        $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
-        
-        $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
-        
-        $authLister->mime("text/xml")
-                   ->getDatasetsUri($settings->testDataset)
-                   ->includeAllWebServiceUris()
-                   ->sourceInterface($settings->authListerInterface)
-                   ->sourceInterfaceVersion("667.4")
-                   ->send();
-                             
-        $this->assertEquals($authLister->getStatus(), "400", "Debugging information: ".var_export($authLister, TRUE));                                       
-        $this->assertEquals($authLister->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authLister, TRUE));
-        $this->assertEquals($authLister->error->id, "WS-AUTH-LISTER-307", "Debugging information: ".var_export($authLister, TRUE));                                       
+        public function testMissingGroupUri() {
+          
+            $settings = new Config();  
 
-        utilities\deleteDataset();
+            utilities\deleteDataset();
+            
+            $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+            $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+            
+            $authLister->getGroupUsers("")
+                       ->mime("text/xml")
+                       ->sourceInterface($settings->authListerInterface)
+                       ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                       ->send();
+                                 
+            $this->assertEquals($authLister->getStatus(), "400", "Debugging information: ".var_export($authLister, TRUE));                                       
+            $this->assertEquals($authLister->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authLister, TRUE));
+            $this->assertEquals($authLister->error->id, "WS-AUTH-LISTER-202", "Debugging information: ".var_export($authLister, TRUE));                                       
 
-        unset($authLister);
-        unset($settings);        
-    }            
+            utilities\deleteDataset();
+
+            unset($authLister);
+            unset($settings);  
+        }
+            
+        public function testValidInterfaceVersion() {
+          
+            $settings = new Config();  
+
+            utilities\deleteDataset();
+            
+            $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+            $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+            
+            $authLister->mime("text/xml")
+                       ->getDatasetsUri($settings->testDataset)
+                       ->includeAllWebServiceUris()
+                       ->sourceInterface($settings->authListerInterface)
+                       ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                       ->send();
+                                 
+            $this->assertEquals($authLister->getStatus(), "200", "Debugging information: ".var_export($authLister, TRUE));                                       
+
+            utilities\deleteDataset();
+
+            unset($authLister);
+            unset($settings);  
+        }
+        
+        
+        public function testInvalidInterfaceVersion() {
+          
+            $settings = new Config();  
+
+            utilities\deleteDataset();
+            
+            $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+            
+            $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+            
+            $authLister->mime("text/xml")
+                       ->getDatasetsUri($settings->testDataset)
+                       ->includeAllWebServiceUris()
+                       ->sourceInterface($settings->authListerInterface)
+                       ->sourceInterfaceVersion("667.4")
+                       ->send();
+                                 
+            $this->assertEquals($authLister->getStatus(), "400", "Debugging information: ".var_export($authLister, TRUE));                                       
+            $this->assertEquals($authLister->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($authLister, TRUE));
+            $this->assertEquals($authLister->error->id, "WS-AUTH-LISTER-307", "Debugging information: ".var_export($authLister, TRUE));                                       
+
+            utilities\deleteDataset();
+
+            unset($authLister);
+            unset($settings);        
+        }            
         
         //
         // Test existing interface
@@ -458,7 +540,7 @@
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->send();
-                 
+       
           utilities\validateParameterTextXml($this, $authLister);
          
           utilities\deleteDataset();          
@@ -1044,7 +1126,301 @@
           
           unset($authLister);
           unset($settings);
-        }        
+        }  
+        
+        public function testParameter_Mode_Groups_Serialization_TEXT_XML() {
+          
+          $settings = new Config();  
+          
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("text/xml")
+                     ->getGroups()
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+          
+          utilities\validateParameterTextXml($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }  
+        
+        public function testParameter_Mode_Groups_Serialization_APPLICATION_JSON() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/json")
+                     ->getGroups()
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                
+          utilities\validateParameterApplicationJson($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }   
+        
+        public function testParameter_Mode_Groups_Serialization_APPLICATION_RDF_XML() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/rdf+xml")
+                     ->getGroups()
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                          
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
+          
+          unset($authLister);
+          unset($settings);
+        }       
+                          
+        public function testParameter_Mode_Groups_Serialization_APPLICATION_RDF_N3() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/rdf+n3")
+                     ->getGroups()
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }
+        
+        public function testParameter_Mode_Group_Users_Serialization_TEXT_XML() {
+          
+          $settings = new Config();  
+          
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("text/xml")
+                     ->getGroupUsers($settings->adminGroup)
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+          
+          utilities\validateParameterTextXml($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }  
+        
+        public function testParameter_Mode_Group_Users_Serialization_APPLICATION_JSON() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/json")
+                     ->getGroupUsers($settings->adminGroup)
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                
+          utilities\validateParameterApplicationJson($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }   
+        
+        public function testParameter_Mode_Group_Users_Serialization_APPLICATION_RDF_XML() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/rdf+xml")
+                     ->getGroupUsers($settings->adminGroup)
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                          
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
+          
+          unset($authLister);
+          unset($settings);
+        }       
+                          
+        public function testParameter_Mode_Group_Users_Serialization_APPLICATION_RDF_N3() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/rdf+n3")
+                     ->getGroupUsers($settings->adminGroup)
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }
+        
+        public function testParameter_Mode_User_Groups_Serialization_TEXT_XML() {
+          
+          $settings = new Config();  
+          
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("text/xml")
+                     ->getUserGroups()
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+          
+          utilities\validateParameterTextXml($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }  
+        
+        public function testParameter_Mode_User_Groups_Serialization_APPLICATION_JSON() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/json")
+                     ->getUserGroups()
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                
+          utilities\validateParameterApplicationJson($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }   
+        
+        public function testParameter_Mode_User_Groups_Serialization_APPLICATION_RDF_XML() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/rdf+xml")
+                     ->getUserGroups()
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                          
+          utilities\validateParameterApplicationRdfXml($this, $authLister);
+          
+          unset($authLister);
+          unset($settings);
+        }       
+                          
+        public function testParameter_Mode_User_Groups_Serialization_APPLICATION_RDF_N3() {
+          
+          $settings = new Config();  
+
+          utilities\deleteDataset();
+          
+          $this->assertTrue(utilities\createDataset(), "Can't create the dataset, check the /dataset/create/ endpoint first...");
+          
+          $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+          
+          $authLister->mime("application/rdf+n3")
+                     ->getUserGroups()
+                     ->includeAllWebServiceUris()
+                     ->sourceInterface($settings->authListerInterface)
+                     ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
+                     ->send();
+                                
+          utilities\validateParameterApplicationRdfN3($this, $authLister);
+
+          utilities\deleteDataset();
+          
+          unset($authLister);
+          unset($settings);
+        }                              
         
         static public function tearDownAfterClass() {
             echo implode("\n", self::$outputs);

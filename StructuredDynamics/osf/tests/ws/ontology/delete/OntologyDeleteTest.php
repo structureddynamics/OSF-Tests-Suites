@@ -380,7 +380,7 @@
       $deletePropertyFunction = new DeletePropertyFunction();
       
       $deletePropertyFunction->uri($settings->targetDatatypePropertyUri);
-      
+
       $ontologyDelete->deleteProperty($deletePropertyFunction)
                      ->sourceInterface($settings->ontologyDeleteInterface)
                      ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)

@@ -50,8 +50,7 @@
                                    "&creator=" . urlencode("http://test.com/user/bob/") .
                                    "&webservices=" . urlencode(implode(';', $settings->datasetWebservices)) .
                                    "&interface=". urlencode($settings->datasetCreateInterface) .
-                                   "&version=". urlencode($settings->datasetCreateInterfaceVersion) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"),
+                                   "&version=". urlencode($settings->datasetCreateInterfaceVersion), 
                                    $settings->applicationID,
                                    $settings->apiKey,
                                    $settings->userID);
@@ -76,8 +75,7 @@
                                    "&creator=" . urlencode("http://test.com/user/bob/") .
                                    "&webservices=" . urlencode(implode(';', $settings->datasetWebservices)) .
                                    "&interface=". urlencode($settings->datasetCreateInterface) .
-                                   "&version=". urlencode($settings->datasetCreateInterfaceVersion) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True"),
+                                   "&version=". urlencode($settings->datasetCreateInterfaceVersion),
                                    $settings->applicationID,
                                    $settings->apiKey,
                                    $settings->userID);
@@ -104,13 +102,8 @@
                     ->creator("http://test.com/user/bob/")
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();
                            
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
 
@@ -136,13 +129,8 @@
                     ->creator("http://test.com/user/bob/")
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion("667.4")
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();
                            
       $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
@@ -174,11 +162,7 @@
                     ->creator("http://test.com/user/bob/")
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions)
+                    ->targetWebservices($settings->datasetWebservices)
                     ->send();
                            
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
@@ -208,13 +192,8 @@
                     ->creator("http://test.com/user/bob/")
                     ->sourceInterface("default-not-existing")
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();
                            
       $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
@@ -241,13 +220,8 @@
                     ->creator("http://test.com/user/bob/")
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();
                                                
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       
@@ -273,13 +247,8 @@
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
                     ->creator("http://test.com/user/bob/")
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();      
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();      
                                    
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));    
                                          
@@ -314,13 +283,8 @@
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
                     ->creator("http://test.com/user/bob/")
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();       
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();       
                                    
       $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
@@ -344,13 +308,8 @@
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
                     ->creator("http://test.com/user/bob/")
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();       
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();       
                                    
       $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
@@ -372,13 +331,8 @@
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
                     ->creator("http://test.com/user/bob/")
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();       
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();       
                                    
       $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
@@ -400,13 +354,8 @@
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
                     ->creator("http://test.com/user/bob/"."<>")
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send();       
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send();       
                                    
       $this->assertEquals($datasetCreate->getStatus(), "400", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       $this->assertEquals($datasetCreate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetCreate, TRUE));
@@ -428,13 +377,8 @@
                     ->sourceInterface($settings->datasetCreateInterface)
                     ->sourceInterfaceVersion($settings->datasetCreateInterfaceVersion)
                     ->creator("")
-                    ->targetWebservices($settings->datasetWebservices);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $datasetCreate->globalPermissions($permissions);
-      
-      $datasetCreate->send(); 
+                    ->targetWebservices($settings->datasetWebservices)
+                    ->send(); 
                                    
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       

@@ -45,7 +45,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/diff/" . "wrong", 
                                    "get", 
                                    "text/xml",
-                                   "&lrevuri=" . urlencode('') .
+                                   "lrevuri=" . urlencode('') .
                                    "&rrevuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->revisionDiffInterface) .
@@ -68,7 +68,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/diff/", 
                                    "post", 
                                    "text/xml",
-                                   "&lrevuri=" . urlencode('') .
+                                   "lrevuri=" . urlencode('') .
                                    "&rrevuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&interface=". urlencode($settings->revisionDiffInterface) .
@@ -232,9 +232,9 @@
                    ->sourceInterfaceVersion($settings->revisionDiffInterfaceVersion)                   
                    ->send();
                    
-      $this->assertEquals($revisionDiff->getStatus(), "400", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
-      $this->assertEquals($revisionDiff->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($revisionDiff, TRUE));
-      $this->assertEquals($revisionDiff->error->id, "WS-REVISION-DIFF-200", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      $this->assertEquals($revisionDiff->getStatus(), "403", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
+      $this->assertEquals($revisionDiff->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($revisionDiff, TRUE));
+      $this->assertEquals($revisionDiff->error->id, "WS-AUTH-VALIDATION-103", "Debugging information: ".var_export($revisionDiff, TRUE));                                       
 
       utilities\deleteRevisionedRecord();
 

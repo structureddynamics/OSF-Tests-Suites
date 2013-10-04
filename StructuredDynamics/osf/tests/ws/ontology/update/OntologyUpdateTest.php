@@ -54,7 +54,7 @@
     {
       utilities\deleteOntology();      
     }      
-    
+
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          
@@ -2196,7 +2196,7 @@
       unset($ontologyUpdate);
       unset($settings);        
     }   
-    
+
     public function test_Class_Create_Update_Delete_Create_Revision()
     {
       
@@ -2286,7 +2286,7 @@
                    ->revisionUri($revisionUri)
                    ->mime('resultset')
                    ->send();
-                   
+
       $this->assertEquals($revisionRead->getStatus(), "200", "Debugging information: ".var_export($revisionRead, TRUE));                                       
                    
       $resultset = $revisionRead->getResultset()->getResultset();
@@ -2381,7 +2381,7 @@
       $this->assertEquals($revisionRead->getStatus(), "200", "Debugging information: ".var_export($ontologyUpdate, TRUE));                                       
                    
       $resultset = $revisionRead->getResultset()->getResultset();
-      
+
       $this->assertTrue($resultset[$settings->testOntologyUri]['http://test.com#test']['http://www.w3.org/2000/01/rdf-schema#label'][0]['value'] == 'test3');
       
       

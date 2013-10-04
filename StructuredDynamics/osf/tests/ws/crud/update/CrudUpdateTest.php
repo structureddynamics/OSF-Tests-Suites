@@ -44,7 +44,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/update/" . "wrong", 
                                    "post", 
                                    "text/xml",
-                                   "&document=" . urlencode(file_get_contents($settings->contentDir.'crud_update.n3')) .
+                                   "document=" . urlencode(file_get_contents($settings->contentDir.'crud_update.n3')) .
                                    "&mime=" . urlencode("application/rdf+n3") .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&lifecycle=" . urlencode("published") .
@@ -69,7 +69,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/update/", 
                                    "get", 
                                    "text/xml",
-                                   "&document=" . urlencode(file_get_contents($settings->contentDir.'crud_update.n3')) .
+                                   "document=" . urlencode(file_get_contents($settings->contentDir.'crud_update.n3')) .
                                    "&mime=" . urlencode("application/rdf+n3") .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&lifecycle=" . urlencode("published") .
@@ -98,7 +98,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "crud/update/", 
                                    "post", 
                                    "text/xml",
-                                   "&document=" . urlencode(file_get_contents($settings->contentDir.'crud_update.n3')) .
+                                   "document=" . urlencode(file_get_contents($settings->contentDir.'crud_update.n3')) .
                                    "&mime=" . urlencode("application/rdf+n3") .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&lifecycle=" . urlencode("unknown-lifecycle-stage") .
@@ -281,9 +281,9 @@
                  ->sourceInterfaceVersion($settings->crudUpdateInterfaceVersion)
                  ->send();
                            
-      $this->assertEquals($crudUpdate->getStatus(), "400", "Debugging information: ".var_export($crudUpdate, TRUE));                                       
-      $this->assertEquals($crudUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($crudUpdate, TRUE));
-      $this->assertEquals($crudUpdate->error->id, "WS-CRUD-UPDATE-202", "Debugging information: ".var_export($crudUpdate, TRUE));                                       
+      $this->assertEquals($crudUpdate->getStatus(), "403", "Debugging information: ".var_export($crudUpdate, TRUE));                                       
+      $this->assertEquals($crudUpdate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($crudUpdate, TRUE));
+      $this->assertEquals($crudUpdate->error->id, "WS-AUTH-VALIDATION-103", "Debugging information: ".var_export($crudUpdate, TRUE));                                       
 
       utilities\deleteUnrevisionedRecord();
       

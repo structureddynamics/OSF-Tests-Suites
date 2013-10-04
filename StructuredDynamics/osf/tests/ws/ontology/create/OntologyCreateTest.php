@@ -5,8 +5,9 @@
   use StructuredDynamics\osf\framework\WebServiceQuerier;
   use StructuredDynamics\osf\php\api\ws\ontology\create\OntologyCreateQuery;
   use StructuredDynamics\osf\php\api\ws\ontology\read\OntologyReadQuery;
-  use StructuredDynamics\osf\php\api\framework\CRUDPermission;
   use StructuredDynamics\osf\tests\Config;
+  use \StructuredDynamics\osf\php\api\framework\CRUDPermission;
+  use \StructuredDynamics\osf\php\api\ws\auth\registrar\access\AuthRegistrarAccessQuery;
   use StructuredDynamics\osf\tests as utilities;
    
   include_once("SplClassLoader.php");
@@ -42,7 +43,7 @@
     }      
     
     static private $outputs = array();
-
+    
     public function testWrongEndpointUrl() {
       
       $settings = new Config();          
@@ -51,7 +52,6 @@
                                    "post", 
                                    "text/xml",
                                    "uri=" . urlencode($settings->testOntologyUri) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True") .
                                    "&advancedIndexation=" . urlencode("True") .
                                    "&reasoner=" . urlencode("True") .
                                    "&interface=". urlencode($settings->ontologyCreateInterface) .
@@ -75,7 +75,6 @@
                                    "get", 
                                    "text/xml",
                                    "uri=" . urlencode($settings->testOntologyUri) .
-                                   "&globalPermissions=" . urlencode("True;True;True;True") .
                                    "&advancedIndexation=" . urlencode("True") .
                                    "&reasoner=" . urlencode("True") .
                                    "&interface=". urlencode($settings->ontologyCreateInterface) .
@@ -97,14 +96,10 @@
       $settings = new Config();  
 
       utilities\deleteOntology();
-                 
+       
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri($settings->testOntologyUri);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri($settings->testOntologyUri)
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface($settings->ontologyCreateInterface)
@@ -128,11 +123,7 @@
                  
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri($settings->testOntologyUri);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri($settings->testOntologyUri)
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface($settings->ontologyCreateInterface)
@@ -161,11 +152,7 @@
                  
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri($settings->testOntologyUri);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri($settings->testOntologyUri)
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface($settings->ontologyCreateInterface)
@@ -192,11 +179,7 @@
                  
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri($settings->testOntologyUri);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri($settings->testOntologyUri)
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface("default-not-existing")
@@ -221,11 +204,7 @@
                  
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri($settings->testOntologyUri);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri($settings->testOntologyUri)
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface($settings->ontologyCreateInterface)
@@ -249,11 +228,7 @@
       
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri($settings->testOntologyUri);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri($settings->testOntologyUri)
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface($settings->ontologyCreateInterface)
@@ -262,7 +237,25 @@
 
       $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
       
-      unset($ontologyCreate);    
+      unset($ontologyCreate);   
+      
+      // Create the permissions for the "administrators" group    
+      $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);      
+      
+      $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $authRegistrarAccess->create('', $settings->testOntologyUri, $crudPermissions, $settings->datasetWebservices)
+                          ->mime('text/xml')
+                          ->sourceInterface($settings->authRegistrarAccessInterface)
+                          ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                          ->send();
+                           
+      if(!$authRegistrarAccess->isSuccessful())
+      {
+        return(FALSE);
+      }
+      
+      unset($authRegistrarAccess);   
       
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
@@ -292,11 +285,7 @@
       
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri("");
-                     
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri("")
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface($settings->ontologyCreateInterface)
@@ -321,11 +310,7 @@
             
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri($settings->testOntologyUri);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri($settings->testOntologyUri)
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface($settings->ontologyCreateInterface)
@@ -349,11 +334,7 @@
       
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
-      $ontologyCreate->uri($settings->testInvalidOntologyUri);
-      
-      $permissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-      
-      $ontologyCreate->globalPermissions($permissions)
+      $ontologyCreate->uri($settings->testInvalidOntologyUri)
                      ->enableAdvancedIndexation()
                      ->enableReasoner()
                      ->sourceInterface($settings->ontologyCreateInterface)

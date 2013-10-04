@@ -243,7 +243,7 @@
    public function testDeletePublishedRevision() {
       
       $settings = new Config();  
-      
+
       utilities\deleteRevisionedRecord();
       
       $this->assertTrue(utilities\createRevisionedRecord(), "Can't create unrevisioned records...");

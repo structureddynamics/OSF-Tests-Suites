@@ -45,7 +45,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/read/" . "wrong", 
                                    "get", 
                                    "text/xml",
-                                   "&revuri=" . urlencode('') .
+                                   "revuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('revision') .
                                    "&interface=". urlencode($settings->revisionReadInterface) .
@@ -68,7 +68,7 @@
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/read/", 
                                    "post", 
                                    "text/xml",
-                                   "&revuri=" . urlencode('') .
+                                   "revuri=" . urlencode('') .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('revision') .
                                    "&interface=". urlencode($settings->revisionReadInterface) .
@@ -215,11 +215,11 @@
       $revuri = utilities\getLastRevisionUri('http://foo.com/datasets/tests/foo');
       
       $this->assertFalse($revuri === FALSE, "Debugging information: ".var_export($revuri, TRUE));                                       
-
+      
       $wsq = new WebServiceQuerier($settings->endpointUrl . "revision/read/", 
                                    "get", 
                                    "text/xml",
-                                   "&revuri=" . urlencode($revuri) .
+                                   "revuri=" . urlencode($revuri) .
                                    "&dataset=" . urlencode($settings->testDataset) .
                                    "&mode=" . urlencode('non-existing') .
                                    "&interface=". urlencode($settings->revisionReadInterface) .
