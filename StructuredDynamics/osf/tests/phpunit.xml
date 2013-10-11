@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<phpunit stopOnFailure="true">
+<phpunit stopOnFailure="false">
   <testsuites>
     <testsuite name="Authentication Webservice Endpoints">
       <file>REPLACEME/tests/ws/auth/lister/AuthListerTest.php</file>
