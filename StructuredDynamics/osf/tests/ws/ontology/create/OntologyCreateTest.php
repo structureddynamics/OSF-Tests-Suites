@@ -97,6 +97,24 @@
 
       utilities\deleteOntology();
        
+      // Create the permissions for the "administrators" group    
+      $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);      
+      
+      $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $authRegistrarAccess->create('', $settings->testOntologyUri, $crudPermissions, $settings->datasetWebservices)
+                          ->mime('text/xml')
+                          ->sourceInterface($settings->authRegistrarAccessInterface)
+                          ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                          ->send();
+                           
+      if(!$authRegistrarAccess->isSuccessful())
+      {
+        return(FALSE);
+      }
+      
+      unset($authRegistrarAccess);        
+       
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyCreate->uri($settings->testOntologyUri)
@@ -150,6 +168,24 @@
 
       utilities\deleteOntology();
                  
+      // Create the permissions for the "administrators" group    
+      $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);      
+      
+      $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $authRegistrarAccess->create('', $settings->testOntologyUri, $crudPermissions, $settings->datasetWebservices)
+                          ->mime('text/xml')
+                          ->sourceInterface($settings->authRegistrarAccessInterface)
+                          ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                          ->send();
+                           
+      if(!$authRegistrarAccess->isSuccessful())
+      {
+        return(FALSE);
+      }
+      
+      unset($authRegistrarAccess);                  
+                 
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyCreate->uri($settings->testOntologyUri)
@@ -177,6 +213,24 @@
 
       utilities\deleteOntology();
                  
+      // Create the permissions for the "administrators" group    
+      $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);      
+      
+      $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $authRegistrarAccess->create('', $settings->testOntologyUri, $crudPermissions, $settings->datasetWebservices)
+                          ->mime('text/xml')
+                          ->sourceInterface($settings->authRegistrarAccessInterface)
+                          ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                          ->send();
+                           
+      if(!$authRegistrarAccess->isSuccessful())
+      {
+        return(FALSE);
+      }
+      
+      unset($authRegistrarAccess);                  
+                 
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyCreate->uri($settings->testOntologyUri)
@@ -202,6 +256,24 @@
         
       utilities\deleteOntology();
                  
+      // Create the permissions for the "administrators" group    
+      $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);      
+      
+      $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $authRegistrarAccess->create('', $settings->testOntologyUri, $crudPermissions, $settings->datasetWebservices)
+                          ->mime('text/xml')
+                          ->sourceInterface($settings->authRegistrarAccessInterface)
+                          ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                          ->send();
+                           
+      if(!$authRegistrarAccess->isSuccessful())
+      {
+        return(FALSE);
+      }
+      
+      unset($authRegistrarAccess);                  
+                 
       $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
       $ontologyCreate->uri($settings->testOntologyUri)
@@ -226,19 +298,6 @@
       // Make sure the ontology doesn't exists
       utilities\deleteOntology();
       
-      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
-      
-      $ontologyCreate->uri($settings->testOntologyUri)
-                     ->enableAdvancedIndexation()
-                     ->enableReasoner()
-                     ->sourceInterface($settings->ontologyCreateInterface)
-                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
-                     ->send();          
-
-      $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
-      
-      unset($ontologyCreate);   
-      
       // Create the permissions for the "administrators" group    
       $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);      
       
@@ -255,7 +314,20 @@
         return(FALSE);
       }
       
-      unset($authRegistrarAccess);   
+      unset($authRegistrarAccess);         
+      
+      $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $ontologyCreate->uri($settings->testOntologyUri)
+                     ->enableAdvancedIndexation()
+                     ->enableReasoner()
+                     ->sourceInterface($settings->ontologyCreateInterface)
+                     ->sourceInterfaceVersion($settings->ontologyCreateInterfaceVersion)
+                     ->send();          
+
+      $this->assertEquals($ontologyCreate->getStatus(), "200", "Debugging information: ".var_export($ontologyCreate, TRUE));                                       
+      
+      unset($ontologyCreate);   
       
       $ontologyRead = new OntologyReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       

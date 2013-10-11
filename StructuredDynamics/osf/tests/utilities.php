@@ -372,6 +372,22 @@
     $settings = new Config();     
         
     $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);         
+    
+    // Create the permissions for the "administrators" group    
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+    
+    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarAccess->create($settings->adminGroup, $settings->testOntologyUri, $crudPermissions, $settings->datasetWebservices)
+                        ->mime('text/xml')
+                        ->sourceInterface($settings->authRegistrarAccessInterface)
+                        ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                        ->send();
+                         
+    if(!$authRegistrarAccess->isSuccessful())
+    {
+      return(FALSE);
+    }      
                                  
     $ontologyCreate = new OntologyCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
     
@@ -395,22 +411,6 @@
     {            
       return(FALSE);
     }
-    
-    // Create the permissions for the "administrators" group    
-    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
-    
-    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
-    
-    $authRegistrarAccess->create($settings->adminGroup, $settings->testOntologyUri, $crudPermissions, $settings->datasetWebservices)
-                        ->mime('text/xml')
-                        ->sourceInterface($settings->authRegistrarAccessInterface)
-                        ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
-                        ->send();
-                         
-    if(!$authRegistrarAccess->isSuccessful())
-    {
-      return(FALSE);
-    }      
     
     return(TRUE);                                 
   }  
