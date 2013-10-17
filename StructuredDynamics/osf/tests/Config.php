@@ -517,6 +517,9 @@
             <predicate type="dcterms:created">
               <object type="rdfs:Literal">'.date("Y-n-j").'</object>
             </predicate>
+            <predicate type="wsf:holdOntology">
+              <object type="rdfs:Literal">false</object>
+            </predicate>            
           </subject>
         </resultset>      
       ';
@@ -546,6 +549,9 @@
                   <predicate type="dcterms:modified">
                       <object type="rdfs:Literal">'.date("Y-n-j").'</object>
                   </predicate>
+                  <predicate type="wsf:holdOntology">
+                    <object type="rdfs:Literal">false</object>
+                  </predicate>            
                   <predicate type="dcterms:contributor">
                       <object type="sioc:User" uri="http://test.com/user/bob'.$this->datasetUpdateString.'/" />
                   </predicate>
@@ -585,7 +591,10 @@
                   },
                   {
                     "dcterms:title": "This is a testing dataset"
-                  }
+                  },
+                  {
+                    "wsf:holdOntology": "false"
+                  }                  
                 ]
               }
             ]
@@ -600,6 +609,7 @@
                 <dcterms:description>This is a testing dataset</dcterms:description>
                 <dcterms:creator rdf:resource="http://test.com/user/bob/" />
                 <dcterms:created>'.date("Y-n-j").'</dcterms:created>
+                <wsf:holdOntology>false</wsf:holdOntology>
             </void:Dataset>
         </rdf:RDF>      
       ';
@@ -615,6 +625,7 @@
           dcterms:title """This is a testing dataset""" ;
           dcterms:description """This is a testing dataset""" ;
           dcterms:created """'.date("Y-n-j").'""" ;
+          wsf:holdOntology """false""" ;
           dcterms:creator <http://test.com/user/bob/> .      
       ';
     }
