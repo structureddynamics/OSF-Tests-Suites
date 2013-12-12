@@ -17,7 +17,7 @@ Note that these tests suites are under development and they are not covering all
 You can install and configure the system integration tests using a simple shell script. You only have to perform these four four steps by copying and pasting these few commands in your shell terminal:
 
 # <code>cd /mnt/</code>
-# <code>sudo wget https://raw.github.com/StructuredDynamics/osf-Tests-Suites/master/system-integration-tests.sh</code>
+# <code>sudo wget https://raw.github.com/StructuredDynamics/OSF-Tests-Suites/master/system-integration-tests.sh</code>
 # <code>sudo chmod 755 system-integration-tests.sh</code>
 # <code>sudo ./system-integration-tests.sh</code>
 

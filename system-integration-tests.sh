@@ -45,7 +45,7 @@ read NEWOSFFOLDER
 OSFFOLDER=$(echo "${OSFFOLDER}" | sed -e "s/\/*$//")
 
 
-OSFPHPAPIDOWNLOADURL="https://github.com/StructuredDynamics/osf-PHP-API/zipball/master"
+OSFPHPAPIDOWNLOADURL="https://github.com/StructuredDynamics/OSF-Web-Services-PHP-API/zipball/master"
 
 echo -e "\n\n"
 cecho "----------------------------------"
@@ -58,7 +58,7 @@ echo -e "\n\n"
 sudo wget $OSFPHPAPIDOWNLOADURL
 
 while [ $? -ne 0 ]; do
-  cecho "Connection error while downloading the latest version of the OSF-PHP-API; retrying...\n" yellow
+  cecho "Connection error while downloading the latest version of the OSF-WS-PHP-API; retrying...\n" yellow
   sudo rm -rf master.zip
   sudo wget $OSFPHPAPIDOWNLOADURL
 done
@@ -103,12 +103,12 @@ cd tests
 
 cecho "\n\nDownload the latest system integration tests for OSF...\n"
 
-sudo wget https://github.com/StructuredDynamics/osf-Tests-Suites/zipball/master
+sudo wget https://github.com/StructuredDynamics/OSF-Tests-Suites/zipball/master
 
 while [ $? -ne 0 ]; do
   cecho "Connection error while downloading the latest version of the OSF Tests Suites; retrying...\n" yellow
   sudo rm -rf master.zip
-  sudo wget https://github.com/StructuredDynamics/osf-Tests-Suites/zipball/master
+  sudo wget https://github.com/StructuredDynamics/OSF-Tests-Suites/zipball/master
 done
 
 unzip master
