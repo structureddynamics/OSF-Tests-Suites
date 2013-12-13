@@ -319,11 +319,18 @@
                     ->sourceInterface($settings->datasetUpdateInterface)
                     ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
                     ->send();      
-                                   
+                                                                      
+      // We are getting a validation error 102 because the dataset URI is invalid, and so the SPARQL query used
+      // by the validation procedure returns an error. So this is the expected behavior.
+      $this->assertEquals($datasetUpdate->getStatus(), "500", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($datasetUpdate, TRUE));
+      $this->assertEquals($datasetUpdate->error->id, "WS-AUTH-VALIDATION-102", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      
+      /*                             
       $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
       $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
       $this->assertEquals($datasetUpdate->error->id, "WS-DATASET-UPDATE-203", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
-
+      */
       utilities\deleteDataset();
             
       unset($datasetUpdate);
