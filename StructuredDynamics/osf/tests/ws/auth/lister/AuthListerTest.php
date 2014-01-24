@@ -159,7 +159,7 @@
             
             $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
             
-            $authLister->getDatasetUsersAccesses("")
+            $authLister->getDatasetGroupsAccesses("")
                        ->mime("text/xml")
                        ->sourceInterface($settings->authListerInterface)
                        ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -535,7 +535,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeAllWebServiceUris()
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -560,7 +560,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeAllWebServiceUris()
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -585,7 +585,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeAllWebServiceUris()
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -610,7 +610,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeAllWebServiceUris()
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -635,7 +635,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
                      ->includeNoWebServiceUris()
@@ -660,7 +660,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeNoWebServiceUris()
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -685,7 +685,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeNoWebServiceUris()
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -710,7 +710,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeNoWebServiceUris()
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -735,7 +735,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("text/xml")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -760,7 +760,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/json")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -785,7 +785,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+xml")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
@@ -810,7 +810,7 @@
           $authLister = new AuthListerQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
           
           $authLister->mime("application/rdf+n3")
-                     ->getDatasetUsersAccesses($settings->testDataset)
+                     ->getDatasetGroupsAccesses($settings->testDataset)
                      ->includeTargerWebServiceUri($settings->endpointUri."crud/create/")
                      ->sourceInterface($settings->authListerInterface)
                      ->sourceInterfaceVersion($settings->authListerInterfaceVersion)
