@@ -182,8 +182,8 @@
   function compareRdf($actual, $expected, $removeReification = FALSE)
   {    
     // fix possible blank node references
-    $actual = str_replace('bnode:', "_:", $actual);
-    $expected = str_replace('bnode:', "_:", $expected);
+    $actual = str_replace('bnode:', "_:b", $actual);
+    $expected = str_replace('bnode:', "_:b", $expected);
     
     $settings = new Config(); 
     
