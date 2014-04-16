@@ -6603,6 +6603,19 @@
                                               ns0:faxNumber """204-885-3217""" ;
                                               ns0:numberOfTeachers """10""" .
 
-
+<http://now.winnipeg.ca/datasets/Sports_and_recreation_facilities/168> iron:prefLabel "Vimy Arena";
+  ns0:complexLocation "N/S Hamilton Av at Vimy Rd";
+  ns0:effectiveFromDate "01/01/2000";
+  ns0:effectiveToDate "01/01/3000";
+  ns0:maintainedBy "City";
+  ns0:operatedBy "City";
+  ns0:ownedBy "City";
+  ns0:streetAddress "255 Hamilton Ave";
+  sco:namedEntity "true";
+  geonames:locatedIn <http://now.winnipeg.ca/datasets/neighbourhoods/2.21>;
+  a ns0:Sports_and_recreation_facilities;
+  geo:alt "0.0";
+  geo:lat "49.8931296971071";
+  geo:long "-97.2897201804577".
                                                        
                                                        

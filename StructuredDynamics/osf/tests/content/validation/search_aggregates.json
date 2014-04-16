@@ -1,971 +1,1009 @@
 {
   "prefixes": {
-    "owl": "http://www.w3.org/2002/07/owl#",
-    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
-    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
-    "iron": "http://purl.org/ontology/iron#",
-    "xsd": "http://www.w3.org/2001/XMLSchema#",
-    "wsf": "http://purl.org/ontology/wsf#",
-    "aggr": "http://purl.org/ontology/aggregate#",
-    "ns0": "http://purl.org/ontology/now#",
-    "dcterms": "http://purl.org/dc/terms/",
-    "sco": "http://purl.org/ontology/sco#",
-    "geoname": "http://www.geonames.org/ontology#",
-    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+    "owl": "http://www.w3.org/2002/07/owl#", 
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#", 
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#", 
+    "iron": "http://purl.org/ontology/iron#", 
+    "xsd": "http://www.w3.org/2001/XMLSchema#", 
+    "wsf": "http://purl.org/ontology/wsf#", 
+    "aggr": "http://purl.org/ontology/aggregate#", 
+    "ns0": "http://purl.org/ontology/now#", 
+    "dcterms": "http://purl.org/dc/terms/", 
+    "sco": "http://purl.org/ontology/sco#", 
+    "geoname": "http://www.geonames.org/ontology#", 
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#", 
     "foaf": "http://xmlns.com/foaf/0.1/"
-  },
+  }, 
   "resultset": {
     "subject": [
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/0d9d538c674ce2590d675e51d2a2a1da",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "296"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#Schools"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/0d9d538c674ce2590d675e51d2a2a1da", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "296" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#Schools" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/da3c4fe4dc366cc0f966864caa710e67",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "236"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#Neighbourhood"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/da3c4fe4dc366cc0f966864caa710e67", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "236" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#Neighbourhood" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/2f01bcb652dd0e8d8a72116c7879aab2",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#Arenas"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/2f01bcb652dd0e8d8a72116c7879aab2", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "30" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#Arenas" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/1efe853385bd7e60ae1be622bcd93e65",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "562"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://test.com/unittests/"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://rdfs.org/ns/void#Dataset"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/726fc0397866f6938ebf03cbc7db7561", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "1" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#Sports_and_recreation_facilities" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/82e15185b9b66d0e876360986759c816",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "562"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/iron#prefLabel"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/726beb2219f270505039ad19044539f4", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "563" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://test.com/unittests/" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://rdfs.org/ns/void#Dataset" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/d7151954c063b65117e3ae9469565e45",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "562"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/sco#geohash"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/84aff0565f7da00d419f65f49879fd1a", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "563" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/iron#prefLabel" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/6ef1a739df9ad5f5c4e290987afa359d",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "562"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/sco#namedEntity"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/ab24474a3a17f0572f482e6c6c0b2b29", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "563" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/sco#geohash" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/4510d0bfcdedfe89b3895fcdaf462c4c",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "562"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/6f21f73e7e24b57ae82c3971c99d0fcd", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "563" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/sco#namedEntity" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/895a1449b42cd2ac906129898d3e236f",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "562"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#alt"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/7abb4006d6fbcdae22b51b0856ae23cd", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "563" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/2520f33194ff97c06f1179c3167f2f0f",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "562"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#lat"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/3e7bfa851eab17087c4d30b6bf44ea9f", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "563" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#alt" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/4bbf165c727b3bd104a0508ffe07bea3",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "562"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#long"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/06bb685b5e51e991aa50a41fbba43a51", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "563" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#lat" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/8b9eb6508617dd9ec1ab17aa01fcd87e",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "326"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#streetAddress"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/d165b15d8463950927aa4922b08cc268", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "563" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://www.w3.org/2003/01/geo/wgs84_pos#long" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/8c960980cd563f93c6ffdcf29d04f81f",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "326"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://www.geonames.org/ontology#locatedIn"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/4ccd3e314f3f06454fbeff3ab034e7c3", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "327" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#streetAddress" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/29868ce417d222097420bd54e7f001c9",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "296"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#faxNumber"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/421937f8e7d214af8d6ce5a55fd53a57", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "327" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://www.geonames.org/ontology#locatedIn" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/d852354fd63e1e9ef9da8800c38f3652",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "296"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#numberOfStudents"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/29868ce417d222097420bd54e7f001c9", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "296" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#faxNumber" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/919b35b71165f793d334e0e3f66d6e9d",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "296"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#numberOfTeachers"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/d852354fd63e1e9ef9da8800c38f3652", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "296" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#numberOfStudents" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/ce48fc3c7b44eacf74728acd3dbaacd8",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "296"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#phoneNumber"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/919b35b71165f793d334e0e3f66d6e9d", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "296" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#numberOfTeachers" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/a27e1ce969d8b28ef55f96e6121b1f97",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "296"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#schoolDivision"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/ce48fc3c7b44eacf74728acd3dbaacd8", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "296" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#phoneNumber" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/d19fcc80425c59bbec8112bb331c6e14",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "294"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#gradeLevel"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/a27e1ce969d8b28ef55f96e6121b1f97", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "296" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#schoolDivision" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/299d8ceec944bf1d22a4b868b4770b3d",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "236"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#neighbourhoodNumber"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/d19fcc80425c59bbec8112bb331c6e14", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "294" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#gradeLevel" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/ac6ea828114878dbc0d7f04ab2d2663b",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "236"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/sco#polygonCoordinates"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/299d8ceec944bf1d22a4b868b4770b3d", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "236" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#neighbourhoodNumber" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/5961eaad9d450de4cfeded6356d02da2",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#effectiveFromDate"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/ac6ea828114878dbc0d7f04ab2d2663b", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "236" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/sco#polygonCoordinates" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/f2dc2c2f54fd5c632b59d0df7fee9db9",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#effectiveToDate"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/cdfc3d8651233ceeb43cfa266c44797d", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "31" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#effectiveFromDate" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/244b6cebcb27ea00c6aa56a49a0b1189",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#hasConcession"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/8c7e1a0d09d1df432e034f0ac46f4b37", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "31" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#effectiveToDate" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/53b837bbaddd914ea1af059ce1909347",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#hasParkingLot"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/7c333e29c7915d1053daec35dc09f993", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "31" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#maintainedBy" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/88d9fc8022649b9722f8753c547edd93",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#hasSkateSharpening"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/426ee9f4eb7fcd27a88d995cc4390e6f", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "31" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#operatedBy" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/8c6bac4fe9192a51727dd36efa15eb61",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#hasVendingMachines"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/d229619157cb93745127e8305f2bbe34", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "31" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#ownedBy" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/18af3231b1c59c1b3d735f992d7b2cd8",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#iceSurfaceCount"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/244b6cebcb27ea00c6aa56a49a0b1189", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "30" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#hasConcession" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/a2ca8bac65aec3407174ab45a3b35b9b",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#isOpen"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/53b837bbaddd914ea1af059ce1909347", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "30" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#hasParkingLot" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/16588aeca26e425673bd3d8e47dc14f7",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#maintainedBy"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/88d9fc8022649b9722f8753c547edd93", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "30" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#hasSkateSharpening" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/81ad6934523f74907d33b5ae4e7e2356",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#memberOfComplex"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/8c6bac4fe9192a51727dd36efa15eb61", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "30" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#hasVendingMachines" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/7de192287536c8162772db1424813018",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#operatedBy"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/18af3231b1c59c1b3d735f992d7b2cd8", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "30" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#iceSurfaceCount" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/5d5757da3adf172a2c1d45ed9529fd4f",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "30"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#ownedBy"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/a2ca8bac65aec3407174ab45a3b35b9b", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "30" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#isOpen" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/96d988ac2f47db638f6f789645491381",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "28"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://xmlns.com/foaf/0.1/homepage"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/81ad6934523f74907d33b5ae4e7e2356", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "30" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#memberOfComplex" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/afca05f9a9dec28a63cbf8655686d5bb",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "18"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#seasonEndDate"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/96d988ac2f47db638f6f789645491381", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "28" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://xmlns.com/foaf/0.1/homepage" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/b246c006d2cd2f76ed04b768a34aefb1",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "15"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#skateSharpeningDesc"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/afca05f9a9dec28a63cbf8655686d5bb", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "18" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#seasonEndDate" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/db43eb590a57ae4566a41168402a4a28",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "15"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#vendingMachinesDesc"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/b246c006d2cd2f76ed04b768a34aefb1", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "15" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#skateSharpeningDesc" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/9e537f4e1ab7ad1ecb269340478080f7",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "13"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#closedReason"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/db43eb590a57ae4566a41168402a4a28", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "15" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#vendingMachinesDesc" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/73e91f83a0defbd44d195f029dfead29",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "13"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#concessionDesc"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/9e537f4e1ab7ad1ecb269340478080f7", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "13" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#closedReason" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/955d9efe57585d31ac46e7b1adf86e82",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "3"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/now#seasonStartDate"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/73e91f83a0defbd44d195f029dfead29", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "13" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#concessionDesc" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/154c70928a9cf73245e4d8473411ad64",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "1"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/iron#altLabel"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/955d9efe57585d31ac46e7b1adf86e82", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "3" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#seasonStartDate" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/61d009f2303cd570dbef60498a693286",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "1"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/iron#description"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/154c70928a9cf73245e4d8473411ad64", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "1" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/iron#altLabel" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "--ENDPOINT-URI--search/aggregate/0a6d821371799916f86a784a408c1c76",
-        "type": "aggr:Aggregate",
-        "predicate": [
-          {
-            "aggr:count": "1"
-          },
-          {
-            "aggr:object": {
-              "uri": "http://purl.org/ontology/sco#polylineCoordinates"
-            }
-          },
-          {
-            "aggr:property": {
-              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property"
-            }
+        "uri": "--ENDPOINT-URI--search/aggregate/61d009f2303cd570dbef60498a693286", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "1" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/iron#description" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "http://now.winnipeg.ca/datasets/neighbourhoods/1.612",
-        "type": "ns0:Neighbourhood",
-        "predicate": [
-          {
-            "iron:altLabel": "Alternative Crescent Park"
-          },
-          {
-            "iron:description": "A neighbourhood"
-          },
-          {
-            "dcterms:isPartOf": {
-              "uri": "http://test.com/unittests/"
-            }
-          },
-          {
-            "ns0:neighbourhoodNumber": "1.612"
-          },
-          {
-            "sco:namedEntity": "true"
-          },
-          {
-            "sco:polygonCoordinates": "-97.1502108848303,49.8342167792977,0.0 -97.1518193909584,49.8292323226984,0.0 -97.1519199028753,49.8289207864387,0.0 -97.1520888140138,49.8278222105298,0.0 -97.151834885376,49.8279081743182,0.0 -97.1508769121527,49.8282324741749,0.0 -97.150721187586,49.8282851899855,0.0 -97.1496429288643,49.8286501926786,0.0 -97.1485260380593,49.8290282562439,0.0 -97.1485134446877,49.8293580569324,0.0 -97.1484617587054,49.829817021394,0.0 -97.1482489189151,49.8304017439041,0.0 -97.1480085676013,49.8308466443979,0.0 -97.1476624854841,49.8312388608819,0.0 -97.147286556339,49.8315524092791,0.0 -97.1468630473377,49.8317700079226,0.0 -97.1464062563654,49.8319301300386,0.0 -97.1456032049778,49.8321085064625,0.0 -97.1446423207335,49.8322223083404,0.0 -97.1436857372647,49.8322579813064,0.0 -97.1429306535627,49.8322127367803,0.0 -97.1421666176238,49.8320925534832,0.0 -97.1406268272047,49.8318154383976,0.0 -97.1395197226894,49.8315622485388,0.0 -97.1387801241417,49.8314220377996,0.0 -97.1376519883278,49.8312721787961,0.0 -97.136486709121,49.831165905732,0.0 -97.135604745942,49.831140669912,0.0 -97.1346412662733,49.8312534971993,0.0 -97.1337725743247,49.8314978764113,0.0 -97.1328846868405,49.8318651739865,0.0 -97.1321389081606,49.8323290934874,0.0 -97.1317638571598,49.8326511050073,0.0 -97.1314671956824,49.8329845780918,0.0 -97.1312308137066,49.8334244090175,0.0 -97.1310836795671,49.8341053480562,0.0 -97.1311160976902,49.8345937080477,0.0 -97.1313139769755,49.8350847364113,0.0 -97.1317144017447,49.8357073636202,0.0 -97.1318780013266,49.8359175003061,0.0 -97.132266556027,49.8364165741523,0.0 -97.1328089874086,49.8369692454726,0.0 -97.1332955633919,49.8373688840883,0.0 -97.1340282052411,49.8378965671082,0.0 -97.1360128947467,49.8392177914707,0.0 -97.1367284158225,49.8397137356916,0.0 -97.1371759532434,49.840139076409,0.0 -97.1374229579419,49.8405849892062,0.0 -97.1375655834247,49.8411482083707,0.0 -97.1375607918502,49.8414438927499,0.0 -97.1375169660248,49.8417635965349,0.0 -97.1372463303348,49.8422742792176,0.0 -97.1369212227058,49.8426634012801,0.0 -97.1364559936468,49.8430052250715,0.0 -97.1361314624418,49.8431512482871,0.0 -97.1365572430435,49.8436595835495,0.0 -97.1371305051816,49.8443439765368,0.0 -97.1372110902621,49.8444401818409,0.0 -97.1370761524071,49.8444874488225,0.0 -97.1381255514547,49.8457358688286,0.0 -97.1397395967142,49.846017936819,0.0 -97.1534885762348,49.841364931484,0.0 -97.1513071841951,49.8386288463042,0.0 -97.1502108848303,49.8342167792977,0.0"
-          },
-          {
-            "sco:polylineCoordinates": "-97.1502108848303,49.8342167792977,0.0 -97.1518193909584,49.8292323226984,0.0 -97.1519199028753,49.8289207864387,0.0 -97.1520888140138,49.8278222105298,0.0 -97.151834885376,49.8279081743182,0.0 -97.1508769121527,49.8282324741749,0.0 -97.150721187586,49.8282851899855,0.0 -97.1496429288643,49.8286501926786,0.0 -97.1485260380593,49.8290282562439,0.0 -97.1485134446877,49.8293580569324,0.0 -97.1484617587054,49.829817021394,0.0 -97.1482489189151,49.8304017439041,0.0 -97.1480085676013,49.8308466443979,0.0 -97.1476624854841,49.8312388608819,0.0 -97.147286556339,49.8315524092791,0.0 -97.1468630473377,49.8317700079226,0.0 -97.1464062563654,49.8319301300386,0.0 -97.1456032049778,49.8321085064625,0.0 -97.1446423207335,49.8322223083404,0.0 -97.1436857372647,49.8322579813064,0.0 -97.1429306535627,49.8322127367803,0.0 -97.1421666176238,49.8320925534832,0.0 -97.1406268272047,49.8318154383976,0.0 -97.1395197226894,49.8315622485388,0.0 -97.1387801241417,49.8314220377996,0.0 -97.1376519883278,49.8312721787961,0.0 -97.136486709121,49.831165905732,0.0 -97.135604745942,49.831140669912,0.0 -97.1346412662733,49.8312534971993,0.0 -97.1337725743247,49.8314978764113,0.0 -97.1328846868405,49.8318651739865,0.0 -97.1321389081606,49.8323290934874,0.0 -97.1317638571598,49.8326511050073,0.0 -97.1314671956824,49.8329845780918,0.0 -97.1312308137066,49.8334244090175,0.0 -97.1310836795671,49.8341053480562,0.0 -97.1311160976902,49.8345937080477,0.0 -97.1313139769755,49.8350847364113,0.0 -97.1317144017447,49.8357073636202,0.0 -97.1318780013266,49.8359175003061,0.0 -97.132266556027,49.8364165741523,0.0 -97.1328089874086,49.8369692454726,0.0 -97.1332955633919,49.8373688840883,0.0 -97.1340282052411,49.8378965671082,0.0 -97.1360128947467,49.8392177914707,0.0 -97.1367284158225,49.8397137356916,0.0 -97.1371759532434,49.840139076409,0.0 -97.1374229579419,49.8405849892062,0.0 -97.1375655834247,49.8411482083707,0.0 -97.1375607918502,49.8414438927499,0.0 -97.1375169660248,49.8417635965349,0.0 -97.1372463303348,49.8422742792176,0.0 -97.1369212227058,49.8426634012801,0.0 -97.1364559936468,49.8430052250715,0.0 -97.1361314624418,49.8431512482871,0.0 -97.1365572430435,49.8436595835495,0.0 -97.1371305051816,49.8443439765368,0.0 -97.1372110902621,49.8444401818409,0.0 -97.1370761524071,49.8444874488225,0.0 -97.1381255514547,49.8457358688286,0.0 -97.1397395967142,49.846017936819,0.0 -97.1534885762348,49.841364931484,0.0 -97.1513071841951,49.8386288463042,0.0 -97.1502108848303,49.8342167792977,0.0"
-          },
-          {
-            "iron:prefLabel": "Crescent Park"
+        "uri": "--ENDPOINT-URI--search/aggregate/1931a13003c068d8adc7cb18ec67cc7b", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "1" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/now#complexLocation" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
           }
-        ]
-      },
+        ] 
+      }, 
       {
-        "uri": "http://now.winnipeg.ca/datasets/Arenas/11",
-        "type": "ns0:Arenas",
-        "predicate": [
-          {
-            "dcterms:isPartOf": {
-              "uri": "http://test.com/unittests/"
-            }
-          },
-          {
-            "ns0:closedReason": "for season"
-          },
-          {
-            "ns0:concessionDesc": "Vacant"
-          },
-          {
-            "ns0:effectiveFromDate": "01/01/2000"
-          },
-          {
-            "ns0:effectiveToDate": "01/01/3000"
-          },
-          {
-            "ns0:hasConcession": "Yes"
-          },
-          {
-            "ns0:hasParkingLot": "No"
-          },
-          {
-            "ns0:hasSkateSharpening": "Yes"
-          },
-          {
-            "ns0:hasVendingMachines": "Yes"
-          },
-          {
-            "ns0:iceSurfaceCount": "1"
-          },
-          {
-            "ns0:isOpen": "No"
-          },
-          {
-            "ns0:maintainedBy": "City"
-          },
-          {
-            "ns0:memberOfComplex": {
-              "uri": "http://now.winnipeg.ca/datasets/Sports_and_recreation_facilities/168",
-              "reify": [
-                {
-                  "type": "wsf:objectLabel",
-                  "value": "168"
+        "uri": "--ENDPOINT-URI--search/aggregate/0a6d821371799916f86a784a408c1c76", 
+        "type": "aggr:Aggregate", 
+        "predicate": [  
+          { 
+            "aggr:count": "1" 
+          }, 
+          { 
+            "aggr:object": { 
+              "uri": "http://purl.org/ontology/sco#polylineCoordinates" 
+            } 
+          }, 
+          { 
+            "aggr:property": { 
+              "uri": "http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" 
+            } 
+          }
+        ] 
+      }, 
+      {
+        "uri": "http://now.winnipeg.ca/datasets/neighbourhoods/1.612", 
+        "type": "ns0:Neighbourhood", 
+        "predicate": [  
+          { 
+            "iron:altLabel": "Alternative Crescent Park" 
+          }, 
+          { 
+            "iron:description": "A neighbourhood" 
+          }, 
+          { 
+            "dcterms:isPartOf": { 
+              "uri": "http://test.com/unittests/" 
+            } 
+          }, 
+          { 
+            "ns0:neighbourhoodNumber": "1.612" 
+          }, 
+          { 
+            "sco:namedEntity": "true" 
+          }, 
+          { 
+            "sco:polygonCoordinates": "-97.1502108848303,49.8342167792977,0.0 -97.1518193909584,49.8292323226984,0.0 -97.1519199028753,49.8289207864387,0.0 -97.1520888140138,49.8278222105298,0.0 -97.151834885376,49.8279081743182,0.0 -97.1508769121527,49.8282324741749,0.0 -97.150721187586,49.8282851899855,0.0 -97.1496429288643,49.8286501926786,0.0 -97.1485260380593,49.8290282562439,0.0 -97.1485134446877,49.8293580569324,0.0 -97.1484617587054,49.829817021394,0.0 -97.1482489189151,49.8304017439041,0.0 -97.1480085676013,49.8308466443979,0.0 -97.1476624854841,49.8312388608819,0.0 -97.147286556339,49.8315524092791,0.0 -97.1468630473377,49.8317700079226,0.0 -97.1464062563654,49.8319301300386,0.0 -97.1456032049778,49.8321085064625,0.0 -97.1446423207335,49.8322223083404,0.0 -97.1436857372647,49.8322579813064,0.0 -97.1429306535627,49.8322127367803,0.0 -97.1421666176238,49.8320925534832,0.0 -97.1406268272047,49.8318154383976,0.0 -97.1395197226894,49.8315622485388,0.0 -97.1387801241417,49.8314220377996,0.0 -97.1376519883278,49.8312721787961,0.0 -97.136486709121,49.831165905732,0.0 -97.135604745942,49.831140669912,0.0 -97.1346412662733,49.8312534971993,0.0 -97.1337725743247,49.8314978764113,0.0 -97.1328846868405,49.8318651739865,0.0 -97.1321389081606,49.8323290934874,0.0 -97.1317638571598,49.8326511050073,0.0 -97.1314671956824,49.8329845780918,0.0 -97.1312308137066,49.8334244090175,0.0 -97.1310836795671,49.8341053480562,0.0 -97.1311160976902,49.8345937080477,0.0 -97.1313139769755,49.8350847364113,0.0 -97.1317144017447,49.8357073636202,0.0 -97.1318780013266,49.8359175003061,0.0 -97.132266556027,49.8364165741523,0.0 -97.1328089874086,49.8369692454726,0.0 -97.1332955633919,49.8373688840883,0.0 -97.1340282052411,49.8378965671082,0.0 -97.1360128947467,49.8392177914707,0.0 -97.1367284158225,49.8397137356916,0.0 -97.1371759532434,49.840139076409,0.0 -97.1374229579419,49.8405849892062,0.0 -97.1375655834247,49.8411482083707,0.0 -97.1375607918502,49.8414438927499,0.0 -97.1375169660248,49.8417635965349,0.0 -97.1372463303348,49.8422742792176,0.0 -97.1369212227058,49.8426634012801,0.0 -97.1364559936468,49.8430052250715,0.0 -97.1361314624418,49.8431512482871,0.0 -97.1365572430435,49.8436595835495,0.0 -97.1371305051816,49.8443439765368,0.0 -97.1372110902621,49.8444401818409,0.0 -97.1370761524071,49.8444874488225,0.0 -97.1381255514547,49.8457358688286,0.0 -97.1397395967142,49.846017936819,0.0 -97.1534885762348,49.841364931484,0.0 -97.1513071841951,49.8386288463042,0.0 -97.1502108848303,49.8342167792977,0.0" 
+          }, 
+          { 
+            "sco:polylineCoordinates": "-97.1502108848303,49.8342167792977,0.0 -97.1518193909584,49.8292323226984,0.0 -97.1519199028753,49.8289207864387,0.0 -97.1520888140138,49.8278222105298,0.0 -97.151834885376,49.8279081743182,0.0 -97.1508769121527,49.8282324741749,0.0 -97.150721187586,49.8282851899855,0.0 -97.1496429288643,49.8286501926786,0.0 -97.1485260380593,49.8290282562439,0.0 -97.1485134446877,49.8293580569324,0.0 -97.1484617587054,49.829817021394,0.0 -97.1482489189151,49.8304017439041,0.0 -97.1480085676013,49.8308466443979,0.0 -97.1476624854841,49.8312388608819,0.0 -97.147286556339,49.8315524092791,0.0 -97.1468630473377,49.8317700079226,0.0 -97.1464062563654,49.8319301300386,0.0 -97.1456032049778,49.8321085064625,0.0 -97.1446423207335,49.8322223083404,0.0 -97.1436857372647,49.8322579813064,0.0 -97.1429306535627,49.8322127367803,0.0 -97.1421666176238,49.8320925534832,0.0 -97.1406268272047,49.8318154383976,0.0 -97.1395197226894,49.8315622485388,0.0 -97.1387801241417,49.8314220377996,0.0 -97.1376519883278,49.8312721787961,0.0 -97.136486709121,49.831165905732,0.0 -97.135604745942,49.831140669912,0.0 -97.1346412662733,49.8312534971993,0.0 -97.1337725743247,49.8314978764113,0.0 -97.1328846868405,49.8318651739865,0.0 -97.1321389081606,49.8323290934874,0.0 -97.1317638571598,49.8326511050073,0.0 -97.1314671956824,49.8329845780918,0.0 -97.1312308137066,49.8334244090175,0.0 -97.1310836795671,49.8341053480562,0.0 -97.1311160976902,49.8345937080477,0.0 -97.1313139769755,49.8350847364113,0.0 -97.1317144017447,49.8357073636202,0.0 -97.1318780013266,49.8359175003061,0.0 -97.132266556027,49.8364165741523,0.0 -97.1328089874086,49.8369692454726,0.0 -97.1332955633919,49.8373688840883,0.0 -97.1340282052411,49.8378965671082,0.0 -97.1360128947467,49.8392177914707,0.0 -97.1367284158225,49.8397137356916,0.0 -97.1371759532434,49.840139076409,0.0 -97.1374229579419,49.8405849892062,0.0 -97.1375655834247,49.8411482083707,0.0 -97.1375607918502,49.8414438927499,0.0 -97.1375169660248,49.8417635965349,0.0 -97.1372463303348,49.8422742792176,0.0 -97.1369212227058,49.8426634012801,0.0 -97.1364559936468,49.8430052250715,0.0 -97.1361314624418,49.8431512482871,0.0 -97.1365572430435,49.8436595835495,0.0 -97.1371305051816,49.8443439765368,0.0 -97.1372110902621,49.8444401818409,0.0 -97.1370761524071,49.8444874488225,0.0 -97.1381255514547,49.8457358688286,0.0 -97.1397395967142,49.846017936819,0.0 -97.1534885762348,49.841364931484,0.0 -97.1513071841951,49.8386288463042,0.0 -97.1502108848303,49.8342167792977,0.0" 
+          }, 
+          { 
+            "iron:prefLabel": "Crescent Park" 
+          }
+        ] 
+      }, 
+      {
+        "uri": "http://now.winnipeg.ca/datasets/Arenas/11", 
+        "type": "ns0:Arenas", 
+        "predicate": [  
+          { 
+            "dcterms:isPartOf": { 
+              "uri": "http://test.com/unittests/" 
+            } 
+          }, 
+          { 
+            "ns0:closedReason": "for season" 
+          }, 
+          { 
+            "ns0:concessionDesc": "Vacant" 
+          }, 
+          { 
+            "ns0:effectiveFromDate": "01/01/2000" 
+          }, 
+          { 
+            "ns0:effectiveToDate": "01/01/3000" 
+          }, 
+          { 
+            "ns0:hasConcession": "Yes" 
+          }, 
+          { 
+            "ns0:hasParkingLot": "No" 
+          }, 
+          { 
+            "ns0:hasSkateSharpening": "Yes" 
+          }, 
+          { 
+            "ns0:hasVendingMachines": "Yes" 
+          }, 
+          { 
+            "ns0:iceSurfaceCount": "1" 
+          }, 
+          { 
+            "ns0:isOpen": "No" 
+          }, 
+          { 
+            "ns0:maintainedBy": "City" 
+          }, 
+          { 
+            "ns0:memberOfComplex": { 
+              "uri": "http://now.winnipeg.ca/datasets/Sports_and_recreation_facilities/168", 
+              "reify": [ 
+                { 
+                  "type": "wsf:objectLabel", 
+                  "value": "Vimy Arena" 
                 }
-              ]
-            }
-          },
-          {
-            "ns0:operatedBy": "City"
-          },
-          {
-            "ns0:ownedBy": "City"
-          },
-          {
-            "ns0:seasonEndDate": "03/20/2011"
-          },
-          {
-            "ns0:skateSharpeningDesc": "Allan Merko"
-          },
-          {
-            "ns0:streetAddress": "255 Hamilton Ave"
-          },
-          {
-            "ns0:vendingMachinesDesc": "Quality Vending"
-          },
-          {
-            "sco:namedEntity": "true"
-          },
-          {
-            "geoname:locatedIn": {
-              "uri": "http://now.winnipeg.ca/datasets/neighbourhoods/2.21",
-              "reify": [
-                {
-                  "type": "wsf:objectLabel",
-                  "value": "Crestview"
+              ] 
+            } 
+          }, 
+          { 
+            "ns0:operatedBy": "City" 
+          }, 
+          { 
+            "ns0:ownedBy": "City" 
+          }, 
+          { 
+            "ns0:seasonEndDate": "03/20/2011" 
+          }, 
+          { 
+            "ns0:skateSharpeningDesc": "Allan Merko" 
+          }, 
+          { 
+            "ns0:streetAddress": "255 Hamilton Ave" 
+          }, 
+          { 
+            "ns0:vendingMachinesDesc": "Quality Vending" 
+          }, 
+          { 
+            "sco:namedEntity": "true" 
+          }, 
+          { 
+            "geoname:locatedIn": { 
+              "uri": "http://now.winnipeg.ca/datasets/neighbourhoods/2.21", 
+              "reify": [ 
+                { 
+                  "type": "wsf:objectLabel", 
+                  "value": "Crestview" 
                 }
-              ]
-            }
-          },
-          {
-            "geo:alt": "0.0"
-          },
-          {
-            "geo:lat": "49.893821399701"
-          },
-          {
-            "geo:long": "-97.2902431371303"
-          },
-          {
-            "foaf:homepage": "http://www.winnipeg.ca/cms/recreation/facilities/arenas/Vimy.stm"
-          },
-          {
-            "iron:prefLabel": "Vimy Arena"
+              ] 
+            } 
+          }, 
+          { 
+            "geo:alt": "0.0" 
+          }, 
+          { 
+            "geo:lat": "49.893821399701" 
+          }, 
+          { 
+            "geo:long": "-97.2902431371303" 
+          }, 
+          { 
+            "foaf:homepage": "http://www.winnipeg.ca/cms/recreation/facilities/arenas/Vimy.stm" 
+          }, 
+          { 
+            "iron:prefLabel": "Vimy Arena" 
           }
-        ]
+        ] 
       }
     ]
   }

@@ -28,55 +28,60 @@
     <aggr:object rdf:resource="http://purl.org/ontology/now#Arenas" />
     <aggr:count>30</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/1efe853385bd7e60ae1be622bcd93e65">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/726fc0397866f6938ebf03cbc7db7561">
+    <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" />
+    <aggr:object rdf:resource="http://purl.org/ontology/now#Sports_and_recreation_facilities" />
+    <aggr:count>1</aggr:count>
+  </aggr:Aggregate>
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/726beb2219f270505039ad19044539f4">
     <aggr:property rdf:resource="http://rdfs.org/ns/void#Dataset" />
     <aggr:object rdf:resource="http://test.com/unittests/" />
-    <aggr:count>562</aggr:count>
+    <aggr:count>563</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/82e15185b9b66d0e876360986759c816">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/84aff0565f7da00d419f65f49879fd1a">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://purl.org/ontology/iron#prefLabel" />
-    <aggr:count>562</aggr:count>
+    <aggr:count>563</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/d7151954c063b65117e3ae9469565e45">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/ab24474a3a17f0572f482e6c6c0b2b29">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://purl.org/ontology/sco#geohash" />
-    <aggr:count>562</aggr:count>
+    <aggr:count>563</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/6ef1a739df9ad5f5c4e290987afa359d">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/6f21f73e7e24b57ae82c3971c99d0fcd">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://purl.org/ontology/sco#namedEntity" />
-    <aggr:count>562</aggr:count>
+    <aggr:count>563</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/4510d0bfcdedfe89b3895fcdaf462c4c">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/7abb4006d6fbcdae22b51b0856ae23cd">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" />
-    <aggr:count>562</aggr:count>
+    <aggr:count>563</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/895a1449b42cd2ac906129898d3e236f">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/3e7bfa851eab17087c4d30b6bf44ea9f">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#alt" />
-    <aggr:count>562</aggr:count>
+    <aggr:count>563</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/2520f33194ff97c06f1179c3167f2f0f">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/06bb685b5e51e991aa50a41fbba43a51">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#lat" />
-    <aggr:count>562</aggr:count>
+    <aggr:count>563</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/4bbf165c727b3bd104a0508ffe07bea3">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/d165b15d8463950927aa4922b08cc268">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://www.w3.org/2003/01/geo/wgs84_pos#long" />
-    <aggr:count>562</aggr:count>
+    <aggr:count>563</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/8b9eb6508617dd9ec1ab17aa01fcd87e">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/4ccd3e314f3f06454fbeff3ab034e7c3">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://purl.org/ontology/now#streetAddress" />
-    <aggr:count>326</aggr:count>
+    <aggr:count>327</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/8c960980cd563f93c6ffdcf29d04f81f">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/421937f8e7d214af8d6ce5a55fd53a57">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://www.geonames.org/ontology#locatedIn" />
-    <aggr:count>326</aggr:count>
+    <aggr:count>327</aggr:count>
   </aggr:Aggregate>
   <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/29868ce417d222097420bd54e7f001c9">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
@@ -118,15 +123,30 @@
     <aggr:object rdf:resource="http://purl.org/ontology/sco#polygonCoordinates" />
     <aggr:count>236</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/5961eaad9d450de4cfeded6356d02da2">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/cdfc3d8651233ceeb43cfa266c44797d">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://purl.org/ontology/now#effectiveFromDate" />
-    <aggr:count>30</aggr:count>
+    <aggr:count>31</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/f2dc2c2f54fd5c632b59d0df7fee9db9">
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/8c7e1a0d09d1df432e034f0ac46f4b37">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://purl.org/ontology/now#effectiveToDate" />
-    <aggr:count>30</aggr:count>
+    <aggr:count>31</aggr:count>
+  </aggr:Aggregate>
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/7c333e29c7915d1053daec35dc09f993">
+    <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
+    <aggr:object rdf:resource="http://purl.org/ontology/now#maintainedBy" />
+    <aggr:count>31</aggr:count>
+  </aggr:Aggregate>
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/426ee9f4eb7fcd27a88d995cc4390e6f">
+    <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
+    <aggr:object rdf:resource="http://purl.org/ontology/now#operatedBy" />
+    <aggr:count>31</aggr:count>
+  </aggr:Aggregate>
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/d229619157cb93745127e8305f2bbe34">
+    <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
+    <aggr:object rdf:resource="http://purl.org/ontology/now#ownedBy" />
+    <aggr:count>31</aggr:count>
   </aggr:Aggregate>
   <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/244b6cebcb27ea00c6aa56a49a0b1189">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
@@ -158,24 +178,9 @@
     <aggr:object rdf:resource="http://purl.org/ontology/now#isOpen" />
     <aggr:count>30</aggr:count>
   </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/16588aeca26e425673bd3d8e47dc14f7">
-    <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
-    <aggr:object rdf:resource="http://purl.org/ontology/now#maintainedBy" />
-    <aggr:count>30</aggr:count>
-  </aggr:Aggregate>
   <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/81ad6934523f74907d33b5ae4e7e2356">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://purl.org/ontology/now#memberOfComplex" />
-    <aggr:count>30</aggr:count>
-  </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/7de192287536c8162772db1424813018">
-    <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
-    <aggr:object rdf:resource="http://purl.org/ontology/now#operatedBy" />
-    <aggr:count>30</aggr:count>
-  </aggr:Aggregate>
-  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/5d5757da3adf172a2c1d45ed9529fd4f">
-    <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
-    <aggr:object rdf:resource="http://purl.org/ontology/now#ownedBy" />
     <aggr:count>30</aggr:count>
   </aggr:Aggregate>
   <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/96d988ac2f47db638f6f789645491381">
@@ -221,6 +226,11 @@
   <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/61d009f2303cd570dbef60498a693286">
     <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
     <aggr:object rdf:resource="http://purl.org/ontology/iron#description" />
+    <aggr:count>1</aggr:count>
+  </aggr:Aggregate>
+  <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/1931a13003c068d8adc7cb18ec67cc7b">
+    <aggr:property rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#Property" />
+    <aggr:object rdf:resource="http://purl.org/ontology/now#complexLocation" />
     <aggr:count>1</aggr:count>
   </aggr:Aggregate>
   <aggr:Aggregate rdf:about="--ENDPOINT-URI--search/aggregate/0a6d821371799916f86a784a408c1c76">
@@ -270,14 +280,14 @@
     <rdf:subject rdf:resource="http://now.winnipeg.ca/datasets/Arenas/11" />
     <rdf:predicate rdf:resource="http://purl.org/ontology/now#memberOfComplex" />
     <rdf:object rdf:resource="http://now.winnipeg.ca/datasets/Sports_and_recreation_facilities/168" />
-    <wsf:objectLabel>168</wsf:objectLabel>
-  </rdf:Statement>
+    <wsf:objectLabel>Vimy Arena</wsf:objectLabel>
+  </rdf:Statement>  
 
   <rdf:Statement rdf:about="bnode:91141df225962575741a68cc36c32c75">
     <rdf:subject rdf:resource="http://now.winnipeg.ca/datasets/Arenas/11" />
     <rdf:predicate rdf:resource="http://www.geonames.org/ontology#locatedIn" />
     <rdf:object rdf:resource="http://now.winnipeg.ca/datasets/neighbourhoods/2.21" />
     <wsf:objectLabel>Crestview</wsf:objectLabel>
-  </rdf:Statement>
+  </rdf:Statement>  
 
 </rdf:RDF>

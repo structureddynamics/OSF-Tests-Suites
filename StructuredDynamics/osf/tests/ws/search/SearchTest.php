@@ -2725,7 +2725,7 @@
       
       $resultset = $search->getResultset()->getResultset();
 
-      $this->assertTrue(isset($resultset['unspecified'][''.$settings->endpointUri.'search/aggregate/1efe853385bd7e60ae1be622bcd93e65']));
+      $this->assertTrue(isset($resultset['unspecified'][''.$settings->endpointUri.'search/aggregate/0d9d538c674ce2590d675e51d2a2a1da']));
                       
       unset($search);
       unset($settings);     
@@ -2792,7 +2792,7 @@
       
       $resultset = $search->getResultset()->getResultset();
 
-      $this->assertTrue(isset($resultset['unspecified'][''.$settings->endpointUri.'search/aggregate/a9306e6c8f0e837def104522e74eb53c']));
+      $this->assertTrue(isset($resultset['unspecified'][''.$settings->endpointUri.'search/aggregate/76a73ed3768ebde2be6effc1132c9dae']));
                       
       unset($search);
       unset($settings);     
