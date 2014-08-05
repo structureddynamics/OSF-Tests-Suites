@@ -269,7 +269,7 @@
       $actual = new \DOMDocument;
       $actual->loadXML($revisionLister->getResultset());      
       
-      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE, "Debugging information: ".var_export($revisionLister, TRUE));      
 
       utilities\deleteRevisionedRecord();
 
@@ -317,7 +317,7 @@
       $actual = new \DOMDocument;
       $actual->loadXML($parserActual->toRDFXML($parserActual->getSimpleIndex(0)));      
       
-      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE, "Debugging information: ".var_export($revisionLister, TRUE));      
 
       utilities\deleteRevisionedRecord();
 
@@ -397,7 +397,7 @@
       $actual = new \DOMDocument;
       $actual->loadXML($resultset->getResultsetRDFXML());      
       
-      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE, "Debugging information: ".var_export($revisionLister, TRUE));      
             
       utilities\deleteRevisionedRecord();
 
@@ -435,7 +435,7 @@
       $actual = new \DOMDocument;
       $actual->loadXML($revisionLister->getResultset()->getResultsetRDFXML());      
       
-      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE, "Debugging information: ".var_export($revisionLister, TRUE));      
             
       utilities\deleteRevisionedRecord();
 
@@ -474,7 +474,7 @@
       $actual = new \DOMDocument;
       $actual->loadXML($revisionLister->getResultset());      
       
-      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE, "Debugging information: ".var_export($revisionLister, TRUE));      
 
       utilities\deleteRevisionedRecord();
 
@@ -522,7 +522,7 @@
       $actual = new \DOMDocument;
       $actual->loadXML($parserActual->toRDFXML($parserActual->getSimpleIndex(0)));      
       
-      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE, "Debugging information: ".var_export($revisionLister, TRUE));      
 
       utilities\deleteRevisionedRecord();
 
@@ -602,7 +602,7 @@
       $actual = new \DOMDocument;
       $actual->loadXML($resultset->getResultsetRDFXML());      
       
-      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE, "Debugging information: ".var_export($revisionLister, TRUE));      
             
       utilities\deleteRevisionedRecord();
 
@@ -640,7 +640,7 @@
       $actual = new \DOMDocument;
       $actual->loadXML($revisionLister->getResultset()->getResultsetRDFXML());      
       
-      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE);      
+      $this->assertEqualXMLStructure($expected->firstChild, $actual->firstChild, TRUE, "Debugging information: ".var_export($revisionLister, TRUE));      
             
       utilities\deleteRevisionedRecord();
 
