@@ -5,7 +5,7 @@
     <iron:description xml:lang="en">This is really a great product!</iron:description>
     <wsf:related_product rdf:resource="http://foo.com/datasets/tests/foo_related" />
     <wsf:product_available_since rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2013-06-05 18:00:00</wsf:product_available_since>
-    <wsf:product_in_inventory rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</wsf:product_in_inventory>
+    <wsf:product_in_inventory rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</wsf:product_in_inventory>
     <wsf:product_unit rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.570000171661377</wsf:product_unit>
   </wsf:Product>
   <rdf:Statement rdf:about="bnode:42d16c0545758cee62615d31720ba49b">

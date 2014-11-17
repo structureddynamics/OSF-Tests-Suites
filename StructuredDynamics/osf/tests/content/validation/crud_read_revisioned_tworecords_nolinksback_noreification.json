@@ -40,7 +40,7 @@
           {
             "wsf:product_in_inventory": {
               "value": "9",
-              "type": "xsd:int"
+              "type": "xsd:integer"
 
             }
           },

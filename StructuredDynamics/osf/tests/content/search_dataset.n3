@@ -34,7 +34,7 @@
                                             ns0:operatedBy """City""" ;
                                             ns0:seasonEndDate """03/20/2011""" ;
                                             ns0:effectiveToDate """01/01/3000""" ;
-                                            ns0:iceSurfaceCount """1"""^^xsd:int ;
+                                            ns0:iceSurfaceCount """1"""^^xsd:integer ;
                                             ns0:vendingMachinesDesc """Quality Vending""" ;
                                             ns0:closedReason """for season""" ;
                                             sco:namedEntity """true""" ;

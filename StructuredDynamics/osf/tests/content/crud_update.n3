@@ -11,7 +11,7 @@
                                       iron:description """This is really a great product!"""@en ;
                                       wsf:related_product <http://foo.com/datasets/tests/foo_related_modified> ;
                                       wsf:product_available_since """2013-06-05 18:00:00"""^^xsd:dateTime ;
-                                      wsf:product_in_inventory """9"""^^xsd:int ;
+                                      wsf:product_in_inventory """9"""^^xsd:integer ;
                                       wsf:product_unit """4.570000171661377"""^^xsd:float .
 
   <bnode:c32b66f43c6ea94a54b8f8963ea4e42a> a rdf:Statement ;

@@ -20,7 +20,7 @@
   <rdf:Statement rdf:about="removal-7f3ffb4505981304e96a55c617236bf2">
     <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
     <rdf:predicate rdf:resource="http://purl.org/ontology/wsf#product_in_inventory" />
-    <rdf:object rdf:datatype="http://www.w3.org/2001/XMLSchema#int">9</rdf:object>
+    <rdf:object rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">9</rdf:object>
   </rdf:Statement>
   <rdf:Statement rdf:about="addition-730a35f4cc4179b594619035dc45981d">
     <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
@@ -35,7 +35,7 @@
   <rdf:Statement rdf:about="addition-04b87f0b65b46f2cee139bcfc984bcb7">
     <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
     <rdf:predicate rdf:resource="http://purl.org/ontology/wsf#product_in_inventory" />
-    <rdf:object rdf:datatype="http://www.w3.org/2001/XMLSchema#int">10</rdf:object>
+    <rdf:object rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</rdf:object>
   </rdf:Statement>
   <cs:ChangeSet rdf:about="http://foo.com/datasets/tests/foo/1372169054.3218/changeset">
     <cs:subjectOfChange rdf:resource="http://foo.com/datasets/tests/foo" />
