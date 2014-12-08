@@ -84,7 +84,7 @@
           
           $settings = new Config();  
           
-          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/registrar/group/", 
+          $wsq = new WebServiceQuerier($settings->endpointUrl . "auth/registrar/user/", 
                                        "get", 
                                        "text/xml",
                                        "action=" . urlencode("unknown") .
@@ -96,7 +96,7 @@
 
           $this->assertEquals($wsq->getStatus(), "400", "Debugging information: ".var_export($wsq, TRUE));                                       
           $this->assertEquals($wsq->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($wsq, TRUE));
-          $this->assertEquals($wsq->error->id, "WS-AUTH-REGISTRAR-GROUP-205", "Debugging information: ".var_export($wsq, TRUE));                                       
+          $this->assertEquals($wsq->error->id, "WS-AUTH-REGISTRAR-USER-205", "Debugging information: ".var_export($wsq, TRUE));                                       
           
           unset($wsq);
           unset($settings);
