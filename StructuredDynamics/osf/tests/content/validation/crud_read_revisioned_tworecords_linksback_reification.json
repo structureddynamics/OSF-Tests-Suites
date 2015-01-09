@@ -41,7 +41,7 @@
           },
           {
             "wsf:product_available_since": {
-              "value": "2013-06-05 18:00:00",
+              "value": "2013-06-05T18:00:00Z",
               "type": "xsd:dateTime"
 
             }
@@ -56,7 +56,7 @@
           {
             "wsf:product_unit": {
               "value": "4.570000171661377",
-              "type": "xsd:float"
+              "type": "xsd:decimal"
 
             }
           },

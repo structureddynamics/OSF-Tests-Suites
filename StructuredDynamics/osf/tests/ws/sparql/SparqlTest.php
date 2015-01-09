@@ -46,7 +46,7 @@
     
     public static function tearDownAfterClass()
     {
-      utilities\deleteDataset();
+      //utilities\deleteDataset();
     }
     /*
     public function testWrongEndpointUrl() {
@@ -913,7 +913,7 @@
              ->sourceInterfaceVersion($settings->sparqlInterfaceVersion)
              ->send();
 
-      $this->assertTrue(substr_count($sparql->getResultset(), 'rdf:type') == 296);
+      $this->assertTrue(substr_count($sparql->getResultset(), '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>') == 296);
       
       unset($sparql);
       unset($settings);  
