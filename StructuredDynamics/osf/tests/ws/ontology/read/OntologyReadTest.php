@@ -6596,7 +6596,7 @@
 
       $resultset = $ontologyRead->getResultset()->getResultset();
       
-      $schema = $resultset['unspecified']['file://localhost'.str_replace('/ws/', '/tests/', $settings->osfInstanceFolder).'content/foo.owl']['http://purl.org/ontology/wsf#serializedIronXMLSchema'][0]['value'];
+      $schema = $resultset['unspecified']['file://localhost'.str_replace('/ws/', '/tests/', $settings->contentDir).'foo.owl']['http://purl.org/ontology/wsf#serializedIronXMLSchema'][0]['value'];
 
       $errors = array();
       $this->assertEquals(utilities\isValidXML($schema, $errors), TRUE, "[Test is valid XML] Debugging information: ".var_export($errors, TRUE));                                       
@@ -6632,7 +6632,7 @@
 
       $resultset = $ontologyRead->getResultset()->getResultset();
       
-      $schema = $resultset['unspecified']['file://localhost'.str_replace('/ws/', '/tests/', $settings->osfInstanceFolder).'content/foo.owl']['http://purl.org/ontology/wsf#serializedIronJSONSchema'][0]['value'];
+      $schema = $resultset['unspecified']['file://localhost'.str_replace('/ws/', '/tests/', $settings->contentDir).'foo.owl']['http://purl.org/ontology/wsf#serializedIronJSONSchema'][0]['value'];
       $errors = array();
       
       $this->assertEquals(utilities\isValidJSON($schema, $errors), TRUE, "[Test is valid JSON] Debugging information: ".var_export($errors, TRUE));                                       
