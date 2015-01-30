@@ -316,10 +316,10 @@
       $this->testDataset = "http://test.com/unittests/";
       
       /** URI of the ontology to use for the ontologies related endpoints */
-      $this->testOntologyUri = "file://localhost" . __DIR__ . "/content/foo.owl";
+      $this->testOntologyUri = "file://localhost" . $this->contentDir . "foo.owl";
 
       /** URI of an invalid ontology to use for the ontologies related endpoints */
-      $this->testInvalidOntologyUri = "file://localhost" . __DIR__ . "/content/fooInvalid.owl";
+      $this->testInvalidOntologyUri = "file://localhost" . $this->contentDir . "fooInvalid.owl";
       
       /** URI of a datatype property of the test ontology */
       $this->targetDatatypePropertyUri = "http://foo.org/test#dpD";
