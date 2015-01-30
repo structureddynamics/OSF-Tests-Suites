@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#">
+
+  <owl:Class rdf:about="http://foo.org/test#B">
+    <rdfs:label xml:lang="en">B-modified</rdfs:label>
+    <rdfs:subClassOf rdf:resource="http://foo.org/test#A" />
+  </owl:Class>
+  <rdf:Statement rdf:about="bnode:4e836062347e51390c1de87cc111ea3f">
+    <rdf:subject rdf:resource="http://foo.org/test#B" />
+    <rdf:predicate rdf:resource="http://www.w3.org/2000/01/rdf-schema#subClassOf" />
+    <rdf:object rdf:resource="http://foo.org/test#A" />
+    <wsf:objectLabel>A</wsf:objectLabel>
+  </rdf:Statement>
+
+</rdf:RDF>

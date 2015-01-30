@@ -12,6 +12,10 @@
     /** Folder where the OSF instance is located on the server */
     public $osfInstanceFolder = "";
     
+    /** Communication channel used by OSF to query the SPARQL endpoint 
+        (can be 'odbc' or 'http') */
+    public $sparqlChannel = "";
+    
     /** Base URL of the endpoint to test */
     public $endpointUrl = "";
     
@@ -247,10 +251,7 @@
       {
         $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
       }
-      
-      /** Directory where content files used by the tests are located */
-      $this->contentDir = __DIR__ . '/content/';
-      
+
       /** 
         OSF web service interface to use for all endpoints 
         Note: if you specify "default", then the default interfaces defined in the
@@ -263,6 +264,29 @@
       
       /** Folder where the OSF instance is located on the server */
       $this->osfInstanceFolder = "/usr/share/osf/StructuredDynamics/osf/ws/";
+      
+     /** Folder where the osf.ini configuration file is located */
+      preg_match('/osf_ini[\s]*=[\s]*"(.*)"/', file_get_contents($this->osfInstanceFolder.'framework/WebService.php'), $matches);
+      $osf_ini = parse_ini_file($matches[1] . "osf.ini", TRUE);
+
+      if(isset($osf_ini["triplestore"]["channel"]))
+      { 
+        $this->sparqlChannel = strtolower($osf_ini["triplestore"]["channel"]);
+      }
+      else
+      {
+        $this->sparqlChannel = 'odbc';        
+      }
+      
+      /** Directory where content files used by the tests are located */
+      if($this->sparqlChannel == 'odbc')
+      {
+        $this->contentDir = __DIR__ . '/content/channels/odbc/';
+      }
+      else
+      {
+        $this->contentDir = __DIR__ . '/content/channels/http/';
+      }      
       
       /** Base URL of the endpoint to test */
       $this->endpointUrl = "http://localhost/ws/";

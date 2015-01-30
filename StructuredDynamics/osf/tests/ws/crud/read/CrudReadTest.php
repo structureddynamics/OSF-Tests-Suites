@@ -361,7 +361,7 @@
       
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
       utilities\validateParameterApplicationRdfXml($this, $crudRead);
-      
+    
       $this->assertTrue(utilities\compareRdf($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_unrevisioned_onerecord_nolinksback_noreification.xml')));
       
       utilities\deleteUnrevisionedRecord();
@@ -425,6 +425,7 @@
       utilities\validateParameterApplicationJson($this, $crudRead);
 
       $diff = array();      
+      
       $this->assertTrue(utilities\compareStructJSON($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_unrevisioned_onerecord_nolinksback_noreification.json'), TRUE, $diff), "Actual:\n\n".$crudRead->getResultset()."\n\nExpected:\n\n".file_get_contents($settings->contentDir.'validation/crud_read_unrevisioned_onerecord_nolinksback_noreification.json')."\n\nDifference:\n\n".var_export($diff, TRUE));
       
       utilities\deleteUnrevisionedRecord();
@@ -688,7 +689,7 @@
 
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
       utilities\validateParameterApplicationRdfXml($this, $crudRead);
-      
+
       $this->assertTrue(utilities\compareRdf($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/crud_read_revisioned_onerecord_linksback_noreification.xml')));
       
       utilities\deleteRevisionedRecord();

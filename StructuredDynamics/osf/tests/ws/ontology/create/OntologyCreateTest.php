@@ -371,7 +371,7 @@
       unset($ontologyCreate);
       unset($settings);
     }
-    
+   
     public function  testCreateOntologyOntologyAlreadyExisting() {
       
       $settings = new Config();  

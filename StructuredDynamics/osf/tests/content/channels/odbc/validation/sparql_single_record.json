@@ -1,0 +1,65 @@
+{
+  "prefixes": {
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "iron": "http://purl.org/ontology/iron#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "wsf": "http://purl.org/ontology/wsf#",
+    "ns0": "http://purl.org/ontology/now#",
+    "sco": "http://purl.org/ontology/sco#",
+    "geoname": "http://www.geonames.org/ontology#",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#"
+  },
+  "resultset": {
+    "subject": [
+      {
+        "uri": "http://now.winnipeg.ca/datasets/Schools/267",
+        "type": "ns0:Schools",
+        "predicate": [
+          {
+            "iron:prefLabel": "The Laureate Academy"
+          },
+          {
+            "ns0:faxNumber": "204-885-3217"
+          },
+          {
+            "ns0:gradeLevel": "K-12"
+          },
+          {
+            "ns0:numberOfStudents": "70"
+          },
+          {
+            "ns0:numberOfTeachers": "10"
+          },
+          {
+            "ns0:phoneNumber": "204-831-7107"
+          },
+          {
+            "ns0:schoolDivision": "Private"
+          },
+          {
+            "ns0:streetAddress": "100 Villa Maria Pl"
+          },
+          {
+            "sco:namedEntity": "true"
+          },
+          {
+            "geoname:locatedIn": {
+              "uri": "http://now.winnipeg.ca/datasets/neighbourhoods/5.625"
+            }
+          },
+          {
+            "geo:alt": "0.0"
+          },
+          {
+            "geo:lat": "49.7703369999951"
+          },
+          {
+            "geo:long": "-97.1431349999984"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://foo.org/test#"
+     xml:base="http://foo.org/test"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+
+
+    <!-- http://foo.org/test#aA -->
+
+    <owl:AnnotationProperty rdf:about="http://foo.org/test#aA">
+        <rdfs:label xml:lang="en">aA-modified</rdfs:label>
+    </owl:AnnotationProperty>
+    
+                          
+    <!-- http://foo.org/test#opA -->
+
+    <owl:ObjectProperty rdf:about="http://foo.org/test#opA">
+        <rdfs:label xml:lang="en">object property A-modified</rdfs:label>
+        <rdfs:domain rdf:resource="http://foo.org/test#A"/>
+    </owl:ObjectProperty>       
+
+    <!-- http://foo.org/test#dpD -->
+
+    <owl:DatatypeProperty rdf:about="http://foo.org/test#dpD">
+        <rdfs:label xml:lang="en">datatype property D-modified</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://foo.org/test#B -->
+
+    <owl:Class rdf:about="http://foo.org/test#B">
+        <rdfs:label xml:lang="en">B-modified</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://foo.org/test#A"/>
+    </owl:Class>
+    
+
+
+    <!-- http://foo.org/test#C -->
+
+    <owl:Class rdf:about="http://foo.org/test#C">
+        <rdfs:label xml:lang="en">C-modified</rdfs:label>
+    </owl:Class>
+    
+  
+    <!-- http://foo.org/test#niE -->
+
+    <owl:NamedIndividual rdf:about="http://foo.org/test#niE">
+        <rdf:type rdf:resource="http://foo.org/test#E"/>
+        <rdfs:comment xml:lang="en">named individual E-modified</rdfs:comment>
+    </owl:NamedIndividual>
+</rdf:RDF>
+

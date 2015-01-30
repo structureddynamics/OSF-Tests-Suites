@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:iron="http://purl.org/ontology/iron#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:wsf="http://purl.org/ontology/wsf#"
+         xmlns:dcterms="http://purl.org/dc/terms/">
+
+  <wsf:Product rdf:about="http://foo.com/datasets/tests/foo">
+    <wsf:related_product rdf:resource="http://foo.com/datasets/tests/foo_related_modified" />
+    <dcterms:isPartOf rdf:resource="http://test.com/unittests/" />
+  </wsf:Product>
+  <rdf:Statement rdf:about="bnode:c32b66f43c6ea94a54b8f8963ea4e42a">
+    <rdf:subject rdf:resource="http://foo.com/datasets/tests/foo" />
+    <rdf:predicate rdf:resource="http://purl.org/ontology/wsf#related_product" />
+    <rdf:object rdf:resource="http://foo.com/datasets/tests/foo_related_modified" />
+    <wsf:value>object property reified triple</wsf:value>
+  </rdf:Statement>
+
+  <owl:Thing rdf:about="http://foo.com/datasets/tests/bar">
+    <wsf:produce rdf:resource="http://foo.com/datasets/tests/foo" />
+  </owl:Thing>
+</rdf:RDF>

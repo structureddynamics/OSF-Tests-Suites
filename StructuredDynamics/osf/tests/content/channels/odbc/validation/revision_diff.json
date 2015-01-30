@@ -1,0 +1,177 @@
+{
+  "prefixes": {
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "iron": "http://purl.org/ontology/iron#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "wsf": "http://purl.org/ontology/wsf#",
+    "cs": "http://purl.org/vocab/changeset/schema#"
+  },
+  "resultset": {
+    "subject": [
+      {
+        "uri": "removal-3d786ce247f363f57f42602f43a3cb1b",
+        "type": "rdf:Statement",
+        "predicate": [
+          {
+            "rdf:object": "A Pretty Good Product - (modified)"
+          },
+          {
+            "rdf:predicate": {
+              "uri": "http://purl.org/ontology/iron#prefLabel"
+            }
+          },
+          {
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
+          }
+        ]
+      },
+      {
+        "uri": "removal-c32b66f43c6ea94a54b8f8963ea4e42a",
+        "type": "rdf:Statement",
+        "predicate": [
+          {
+            "rdf:object": {
+              "uri": "http://foo.com/datasets/tests/foo_related_modified"
+            }
+          },
+          {
+            "rdf:predicate": {
+              "uri": "http://purl.org/ontology/wsf#related_product"
+            }
+          },
+          {
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
+          }
+        ]
+      },
+      {
+        "uri": "removal-7f3ffb4505981304e96a55c617236bf2",
+        "type": "rdf:Statement",
+        "predicate": [
+          {
+            "rdf:object": "9"
+          },
+          {
+            "rdf:predicate": {
+              "uri": "http://purl.org/ontology/wsf#product_in_inventory"
+            }
+          },
+          {
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
+          }
+        ]
+      },
+      {
+        "uri": "addition-730a35f4cc4179b594619035dc45981d",
+        "type": "rdf:Statement",
+        "predicate": [
+          {
+            "rdf:object": "A Pretty Good Product"
+          },
+          {
+            "rdf:predicate": {
+              "uri": "http://purl.org/ontology/iron#prefLabel"
+            }
+          },
+          {
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
+          }
+        ]
+      },
+      {
+        "uri": "addition-42d16c0545758cee62615d31720ba49b",
+        "type": "rdf:Statement",
+        "predicate": [
+          {
+            "rdf:object": {
+              "uri": "http://foo.com/datasets/tests/foo_related"
+            }
+          },
+          {
+            "rdf:predicate": {
+              "uri": "http://purl.org/ontology/wsf#related_product"
+            }
+          },
+          {
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
+          }
+        ]
+      },
+      {
+        "uri": "addition-04b87f0b65b46f2cee139bcfc984bcb7",
+        "type": "rdf:Statement",
+        "predicate": [
+          {
+            "rdf:object": "10"
+          },
+          {
+            "rdf:predicate": {
+              "uri": "http://purl.org/ontology/wsf#product_in_inventory"
+            }
+          },
+          {
+            "rdf:subject": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
+          }
+        ]
+      },
+      {
+        "uri": "http://foo.com/datasets/tests/foo/1373391914.7486/changeset",
+        "type": "cs:ChangeSet",
+        "predicate": [
+          {
+            "cs:addition": {
+              "uri": "addition-730a35f4cc4179b594619035dc45981d"
+            }
+          },
+          {
+            "cs:addition": {
+              "uri": "addition-42d16c0545758cee62615d31720ba49b"
+            }
+          },
+          {
+            "cs:addition": {
+              "uri": "addition-04b87f0b65b46f2cee139bcfc984bcb7"
+            }
+          },
+          {
+            "cs:createDate": "2013-07-09T17:45:14Z"
+          },
+          {
+            "cs:removal": {
+              "uri": "removal-3d786ce247f363f57f42602f43a3cb1b"
+            }
+          },
+          {
+            "cs:removal": {
+              "uri": "removal-c32b66f43c6ea94a54b8f8963ea4e42a"
+            }
+          },
+          {
+            "cs:removal": {
+              "uri": "removal-7f3ffb4505981304e96a55c617236bf2"
+            }
+          },
+          {
+            "cs:subjectOfChange": {
+              "uri": "http://foo.com/datasets/tests/foo"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

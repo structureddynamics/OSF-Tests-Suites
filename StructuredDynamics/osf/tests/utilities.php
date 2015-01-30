@@ -67,7 +67,6 @@
            
     if(!$crudUpdate->isSuccessful())
     {          
-      var_dump($crudUpdate);
       return(FALSE);
     }       
                   
@@ -81,7 +80,7 @@
     createDataset();
                
     $crudCreate = new CrudCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
-    
+
     $crudCreate->dataset($settings->testDataset)
                ->document(file_get_contents($settings->contentDir.'crud_create.n3'))
                ->documentMimeIsRdfN3()
@@ -338,7 +337,6 @@
            
     if(!$crudCreate->isSuccessful())
     {            
-      var_dump($crudCreate);
       return(FALSE);
     }      
                      

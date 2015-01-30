@@ -1,0 +1,60 @@
+{
+  "prefixes": {
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "iron": "http://purl.org/ontology/iron#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "wsf": "http://purl.org/ontology/wsf#"
+  },
+  "resultset": {
+    "subject": [
+      {
+        "uri": "http://test.com/unittests/revisions/1373391806.8647",
+        "type": "wsf:Revision",
+        "predicate": [
+          {
+            "wsf:performer": {
+              "uri": "127.0.0.1"
+            }
+          },
+          {
+            "wsf:revisionTime": {
+              "value": "1373391806.8647",
+              "type": "xsd:double"
+
+            }
+          },
+          {
+            "wsf:status": {
+              "uri": "http://purl.org/ontology/wsf#published"
+            }
+          }
+        ]
+      },
+      {
+        "uri": "http://test.com/unittests/revisions/1373391806.8348",
+        "type": "wsf:Revision",
+        "predicate": [
+          {
+            "wsf:performer": {
+              "uri": "127.0.0.1"
+            }
+          },
+          {
+            "wsf:revisionTime": {
+              "value": "1373391806.8348",
+              "type": "xsd:double"
+
+            }
+          },
+          {
+            "wsf:status": {
+              "uri": "http://purl.org/ontology/wsf#archive"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,145 @@
+<schema>
+    <version>0.1</version>
+    <typeList>
+        <test_A>
+            <description>No description available</description>
+            <prefLabel>A</prefLabel>
+            <subTypeOf>owl_Thing</subTypeOf>
+        </test_A>
+        <test_B>
+            <description>No description available</description>
+            <prefLabel>B</prefLabel>
+            <subTypeOf>test_A</subTypeOf>
+        </test_B>
+        <test_G>
+            <description>No description available</description>
+            <prefLabel>G</prefLabel>
+            <subTypeOf>owl_Thing</subTypeOf>
+        </test_G>
+        <test_F>
+            <description>No description available</description>
+            <prefLabel>F</prefLabel>
+            <subTypeOf>owl_Thing</subTypeOf>
+        </test_F>
+        <test_E>
+            <description>No description available</description>
+            <prefLabel>E</prefLabel>
+            <subTypeOf>owl_Thing</subTypeOf>
+        </test_E>
+        <test_D>
+            <description>No description available</description>
+            <prefLabel>D</prefLabel>
+            <subTypeOf>owl_Thing</subTypeOf>
+        </test_D>
+        <test_C>
+            <description>No description available</description>
+            <prefLabel>C</prefLabel>
+            <subTypeOf>test_B</subTypeOf>
+        </test_C>
+    </typeList>
+    <attributeList>
+        <test_dpC>
+            <description>No description available</description>
+            <prefLabel>datatype property C</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#DatatypeProperty</type>
+            <subPropertyOf>test_dpB</subPropertyOf>
+        </test_dpC>
+        <test_dpD>
+            <description>No description available</description>
+            <prefLabel>datatype property D</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#DatatypeProperty</type>
+            <subPropertyOf>owl_topDataProperty</subPropertyOf>
+        </test_dpD>
+        <test_dpA>
+            <description>No description available</description>
+            <prefLabel>datatype property A</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#DatatypeProperty</type>
+            <subPropertyOf>owl_topDataProperty</subPropertyOf>
+        </test_dpA>
+        <test_dpB>
+            <description>No description available</description>
+            <prefLabel>datatype property B</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#DatatypeProperty</type>
+            <subPropertyOf>test_dpA</subPropertyOf>
+        </test_dpB>
+        <test_dpG>
+            <description>No description available</description>
+            <prefLabel>dpG</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#DatatypeProperty</type>
+            <subPropertyOf>owl_topDataProperty</subPropertyOf>
+        </test_dpG>
+        <test_dpE>
+            <description>No description available</description>
+            <prefLabel>datatype property E</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#DatatypeProperty</type>
+            <subPropertyOf>owl_topDataProperty</subPropertyOf>
+        </test_dpE>
+        <test_dpF>
+            <description>No description available</description>
+            <prefLabel>dpF</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#DatatypeProperty</type>
+            <subPropertyOf>owl_topDataProperty</subPropertyOf>
+        </test_dpF>
+        <test_aA>
+            <description>No description available</description>
+            <prefLabel>aA</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#AnnotationProperty</type>
+        </test_aA>
+        <rdf-schema_label>
+            <description>No description available</description>
+            <prefLabel>label</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#AnnotationProperty</type>
+        </rdf-schema_label>
+        <rdf-schema_comment>
+            <description>No description available</description>
+            <prefLabel>comment</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#AnnotationProperty</type>
+        </rdf-schema_comment>
+        <test_opB>
+            <description>No description available</description>
+            <prefLabel>object property B</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#ObjectProperty</type>
+            <allowedType>test_B</allowedType>
+            <allowedValue>
+                <type>test_B</type>
+            </allowedValue>
+        </test_opB>
+        <test_opC>
+            <description>No description available</description>
+            <prefLabel>object property C</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#ObjectProperty</type>
+            <allowedType>test_C</allowedType>
+        </test_opC>
+        <test_opA>
+            <description>No description available</description>
+            <prefLabel>object property A</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#ObjectProperty</type>
+            <allowedType>test_A</allowedType>
+        </test_opA>
+        <test_opF>
+            <description>No description available</description>
+            <prefLabel>opF</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#ObjectProperty</type>
+        </test_opF>
+        <test_opG>
+            <description>No description available</description>
+            <prefLabel>opG</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#ObjectProperty</type>
+        </test_opG>
+        <test_opD>
+            <description>No description available</description>
+            <prefLabel>object property D</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#ObjectProperty</type>
+        </test_opD>
+        <test_opE>
+            <description>No description available</description>
+            <prefLabel>object property E</prefLabel>
+            <type>http://www.w3.org/2002/07/owl#ObjectProperty</type>
+        </test_opE>
+    </attributeList>
+    <prefixList>
+        <test>http://foo.org/test#</test>
+        <owl>http://www.w3.org/2002/07/owl#</owl>
+        <rdf-schema>http://www.w3.org/2000/01/rdf-schema#</rdf-schema>
+    </prefixList>
+</schema>

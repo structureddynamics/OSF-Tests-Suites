@@ -771,7 +771,7 @@
       $this->assertEquals($crudRead->getStatus(), "200", "Debugging information: ".var_export($crudRead, TRUE));                                       
 
       utilities\validateParameterApplicationRdfXml($this, $crudRead);
-    
+
       $this->assertTrue(utilities\compareRdf($crudRead->getResultset(), file_get_contents($settings->contentDir.'validation/ontology_update_class_b_update.xml'), TRUE));
               
       utilities\deleteDataset();                              
