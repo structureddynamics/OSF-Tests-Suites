@@ -918,7 +918,35 @@
       unset($sparql);
       unset($settings);  
     }    
-  }
+    
+    public function test_Authentication_With_Multiple_Graphs_One_Not_Registered() {
+      
+      $settings = new Config();  
 
-  
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $query = 'sparql
+                select *
+                from named <'.$settings->testDataset.'>
+                from named <http://foo.com/bar/>
+                where
+                {
+                  ?s ?p ?o.
+                }';
+      
+      $sparql->query($query)
+             ->dataset($settings->testDataset)
+             ->mime('resultset')
+             ->sourceInterface($settings->sparqlInterface)
+             ->sourceInterfaceVersion($settings->sparqlInterfaceVersion)
+             ->send();
+                           
+      $this->assertTrue($sparql->getStatus() == '403', "Debugging information: ".var_export($sparql, TRUE));
+      $this->assertTrue($sparql->getStatusMessage() == 'Forbidden', "Debugging information: ".var_export($sparql, TRUE));
+      $this->assertTrue($sparql->error->id == 'WS-AUTH-VALIDATION-104', "Debugging information: ".var_export($sparql, TRUE)); 
+      
+      unset($sparql);
+      unset($settings);  
+    }           
+  }  
 ?>

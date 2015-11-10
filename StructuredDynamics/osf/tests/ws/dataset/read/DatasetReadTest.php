@@ -433,9 +433,9 @@
                   ->sourceInterfaceVersion($settings->datasetReadInterfaceVersion)
                   ->send();            
                                    
-      $this->assertEquals($datasetRead->getStatus(), "400", "Debugging information: ".var_export($datasetRead, TRUE));                                       
-      $this->assertEquals($datasetRead->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetRead, TRUE));
-      $this->assertEquals($datasetRead->error->id, "WS-DATASET-READ-200", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatus(), "403", "Debugging information: ".var_export($datasetRead, TRUE));                                       
+      $this->assertEquals($datasetRead->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($datasetRead, TRUE));
+      $this->assertEquals($datasetRead->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ".var_export($datasetRead, TRUE));                                       
       
       utilities\deleteDataset();
       

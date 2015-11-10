@@ -283,7 +283,7 @@
                            
       $this->assertEquals($crudUpdate->getStatus(), "403", "Debugging information: ".var_export($crudUpdate, TRUE));                                       
       $this->assertEquals($crudUpdate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($crudUpdate, TRUE));
-      $this->assertEquals($crudUpdate->error->id, "WS-AUTH-VALIDATION-103", "Debugging information: ".var_export($crudUpdate, TRUE));                                       
+      $this->assertEquals($crudUpdate->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ".var_export($crudUpdate, TRUE));                                       
 
       utilities\deleteUnrevisionedRecord();
       

@@ -229,7 +229,7 @@
                            
       $this->assertEquals($revisionUpdate->getStatus(), "403", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
       $this->assertEquals($revisionUpdate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($revisionUpdate, TRUE));
-      $this->assertEquals($revisionUpdate->error->id, "WS-AUTH-VALIDATION-103", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
+      $this->assertEquals($revisionUpdate->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ".var_export($revisionUpdate, TRUE));                                       
           
       utilities\deleteRevisionedRecord();
 

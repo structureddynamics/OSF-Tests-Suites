@@ -291,9 +291,9 @@
                     ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
                     ->send();      
                                    
-      $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
-      $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
-      $this->assertEquals($datasetUpdate->error->id, "WS-DATASET-UPDATE-200", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatus(), "403", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($datasetUpdate, TRUE));
+      $this->assertEquals($datasetUpdate->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
 
       utilities\deleteDataset();
       
@@ -356,9 +356,9 @@
                     ->sourceInterfaceVersion($settings->datasetUpdateInterfaceVersion)
                     ->send();      
                                    
-      $this->assertEquals($datasetUpdate->getStatus(), "400", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
-      $this->assertEquals($datasetUpdate->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetUpdate, TRUE));
-      $this->assertEquals($datasetUpdate->error->id, "WS-DATASET-UPDATE-202", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatus(), "403", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
+      $this->assertEquals($datasetUpdate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($datasetUpdate, TRUE));
+      $this->assertEquals($datasetUpdate->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ".var_export($datasetUpdate, TRUE));                                       
 
       utilities\deleteDataset();
       

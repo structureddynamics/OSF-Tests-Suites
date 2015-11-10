@@ -418,7 +418,7 @@
                            
       $this->assertEquals($crudCreate->getStatus(), "403", "Debugging information: ".var_export($crudCreate, TRUE));                                       
       $this->assertEquals($crudCreate->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($crudCreate, TRUE));
-      $this->assertEquals($crudCreate->error->id, "WS-AUTH-VALIDATION-103", "Debugging information: ".var_export($crudCreate, TRUE));                                       
+      $this->assertEquals($crudCreate->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ".var_export($crudCreate, TRUE));                                       
 
       utilities\deleteDataset();
 

@@ -241,9 +241,9 @@
                      ->sourceInterfaceVersion($settings->ontologyDeleteInterfaceVersion)
                      ->send();
                                          
-      $this->assertEquals($ontologyDelete->getStatus(), "400", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
-      $this->assertEquals($ontologyDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($ontologyDelete, TRUE));
-      $this->assertEquals($ontologyDelete->error->id, "WS-ONTOLOGY-DELETE-201", "Debugging information: ".var_export($ontologyDelete, TRUE));    
+      $this->assertEquals($ontologyDelete->getStatus(), "403", "Debugging information: ".var_export($ontologyDelete, TRUE));                                       
+      $this->assertEquals($ontologyDelete->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($ontologyDelete, TRUE));
+      $this->assertEquals($ontologyDelete->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ".var_export($ontologyDelete, TRUE));    
                                     
       unset($ontologyDelete);
       unset($settings);

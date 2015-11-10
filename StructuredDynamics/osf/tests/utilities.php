@@ -107,6 +107,29 @@
     deleteDataset();
   }
   
+  function createDatasetPermissions()
+  {
+    $settings = new Config(); 
+    
+    // Create the permissions for the "administrators" group    
+    $crudPermissions = new CRUDPermission(TRUE, TRUE, TRUE, TRUE);
+    
+    $authRegistrarAccess = new AuthRegistrarAccessQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+    
+    $authRegistrarAccess->create($settings->adminGroup, $settings->testDataset, $crudPermissions, $settings->datasetWebservices)
+                        ->mime('text/xml')
+                        ->sourceInterface($settings->authRegistrarAccessInterface)
+                        ->sourceInterfaceVersion($settings->authRegistrarAccessInterfaceVersion)
+                        ->send();
+                         
+    if(!$authRegistrarAccess->isSuccessful())
+    {
+      return(FALSE);
+    }    
+    
+    return(TRUE);                                 
+  }
+  
   function createDataset()
   {
     $settings = new Config();     

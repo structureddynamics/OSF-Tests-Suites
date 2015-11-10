@@ -241,9 +241,9 @@
                     ->sourceInterfaceVersion($settings->datasetDeleteInterfaceVersion)
                     ->send();
                                    
-      $this->assertEquals($datasetDelete->getStatus(), "400", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
-      $this->assertEquals($datasetDelete->getStatusMessage(), "Bad Request", "Debugging information: ".var_export($datasetDelete, TRUE));
-      $this->assertEquals($datasetDelete->error->id, "WS-DATASET-DELETE-200", "Debugging information: ".var_export($datasetDelete, TRUE));                  
+      $this->assertEquals($datasetDelete->getStatus(), "403", "Debugging information: ".var_export($datasetDelete, TRUE));                                       
+      $this->assertEquals($datasetDelete->getStatusMessage(), "Forbidden", "Debugging information: ".var_export($datasetDelete, TRUE));
+      $this->assertEquals($datasetDelete->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ".var_export($datasetDelete, TRUE));                  
       
       unset($datasetDelete);
       unset($settings);

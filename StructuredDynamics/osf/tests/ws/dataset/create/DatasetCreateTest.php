@@ -92,7 +92,7 @@
       $settings = new Config();  
 
       // Make sure the dataset doesn't exists
-      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      utilities\deleteDataset();
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
@@ -107,6 +107,8 @@
                            
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
 
+      utilities\createDatasetPermissions();
+      
       utilities\deleteDataset();
 
       unset($datasetCreate);
@@ -119,7 +121,7 @@
       $settings = new Config();  
 
       // Make sure the dataset doesn't exists
-      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      utilities\deleteDataset();
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
@@ -152,7 +154,7 @@
       $settings = new Config();  
 
       // Make sure the dataset doesn't exists
-      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      utilities\deleteDataset();
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
@@ -167,6 +169,8 @@
                            
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
 
+      utilities\createDatasetPermissions();
+      
       utilities\deleteDataset();
 
       unset($datasetCreate);
@@ -182,7 +186,7 @@
       $settings = new Config();  
 
       // Make sure the dataset doesn't exists
-      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      utilities\deleteDataset();
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
@@ -210,7 +214,7 @@
       $settings = new Config();  
       
       // Make sure the dataset doesn't exists
-      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      utilities\deleteDataset();
             
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
       
@@ -225,6 +229,8 @@
                                                
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
       
+      utilities\createDatasetPermissions();
+      
       utilities\deleteDataset();
       
       unset($datasetCreate);
@@ -236,7 +242,7 @@
       $settings = new Config();  
       
       // Make sure the dataset doesn't exists
-      $this->assertTrue(utilities\deleteDataset(), "Can't delete the dataset, check the /dataset/delete/ endpoint first...");
+      utilities\deleteDataset();
       
       // Create the new dataset
       $datasetCreate = new DatasetCreateQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
@@ -251,7 +257,9 @@
                     ->send();      
                                    
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));    
-                                         
+                            
+      utilities\createDatasetPermissions();                      
+                                        
       $resultset = utilities\readDataset();
       
       if(!$resultset)
@@ -381,6 +389,8 @@
                     ->send(); 
                                    
       $this->assertEquals($datasetCreate->getStatus(), "200", "Debugging information: ".var_export($datasetCreate, TRUE));                                       
+      
+      utilities\createDatasetPermissions();
       
       utilities\deleteDataset($settings->testDataset);
       
