@@ -338,7 +338,36 @@
 
       unset($crudCreate);
       unset($settings);    
-    }        
+    }  
+    
+    public function testDatasetNotRegisteredInOSF() {
+      
+      $settings = new Config(); 
+
+      utilities\deleteUnrevisionedRecord();
+      
+      $this->assertTrue(utilities\createUnrevisionedRecord(), "Can't create the unrevision record");      
+                 
+      $crudRead = new CrudReadQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $crudRead->uri('http://foo.com/datasets/tests/foo')               
+               ->mime('application/rdf+xml')
+               ->dataset($settings->testDataset.'/unregistered')
+               ->excludeLinksback()
+               ->excludeReification()
+               ->sourceInterface($settings->crudReadInterface)
+               ->sourceInterfaceVersion($settings->crudReadInterfaceVersion)
+               ->send();
+      
+      $this->assertEquals($crudRead->getStatus(), "403", "Debugging information: ");                                       
+      $this->assertEquals($crudRead->getStatusMessage(), "Forbidden", "Debugging information: ");
+      $this->assertEquals($crudRead->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ");
+      
+      utilities\deleteUnrevisionedRecord();
+
+      unset($crudCreate);
+      unset($settings);            
+    }  
            
     public function test_GetOneRecord_Unrevisioned_NoLinksback_NoReification_RDFXML() {
       
@@ -1946,8 +1975,7 @@
       unset($crudCreate);
       unset($settings);         
     }     
-     
-    
+         
     public function test_GetTwoRecords_Revisioned_Linksback_Reification_OneAttribute_Resultset() {
       
       $settings = new Config(); 

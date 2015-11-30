@@ -208,6 +208,35 @@
       unset($settings);       
     }   
     
+    public function testDatasetNotRegisteredInOSF() {
+      
+      $settings = new Config();  
+
+      $sparql = new SparqlQuery($settings->endpointUrl, $settings->applicationID, $settings->apiKey, $settings->userID);
+      
+      $query = 'sparql
+                select *
+                where
+                {
+                  ?s ?p ?o.
+                  filter(?s in(<http://now.winnipeg.ca/datasets/Schools/267>))
+                }';
+      
+      $sparql->query($query)
+             ->dataset($settings->testDataset.'/unregistered')
+             ->mime('application/rdf+xml')
+             ->sourceInterface($settings->sparqlInterface)
+             ->sourceInterfaceVersion($settings->sparqlInterfaceVersion)
+             ->send();
+                           
+      $this->assertEquals($sparql->getStatus(), "403", "Debugging information: ");                                       
+      $this->assertEquals($sparql->getStatusMessage(), "Forbidden", "Debugging information: ");
+      $this->assertEquals($sparql->error->id, "WS-AUTH-VALIDATION-104", "Debugging information: ");
+      
+      unset($sparql);
+      unset($settings);  
+    }      
+    
     public function test_Records_Description_RDFXML() {
       
       $settings = new Config();  
